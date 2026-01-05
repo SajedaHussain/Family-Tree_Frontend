@@ -8,7 +8,7 @@ const index = async () => {
         return response.data.trees; 
     } catch (error) {
         console.error(error);
-        throw error;
+       
     }
 };
 
@@ -19,7 +19,7 @@ const show = async (id) => {
         return response.data.tree; 
     } catch (error) {
         console.error(error);
-        throw error;
+      
     }
 };
 
@@ -30,7 +30,7 @@ const create = async (formData) => {
         return response.data.tree;
     } catch (error) {
         console.error(error);
-        throw error;
+       
     }
 };
 
@@ -41,7 +41,7 @@ const update = async (treeId, formData) => {
         return response.data.tree;
     } catch (error) {
         console.error(error);
-        throw error;
+       
     }
 };
 
@@ -51,7 +51,7 @@ const deleteOne = async (treeId) => {
         return response.data; 
     } catch (error) {
         console.error(error);
-        throw error;
+     
     }
 };
 
