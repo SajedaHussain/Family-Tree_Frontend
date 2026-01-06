@@ -12,12 +12,12 @@ const MemberForm = (props) => {
     memberToUpdate
       ? memberToUpdate
       : {
-          //اذا كانت الداتا موجودة حطها الابجيت اذا لا خلهافاضية
           firstName: "",
           lastName: "",
           gender: "",
           dateOfBirth: "",
           image: "",
+          generation:""
         }
   );
   //the above line is instead of writhing :
@@ -70,7 +70,7 @@ const MemberForm = (props) => {
           onChange={handleChange}
         />
 
-        <lable htmlFor="lastName">First Name :</lable>
+        <lable htmlFor="lastName">Last Name :</lable>
         <input
           type="text"
           name="lastName"
@@ -79,32 +79,40 @@ const MemberForm = (props) => {
           onChange={handleChange}
         />
 
-        <lable htmlFor="gender">First Name :</lable>
-        <input
-          type="text"
-          name="gender"
-          id="gender"
-          value={formState.gender}
-          onChange={handleChange}
-        />
+        <lable htmlFor="gender"> Gender :</lable>
+        <select name="gender" id="gender" value={formState.gender} onChange={handleChange}>
+          <option value="">Select gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
 
-        <lable htmlFor="dateOfBirth">First Name :</lable>
+        <lable htmlFor="dateOfBirth"> Date of Birth :</lable>
         <input
-          type="text"
+          type="date"
           name="dateOfBirth"
           id="dateOfBirth"
           value={formState.dateOfBirth}
           onChange={handleChange}
         />
 
-        <lable htmlFor="image">First Name :</lable>
+        <lable htmlFor="image"> Picture :</lable>
         <input
-          type="text"
+          type="file"
           name="image"
           id="image"
           value={formState.image}
           onChange={handleChange}
         />
+
+        <lable htmlFor="generation"> Generation :</lable>
+        <input
+          type="text"
+          name="generation"
+          id="generation"
+          value={formState.generation}
+          onChange={handleChange}
+        />
+
 
         <button type="submit">Save</button>
       </form>
