@@ -59,18 +59,15 @@ const treeForm = (props) => {
   //if you cant write the input in the so there is something wroong in the handle change
   return (
     <div>
-      <h1>Pet form</h1>
+      <h1>Tree form</h1>
       
       <form onSubmit={handleSubmit}>
-        <label htmlFor="name"> Name:</label>
-        <input type="text" name="name" id='name' value={formState.name} onChange={handleChange}/>
+        <label htmlFor="lastName"> Family Name:</label>
+        <input type="text" name="lastName" id='lastName' value={formState.lastName} onChange={handleChange}/>
         
-        <label htmlFor="age"> Age:</label>
-        <input type="number" name="age" id='age' min= {0} value={formState.age} onChange={handleChange}/>
-        
-        <label htmlFor="breed"> Breed:</label>
-        <input type="text" name="breed" id='breed' value={formState.breed} onChange={handleChange}/>
-
+        <label htmlFor="numFamily"> No. of Family members:</label>
+        <input type="number" name="numFamily" id='numFamily' min= {0} value={formState.numFamily} onChange={handleChange}/>
+    
         <button type="submit">Save</button>
 
       </form>
