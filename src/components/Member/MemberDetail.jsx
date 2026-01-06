@@ -30,15 +30,16 @@ function DuckDetails(props) {
 
   if (!id) return <h1>Loading ...</h1>;
   if (!duck) return <h1>Loading.....</h1>;
-
   return (
     <div>
       DuckDetails{id}
-      <h1>Duck First Name: {pet.name}</h1>
-      <h1>Pet Age : {pet.age}</h1>
-      <h1>Breed :{pet.breed}</h1>
+      <h1>Duck's First Name: {duck.firstName}</h1>
+      <h1> Last Name : {duck.lastName}</h1>
+      <h1> Gender : {duck.gender}</h1>
+      <h1> Date Of Birth : {duck.dateOfBirth}</h1>
+      <h1> image : {duck.image}</h1>
       <div>
-        <Link onClick={() => findPetToUpdate(id)} to={`/pets/${id}/update`}>
+        <Link onClick={() => findDuckToUpdate(id)} to={`/ducks/${id}/update`}>
           Edit
         </Link>
         <button onClick={() => handleDelete(id)}>Delete</button>
@@ -47,4 +48,4 @@ function DuckDetails(props) {
   );
 }
 
-export default PetDetails;
+export default DuckDetails;

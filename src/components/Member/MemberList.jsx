@@ -2,21 +2,21 @@ import React from "react";
 //rafce
 import { Link } from "react-router";
 
-const DuckList = ({ ducks }) => {
+const MemberList = ({ members }) => {
   // insted of doing this ->  const {ducks}=props;
 
   return (
     <div>
-      DuckList
+      MemberList
       {
         //the code below same as if there is no ducks(?) return the div
-        !ducks.length ? (
-          <div>No ducks Found</div>
+        !members.length ? (
+          <div>No members Found</div>
         ) : (
           <ul>
-            {ducks.map((oneDuck) => (
+            {members.map((oneMember) => (
               <li key={oneDuck._id}>
-                <Link to={`/ducks/${oneDuck._id}`}> {oneDuck.name}</Link>
+                <Link to={`/ducks/${oneMember._id}`}> {oneMember.name}</Link>
               </li>
             ))}
           </ul>
@@ -26,4 +26,4 @@ const DuckList = ({ ducks }) => {
   );
 };
 
-export default DuckList;
+export default MemberList;
