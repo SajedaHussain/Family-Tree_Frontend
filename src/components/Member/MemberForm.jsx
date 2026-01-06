@@ -12,12 +12,12 @@ const MemberForm = (props) => {
     memberToUpdate
       ? memberToUpdate
       : {
-          //اذا كانت الداتا موجودة حطها الابجيت اذا لا خلهافاضية
           firstName: "",
           lastName: "",
           gender: "",
           dateOfBirth: "",
           image: "",
+          generation:""
         }
   );
   //the above line is instead of writhing :
