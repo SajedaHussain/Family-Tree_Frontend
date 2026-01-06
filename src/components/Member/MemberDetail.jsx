@@ -1,27 +1,27 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import * as duckServise from "../../services/memberService";
+import * as memberService from "../../services/memberService";
 import { Link, useNavigate, useParams } from "react-router";
 
-function DuckDetails(props) {
+function MemberDetails(props) {
   const navigate = useNavigate();
   const { id } = useParams(); // same as req.params
-  const { findDuckToUpdate, deleteDuck } = props;
+  const { findMemberToUpdate, deleteMember } = props;
 
-  const [duck, setDuck] = useState(null);
+  const [member, setMember] = useState(null);
 
   useEffect(() => {
     const getOneDuck = async (id) => {
-      const duck = await memberService.show(id);
-      setDuck(duck);
+      const member = await memberService.show(id);
+      setMember(member);
     };
-    if (id) getOneDuck(id); //if teh id is exist the call the function
+    if (id) getOneMember(id); //if teh id is exist the call the function
   }, [id]);
 
   const handleDelete = async () => {
-    const deletedDuck = await memberService.deleteOne(id);
-    if (deletedDuck) {
-      deleteDuck(id);
+    const deletedMember = await memberService.deleteOne(id);
+    if (deletedMember) {
+      deleteMember(id);
       navigate("/");
     } else {
       console.log("somthing wrong");
@@ -29,17 +29,17 @@ function DuckDetails(props) {
   };
 
   if (!id) return <h1>Loading ...</h1>;
-  if (!duck) return <h1>Loading.....</h1>;
+  if (!member) return <h1>Loading.....</h1>;
   return (
     <div>
-      DuckDetails{id}
-      <h1>Duck's First Name: {duck.firstName}</h1>
-      <h1> Last Name : {duck.lastName}</h1>
-      <h1> Gender : {duck.gender}</h1>
-      <h1> Date Of Birth : {duck.dateOfBirth}</h1>
-      <h1> image : {duck.image}</h1>
+      MemberDetails{id}
+      <h1>Member's First Name: {member.firstName}</h1>
+      <h1> Last Name : {member.lastName}</h1>
+      <h1> Gender : {member.gender}</h1>
+      <h1> Date Of Birth : {member.dateOfBirth}</h1>
+      <h1> image : {member.image}</h1>
       <div>
-        <Link onClick={() => findDuckToUpdate(id)} to={`/ducks/${id}/update`}>
+        <Link onClick={() => findMemberToUpdate(id)} to={`/members/${id}/update`}>
           Edit
         </Link>
         <button onClick={() => handleDelete(id)}>Delete</button>
@@ -48,4 +48,4 @@ function DuckDetails(props) {
   );
 }
 
-export default DuckDetails;
+export default MemberDetails;
