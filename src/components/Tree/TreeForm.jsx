@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import * as treeService from '../../services/treeService'
 import { useNavigate } from 'react-router'
 
-const treeForm = (props) => {
+const TreeForm = (props) => {
   const {updateTrees , treeToUpdate ,updateOneTree } = props
   const navigate =useNavigate()
 
@@ -75,4 +75,4 @@ const treeForm = (props) => {
   )
 }
 
-export default PetForm
+export default TreeForm
