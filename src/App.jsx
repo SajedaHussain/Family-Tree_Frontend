@@ -6,9 +6,15 @@ import SignUpForm from './components/SignUpForm/SignUpForm';
 import SignInForm from './components/SignInForm/SignInForm';
 import Landing from './components/Landing/Landing';
 import Dashboard from './components/Dashboard/Dashboard';
+
 import TreeDetail from './components/Tree/TreeDetail';
 import TreeForm from './components/Tree/TreeForm';
 import TreeList from './components/Tree/TreeList';
+
+import MemberForm from './components/Member/MemberForm';
+import MemberDetail from './components/Member/MemberDetail';
+import MemberList from './components/Member/MemberList'
+
 
 import { UserContext } from './contexts/UserContext';
 
