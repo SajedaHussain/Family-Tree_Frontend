@@ -11,7 +11,7 @@ const TreeList = ({trees}) => {
         {
             trees.map((oneTree)=> (
                 <li key={oneTree._id}>
-                    <Link to={`/trees/${oneTree._id}`}>{oneTree.name}</Link>
+                    <Link to={`/trees/${oneTree._id}`}>{oneTree.numFamily}</Link>
                 </li>
             ))
         }
