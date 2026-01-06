@@ -32,17 +32,16 @@ const TreeDetail = ({ findTreeToUpdate , deleteTrees}) => {
     if (!tree) return <h1>Loading ...</h1> 
     return (
         <div>
-            <h2> Family Name : {tree.numFamily}</h2>
-            <h2> Pet age : {pet.age}</h2>
-            <h2> Pet breed : {pet.breed}</h2>
+            <h2> Family Name : {tree.lastName}</h2>
+            <h2> No. of Family members : {tree.numFamily}</h2>
 
             <div>
-                <Link onClick={() => findPetToUpdate(id)} to={`/pets/${id}/update`}>Edit</Link>
+                <Link onClick={() => findTreeToUpdate(id)} to={`/trees/${id}/update`}>Edit</Link>
                 <br />
                 <button onClick={handleDelete}>Delete</button>
             </div>
         </div>
     )
 }
-//when ever click will go through the find function 
-export default PetDetail
+
+export default TreeDetail
