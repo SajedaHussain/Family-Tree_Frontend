@@ -86,7 +86,7 @@ const MemberForm = (props) => {
           <option value="female">Female</option>
         </select>
 
-        <lable htmlFor="dateOfBirth">First Name :</lable>
+        <lable htmlFor="dateOfBirth"> Date of Birth :</lable>
         <input
           type="date"
           name="dateOfBirth"
@@ -95,7 +95,7 @@ const MemberForm = (props) => {
           onChange={handleChange}
         />
 
-        <lable htmlFor="image">First Name :</lable>
+        <lable htmlFor="image"> Picture :</lable>
         <input
           type="file"
           name="image"
@@ -104,12 +104,12 @@ const MemberForm = (props) => {
           onChange={handleChange}
         />
 
-        <lable htmlFor="image">First Name :</lable>
+        <lable htmlFor="generation"> Generation :</lable>
         <input
           type="text"
-          name="image"
-          id="image"
-          value={formState.image}
+          name="generation"
+          id="generation"
+          value={formState.generation}
           onChange={handleChange}
         />
 
