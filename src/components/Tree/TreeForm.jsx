@@ -34,7 +34,7 @@ const TreeForm = (props) => {
         const newTree = await treeService.create(payload);
         if (newTree) updateTrees(newTree);
       } else {
-        console.warn('No valid function provided for TreeForm!');
+        console.log('No valid function provided for TreeForm!');
       }
       navigate('/trees'); // نرجع لقائمة الأشجار بعد العملية
     } catch (error) {
