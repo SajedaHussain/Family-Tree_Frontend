@@ -13,12 +13,12 @@ const MemberForm = (props) => {
       : {
           firstName: "",
           lastName: "",
-          gender: "",
+          relation: "",
           dateOfBirth: "",
           image: "",
           generation:"",
           parentId: null,
-          treeCode: ""
+          tree_id: ""
         }
   );
 
@@ -42,7 +42,7 @@ const MemberForm = (props) => {
       generation: Number(formState.generation)//  لأرقام generation لتحويل ال
     };
     // payload.age = Number(payload.age); // ?????
-    //dateOfBirth   ,  gender , image
+    //dateOfBirth   ,  relation , image
     if (memberToUpdate) {
       const updatedMember = await memberService.update(memberToUpdate._id, payload);
       if (updatedMember) {
@@ -85,9 +85,9 @@ const MemberForm = (props) => {
           onChange={handleChange}
         />
 
-        <label htmlFor="gender"> Gender :</label>
-        <select name="gender" id="gender" value={formState.gender} onChange={handleChange}>
-          <option value="">Select gender</option>
+        <label htmlFor="relation"> Relation :</label>
+        <select name="relation" id="relation" value={formState.relation} onChange={handleChange}>
+          <option value="">Select Relation</option>
           <option value="male">Male</option>
           <option value="female">Female</option>
         </select>
@@ -119,8 +119,8 @@ const MemberForm = (props) => {
           onChange={handleChange}
         />
 
-        <label htmlFor="treeCode">Family Tree:</label>{/* اختيار اسم العائله لاخذ ال ıd */}
-        <select name="treeCode" value={formState.treeCode} onChange={handleChange} required>
+        <label htmlFor="tree_id">Family Tree:</label>{/* اختيار اسم العائله لاخذ ال ıd */}
+        <select name="tree_id" value={formState.tree_id} onChange={handleChange} required>
           <option value="">Select Family</option>
               {trees && trees.map(t => (
           <option key={t._id} value={t._id}>{t.lastName} Family</option>

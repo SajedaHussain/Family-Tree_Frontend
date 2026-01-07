@@ -35,7 +35,7 @@ function MemberDetails(props) {
       MemberDetails{id}
       <h1>Member's First Name: {member.firstName}</h1>
       <h1> Last Name : {member.lastName}</h1>
-      <h1> Gender : {member.gender}</h1>
+      <h1> Relation : {member.relation}</h1>
       <h1> Date Of Birth : {member.dateOfBirth}</h1>
       <h1> image : {member.image}</h1>
       <div>

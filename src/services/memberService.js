@@ -4,7 +4,7 @@ const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/member`;
 
 const index = async () => {
     try {
-        const config = treeCode ? { params: { treeCode: treeCode } } : {};
+        const config = tree_id ? { params: { tree_id: tree_id } } : {};
         const response = await axios.get(BASE_URL, config);
         return response.data.member;
     } catch (error) {

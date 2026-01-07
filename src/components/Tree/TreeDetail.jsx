@@ -20,7 +20,7 @@ const TreeDetail = ({ findTreeToUpdate , deleteTrees , members}) => {
             .map(m => ({
                 name: m.firstName,
                 attributes: { 
-                    Gender: m.gender,
+                    Relation: m.relation,
                     Gen: m.generation 
                 },
                 children: formatDataForTree(list, m._id) 
