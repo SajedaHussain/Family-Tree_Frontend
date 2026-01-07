@@ -1,16 +1,21 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router';
+
+
 // Services
 import * as treeService from './services/treeService';
 import * as memberService from './services/memberService';
+
 // Components
 import NavBar from './components/NavBar/NavBar';
 import Landing from './components/Landing/Landing';
 import Dashboard from './components/Dashboard/Dashboard';
+
 // Member Components
 import MemberList from './components/Member/MemberList';
 import MemberDetail from './components/Member/MemberDetail';
 import MemberForm from './components/Member/MemberForm';
+
 // Tree Components
 import TreeList from './components/Tree/TreeList';
 import TreeDetail from './components/Tree/TreeDetail';
@@ -23,7 +28,7 @@ const App = () => {
   const [memberToUpdate, setMemberToUpdate] = useState(null);
   const navigate = useNavigate();
 
-  // جلب البيانات الأساسية
+
   useEffect(() => {
     const fetchInitialData = async () => {
       try {
@@ -65,57 +70,14 @@ const App = () => {
         {/* Tree Routes */}
         <Route path="/trees" element={<TreeList trees={trees} />} />
         <Route path="/trees/new" element={<TreeForm updateTrees={addTree} />} />
-        <Route
-          path="/trees/:id"
-          element={
-            <TreeDetail
-              findTreeToUpdate={findTreeToUpdate}
-              deleteTrees={deleteTrees}
-            />
-          }
-        />
-        <Route
-          path="/trees/:id/update"
-          element={
-            <TreeForm
-              treeToUpdate={treeToUpdate}
-              updateOneTree={updateOneTree}
-            />
-          }
-        />
+        <Route path="/trees/:id" element={ <TreeDetail findTreeToUpdate={findTreeToUpdate} deleteTrees={deleteTrees}  /> }/>
+        <Route path="/trees/:id/update" element={ <TreeForm treeToUpdate={treeToUpdate} updateOneTree={updateOneTree} /> }/>
 
         {/* Member Routes */}
         <Route path="/members" element={<MemberList members={members} />} />
-        <Route
-          path="/members/new"
-          element={
-            <MemberForm
-              updateMembers={addMember}
-              trees={trees}
-              members={members}
-            />
-          }
-        />
-        <Route
-          path="/members/:id"
-          element={
-            <MemberDetail
-              findMemberToUpdate={findMemberToUpdate}
-              deleteMember={deleteMember}
-            />
-          }
-        />
-        <Route
-          path="/members/:id/update"
-          element={
-            <MemberForm
-              memberToUpdate={memberToUpdate}
-              updateOneMember={updateOneMember}
-              trees={trees}
-members={members}
-            />
-          }
-        />
+        <Route path="/members/new" element={<MemberForm updateMembers={addMember} trees={trees}members={members} /> }/>
+        <Route path="/members/:id" element={<MemberDetail findMemberToUpdate={findMemberToUpdate} deleteMember={deleteMember} /> } />
+        <Route path="/members/:id/update" element={<MemberForm memberToUpdate={memberToUpdate} updateOneMember={updateOneMember} trees={trees} members={members}/>}/>
       </Routes>
     </>
   );
