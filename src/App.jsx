@@ -1,5 +1,6 @@
-import { useContext } from "react";
-import { Routes, Route } from "react-router";
+import { useState, useEffect, useContext } from "react";
+import { Routes, Route, Link } from "react-router";
+import { useNavigate } from "react-router";
 
 //Service:
 import * as treeService from "./services/treeService";
@@ -17,7 +18,7 @@ import TreeForm from "./components/Tree/TreeForm";
 import TreeList from "./components/Tree/TreeList";
 
 import MemberForm from "./components/Member/MemberForm";
-import MemberDetails from "./components/Member/MemberDetails";
+import MemberDetails from "./components/Member/MemberDetail";
 import MemberList from "./components/Member/MemberList";
 
 import { UserContext } from "./contexts/UserContext";
@@ -26,6 +27,70 @@ const App = () => {
   // Access the user object from UserContext
   // This gives us the currently logged-in user's information (username, email) that we extract from the token
   const { user } = useContext(UserContext);
+  const [trees, setTrees] = useState([]);
+  const [members, setMembers] = useState([]);
+  const [treeToUpdate, setTreeToUpdate] = useState(null);
+  const [memberToUpdate, setMemberToUpdate] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchAllData = async () => {
+      try {
+        const treeData = await treeService.index();
+        setTrees(treeData);
+
+        const memberData = await memberService.index();
+        setMembers(memberData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchAllData();
+  }, []);
+
+  // -------- TREE FUNCTIONS --------
+  const updateOneTree = (updatedTree) => {
+    setTrees(trees.map((t) => (t._id === updatedTree._id ? updatedTree : t)));
+    setTreeToUpdate(null);
+    navigate("/trees");
+  };
+
+  const deleteTrees = (id) => {
+    setTrees(trees.filter((t) => t._id !== id));
+    navigate("/trees");
+  };
+
+  const findTreeToUpdate = (id) => {
+    setTreeToUpdate(trees.find((t) => t._id === id));
+  };
+
+  const addTree = (newTree) => {
+    setTrees([...trees, newTree]);
+    navigate("/trees");
+  };
+
+  // -------- MEMBER FUNCTIONS --------
+
+  const addMember = (newMember) => {
+    setMembers([...members, newMember]);
+    navigate("/members");
+  };
+
+  const updateOneMember = (updatedMember) => {
+    setMembers(members.map((m) => (m._id === updatedMember._id ? updatedMember : m)));
+    setMemberToUpdate(null);
+    navigate("/members");
+  };
+
+  const deleteMember = (id) => {
+    setMembers(members.filter((m) => m._id !== id));
+    navigate("/members");
+  };
+
+  const findMemberToUpdate = (id) => {
+    setMemberToUpdate(members.find((m) => m._id === id));
+  };
 
   return (
     <>
@@ -38,16 +103,45 @@ const App = () => {
         <Route path="/sign-in" element={<SignInForm />} />
 
         {/* Trees */}
-        <Route path="/trees" element={<TreeList />} />
-        <Route path="/trees/new" element={<TreeForm />} />
-        <Route path="/trees/:id" element={<TreeDetail members={members} />} />
-        <Route path="/trees/:id/update" element={<TreeForm />} />
+        <Route path="/trees" element={<TreeList trees={trees} />} />
+        <Route path="/trees/new" element={<TreeForm updateTrees={addTree} />} />
+        <Route
+          path="/trees/:id"
+          element={
+            <TreeDetail
+              members={members}
+              deleteTrees={deleteTrees}
+              findTreeToUpdate={findTreeToUpdate}
+            />
+          }
+        />
+        <Route
+          path="/trees/:id/update"
+          element={<TreeForm treeToUpdate={treeToUpdate} updateOneTree={updateOneTree} />}
+        />
 
         {/* Members */}
-        <Route path="/members" element={<MemberList />} />
-        <Route path="/members/new" element={<MemberForm />} />
-        <Route path="/members/:id" element={<MemberDetails />} />
-        <Route path="/members/:id/update" element={<MemberForm />} />
+        <Route path="/members" element={<MemberList members={members} />} />
+        <Route
+          path="/members/new"
+          element={<MemberForm updateMembers={addMember} members={members} />}
+        />
+        <Route
+          path="/members/:id"
+          element={
+            <MemberDetails deleteMember={deleteMember} findMemberToUpdate={findMemberToUpdate} />
+          }
+        />
+        <Route
+          path="/members/:id/update"
+          element={
+            <MemberForm
+              memberToUpdate={memberToUpdate}
+              updateOneMember={updateOneMember}
+              members={members}
+            />
+          }
+        />
       </Routes>
     </>
   );
