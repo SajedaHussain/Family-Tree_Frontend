@@ -5,24 +5,21 @@ import { useNavigate } from "react-router";
 //rafce to creac this code
 
 const MemberForm = (props) => {
-  const { updateMembers, memberToUpdate, updateOneMember , trees } = props;
+  const { updateMembers, memberToUpdate, updateOneMember, trees } = props;
   const { setMembers, members } = props;
   const navigate = useNavigate();
   const [formState, setFormState] = useState(
-    memberToUpdate? memberToUpdate
+    memberToUpdate
+      ? memberToUpdate
       : {
           firstName: "",
           lastName: "",
           gender: "",
           dateOfBirth: "",
           image: "",
-<<<<<<< HEAD
           generation: "",
-=======
-          generation:"",
           parentId: null,
-          treeCode: ""
->>>>>>> main
+          treeCode: "",
         }
   );
 
@@ -33,7 +30,7 @@ const MemberForm = (props) => {
 
   const handleChange = (evt) => {
     const { name, value } = evt.target;
-    const finalValue = value === "" ? null : value;//عشان اذا تركه فاضي يعرف القيمه null
+    const finalValue = value === "" ? null : value; //عشان اذا تركه فاضي يعرف القيمه null
     const newFormState = { ...formState, [name]: finalValue };
 
     setFormState(newFormState);
@@ -41,9 +38,9 @@ const MemberForm = (props) => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    const payload = { 
-      ...formState, 
-      generation: Number(formState.generation)//  لأرقام generation لتحويل ال
+    const payload = {
+      ...formState,
+      generation: Number(formState.generation), //  لأرقام generation لتحويل ال
     };
     // payload.age = Number(payload.age); // ?????
     //dateOfBirth   ,  gender , image
@@ -123,25 +120,29 @@ const MemberForm = (props) => {
           onChange={handleChange}
         />
 
-<<<<<<< HEAD
-=======
-        <label htmlFor="treeCode">Family Tree:</label>{/* اختيار اسم العائله لاخذ ال ıd */}
+        <label htmlFor="treeCode">Family Tree:</label>
+        {/* اختيار اسم العائله لاخذ ال ıd */}
         <select name="treeCode" value={formState.treeCode} onChange={handleChange} required>
           <option value="">Select Family</option>
-              {trees && trees.map(t => (
-          <option key={t._id} value={t._id}>{t.lastName} Family</option>
+          {trees &&
+            trees.map((t) => (
+              <option key={t._id} value={t._id}>
+                {t.lastName} Family
+              </option>
+            ))}
+        </select>
+
+        <label htmlFor="parentId">Parent:</label>
+        {/* اختيار اسم الاب لاخذ ال ıd */}
+        <select name="parentId" value={formState.parentId} onChange={handleChange}>
+          <option value="">No Parent (Grandfather)</option>
+          {members.map((m) => (
+            <option key={m._id} value={m._id}>
+              {m.firstName}
+            </option>
           ))}
         </select>
 
-        <label htmlFor="parentId">Parent:</label>{/* اختيار اسم الاب لاخذ ال ıd */}
-        <select name="parentId" value={formState.parentId} onChange={handleChange}>
-        <option value="">No Parent (Grandfather)</option>
-          {members.map(m => (
-        <option key={m._id} value={m._id}>{m.firstName}</option>
-        ))}
-        </select>
-
->>>>>>> main
         <button type="submit">Save</button>
       </form>
     </div>
