@@ -88,8 +88,10 @@ const MemberForm = (props) => {
         <label htmlFor="relation"> Relation :</label>
         <select name="relation" id="relation" value={formState.relation} onChange={handleChange}>
           <option value="">Select Relation</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
+          <option value="Grandparents">Grandparents</option>
+          <option value="Parents">Parents</option>
+          <option value="Son">Son</option>
+          <option value="Daughter">Daughter</option>
         </select>
 
         <label htmlFor="dateOfBirth"> Date of Birth :</label>
