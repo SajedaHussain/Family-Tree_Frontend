@@ -1,8 +1,8 @@
 import React from 'react'
 import Tree from 'react-d3-tree'
 import { useState, useEffect } from 'react'
-import * as treeService from '../../services/treeService'
-import * as memberService from '../../services/memberService'
+import * as treeService from '../../../services/treeService'
+import * as memberService from '../../../services/memberService'
 import { Link, useNavigate, useParams } from 'react-router'
 
 const TreeDetail = ({ findTreeToUpdate , deleteTrees }) => {

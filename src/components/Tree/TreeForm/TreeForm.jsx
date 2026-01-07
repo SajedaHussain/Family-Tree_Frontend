@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import * as treeService from '../../services/treeService';
+import * as treeService from '../../../services/treeService';
 import { useNavigate } from 'react-router';
+import './TreeForm.css';
 
 const TreeForm = (props) => {
   const { updateTrees, treeToUpdate, updateOneTree } = props;
@@ -33,40 +34,21 @@ const TreeForm = (props) => {
         // حالة الإضافة
         const newTree = await treeService.create(payload);
         if (newTree) updateTrees(newTree);
+        navigate('/members/new',{ state: { selectedTreeId: newTree._id }})
+
       } else {
         console.log('No valid function provided for TreeForm!');
       }
-<<<<<<< HEAD
-      else {
-        console.log('something went wrong')
-      }
-    }else {
-
-      const newTreeCreated = await treeService.create(payload)//creating new pet
-
-        if(newTreeCreated){
-
-          updateTrees(newTreeCreated)
-          navigate('/members/new',{ state: { selectedTreeId: newTreeCreated._id }})
-
-        }
-        else{
-          console.log('something went wrong')
-        }
-      }
       
-=======
-      navigate('/trees'); // نرجع لقائمة الأشجار بعد العملية
     } catch (error) {
       console.error('Error in TreeForm submit:', error);
->>>>>>> main
     }
   };
 
   return (
-    <div>
+    <div className="tree-form-container">
       <h1>{treeToUpdate ? 'Edit Tree' : 'New Tree'}</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="tree-form">
         <label htmlFor="lastName">Family Name:</label>
         <input
           type="text"

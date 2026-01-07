@@ -8,13 +8,13 @@ import NavBar from './components/NavBar/NavBar';
 import Landing from './components/Landing/Landing';
 import Dashboard from './components/Dashboard/Dashboard';
 // Member Components
-import MemberList from './components/Member/MemberList';
-import MemberDetail from './components/Member/MemberDetail';
-import MemberForm from './components/Member/MemberForm';
+import MemberList from './components/Member/MemberList/MemberList';
+import MemberDetail from './components/Member/MemberDetail/MemberDetail';
+import MemberForm from './components/Member/MemberForm/MemberForm';
 // Tree Components
 import TreeList from './components/Tree/TreeList';
-import TreeDetail from './components/Tree/TreeDetail';
-import TreeForm from './components/Tree/TreeForm';
+import TreeDetail from './components/Tree/TreeDetail/TreeDetail';
+import TreeForm from './components/Tree/TreeForm/TreeForm';
 
 const App = () => {
   const [trees, setTrees] = useState([]);

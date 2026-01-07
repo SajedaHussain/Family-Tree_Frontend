@@ -1,6 +1,6 @@
 //IMPORT ==========================================================================================
 import { useState, useEffect } from "react";
-import * as memberService from "../../services/memberService";
+import * as memberService from "../../../services/memberService";
 import { Link, useNavigate, useParams } from "react-router";
 
 function MemberDetail(props) {

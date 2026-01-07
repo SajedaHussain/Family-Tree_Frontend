@@ -1,7 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import * as memberService from "../../services/memberService";
+import * as memberService from "../../../services/memberService";
 import { useNavigate } from "react-router";
+import "./MemberForm.css";
 //rafce to creac this code
 
 const MemberForm = (props) => {
@@ -64,7 +65,7 @@ const MemberForm = (props) => {
   };
 
   return (
-    <div>
+    <div className="member-form-container">
       Member Form
       <form onSubmit={handleSubmit}>
         <label htmlFor="firstName">First Name :</label>
@@ -136,6 +137,16 @@ const MemberForm = (props) => {
             <option key={m._id} value={m._id}>{m.firstName}</option>
           ))}
         </select>
+
+        
+        <label htmlFor="code"> acssec Code :</label>
+        <input
+          type="text"
+          name="code"
+          id="code"
+          value={formState.code}
+          onChange={handleChange}
+        />
 
         <button type="submit">Save</button>
       </form>
