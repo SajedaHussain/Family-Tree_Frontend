@@ -1,6 +1,6 @@
 import React from "react";
 //rafce
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 const MemberList = ({ members }) => {
   // insted of doing this ->  const {ducks}=props;

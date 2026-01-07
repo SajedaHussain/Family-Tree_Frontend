@@ -1,12 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import * as memberService from "../../services/memberService";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 //rafce to creac this code
 
 const MemberForm = (props) => {
-  const { updateMembers, memberToUpdate, updateOneMember, trees } = props;
-  const { setMembers, members } = props;
+  const { updateMembers, memberToUpdate, updateOneMember, trees, members } = props;
   const navigate = useNavigate();
   const [formState, setFormState] = useState(
     memberToUpdate ? memberToUpdate
