@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import * as memberService from "../../services/memberService";
 import { Link, useNavigate, useParams } from "react-router";
 
-function MemberDetails(props) {
+function MemberDetail(props) {
   const navigate = useNavigate();
   const { id } = useParams(); // same as req.params
   const { findMemberToUpdate, deleteMember } = props;
@@ -29,7 +29,7 @@ function MemberDetails(props) {
   };
 
   if (!member) return <h1>Loading.....</h1>;
-  
+
   return (
     <div>
       MemberDetails{id}
@@ -48,4 +48,4 @@ function MemberDetails(props) {
   );
 }
 
-export default MemberDetails;
+export default MemberDetail;

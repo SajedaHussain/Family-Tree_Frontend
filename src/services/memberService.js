@@ -6,10 +6,10 @@ const index = async (tree_id) => {
     try {
         const config = tree_id ? { params: { tree_id } } : {};
         const response = await axios.get(BASE_URL, config);
-        return response.data.member;
+        return response.data.member || [];
     } catch (error) {
         console.error(error);
-        
+
     }
 };
 
@@ -29,7 +29,7 @@ const create = async (formData) => {
         return response.data.member;
     } catch (error) {
         console.error(error);
-       
+
     }
 };
 
@@ -39,7 +39,7 @@ const update = async (memberId, formData) => {
         return response.data.member;
     } catch (error) {
         console.error(error);
-       
+
     }
 };
 
@@ -49,7 +49,7 @@ const deleteOne = async (memberId) => {
         return response.data;
     } catch (error) {
         console.error(error);
-       
+
     }
 };
 
