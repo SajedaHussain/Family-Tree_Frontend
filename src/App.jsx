@@ -35,6 +35,8 @@ const App = () => {
         <Route path="/" element={user ? <Dashboard /> : <Landing />} />
         <Route path="/sign-up" element={<SignUpForm />} />
         <Route path="/sign-in" element={<SignInForm />} />
+
+        <Route path="/tree/:id" element={<TreeDetail members={members} />} />
       </Routes>
     </>
   );
