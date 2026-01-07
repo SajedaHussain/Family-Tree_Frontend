@@ -5,7 +5,7 @@ const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/tree`;
 const index = async () => {
     try {
         const response = await axios.get(BASE_URL);
-        return response.data.trees; 
+        return response.data.tree || [];
     } catch (error) {
         console.error(error);
        
@@ -16,7 +16,7 @@ const index = async () => {
 const show = async (id) => {
     try {
         const response = await axios.get(`${BASE_URL}/${id}`);
-        return response.data.tree; 
+         return response.data.tree;  
     } catch (error) {
         console.error(error);
       

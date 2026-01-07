@@ -19,7 +19,8 @@ const MemberForm = (props) => {
         image: "",
         generation: "",
         parentId: null,
-        tree_id: ""
+        tree_id: "",
+         code: '',
       }
   );
 
@@ -38,6 +39,7 @@ const MemberForm = (props) => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
+    try{
     const payload = {
       ...formState,
       generation: Number(formState.generation)//  لأرقام generation لتحويل ال
@@ -48,25 +50,27 @@ const MemberForm = (props) => {
       const updatedMember = await memberService.update(memberToUpdate._id, payload);
       if (updatedMember) {
         updateOneMember(updatedMember);
-        navigate("/");
-      } else {
-        console.log("something wrong");
+      
       }
-    } else {
+    } else if(updateMembers) {
       const newMemberCreated = await memberService.create(payload);
 
       if (newMemberCreated) {
         updateMembers(newMemberCreated); // للحصول على اي قيمة جديدة مضافة للظهور اما باعادة رفرش للموقع او عمل ابديت
-        navigate("/");
+        navigate(`/members/${newMemberCreated._id}`);
       } else {
         console.log("some thing wrong");
       }
+    }
+    }catch(error){
+      console.log(error)
     }
   };
 
   return (
     <div className="member-form-container">
-      Member Form
+    <h2>{memberToUpdate ? 'Edit Member' : 'Add New Member'}</h2>
+
       <form onSubmit={handleSubmit}>
         <label htmlFor="firstName">First Name :</label>
         <input

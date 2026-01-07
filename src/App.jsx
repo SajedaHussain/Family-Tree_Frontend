@@ -12,9 +12,12 @@ import MemberList from './components/Member/MemberList/MemberList';
 import MemberDetail from './components/Member/MemberDetail/MemberDetail';
 import MemberForm from './components/Member/MemberForm/MemberForm';
 // Tree Components
-import TreeList from './components/Tree/TreeList';
+import TreeList from './components/Tree/TreeList/TreeList';
 import TreeDetail from './components/Tree/TreeDetail/TreeDetail';
 import TreeForm from './components/Tree/TreeForm/TreeForm';
+
+import SignInForm from "./components/SignInForm/SignInForm";
+import SignUpForm from "./components/SignUpForm/SignUpForm";
 
 const App = () => {
   const [trees, setTrees] = useState([]);
@@ -59,12 +62,16 @@ const App = () => {
   return (
     <>
       <NavBar />
+        
       <Routes>
+        <Route path="/sign-in" element={<SignInForm />} />
+        <Route path="/sign-up" element={<SignUpForm />} />  
         <Route path="/" element={<Landing />} />
+        
         
         {/* Tree Routes */}
         <Route path="/trees" element={<TreeList trees={trees} />} />
-        <Route path="/trees/new" element={<TreeForm updateTrees={addTree} />} />
+        <Route path="/trees/new" element={<TreeForm updateTrees={addTree}  trees={trees} members={members}/>} />
         <Route
           path="/trees/:id"
           element={
@@ -80,6 +87,7 @@ const App = () => {
             <TreeForm
               treeToUpdate={treeToUpdate}
               updateOneTree={updateOneTree}
+               trees={trees}
             />
           }
         />
@@ -112,7 +120,7 @@ const App = () => {
               memberToUpdate={memberToUpdate}
               updateOneMember={updateOneMember}
               trees={trees}
-members={members}
+              members={members}
             />
           }
         />

@@ -9,41 +9,50 @@ function MemberDetail(props) {
   const { findMemberToUpdate, deleteMember } = props;
 
   const [member, setMember] = useState(null);
+  const [code, setCode] = useState('');
 
   useEffect(() => {
     const getOneMember = async (id) => {
       const member = await memberService.show(id);
       setMember(member);
+      navigate(`/members/${id}`)
     };
     if (id) getOneMember(id); //if teh id is exist the call the function
   }, [id]);
 
+   const handleUpdateClick = () => {
+    findMemberToUpdate(id);
+    navigate(`/members/${id}/update`, { state: { code } }); // نمرر الكود للمكون الجديد
+  };
+
   const handleDelete = async () => {
-    const deletedMember = await memberService.deleteOne(id);
+    if (!code) return console.log('Enter family code to delete this member');
+    try{
+    const deletedMember = await memberService.deleteOne(id, { tree_id: member.tree_id, code });
     if (deletedMember) {
       deleteMember(id);
-      navigate("/");
-    } else {
-      console.log("somthing wrong");
+     navigate("/members");
     }
-  };
+  }catch(error){
+    console.log("somthing wrong");
+    }
+  }
 
   if (!member) return <h1>Loading.....</h1>;
 
   return (
     <div>
-      MemberDetails{id}
-      <h1>Member's First Name: {member.firstName}</h1>
-      <h1> Last Name : {member.lastName}</h1>
-      <h1> Relation : {member.relation}</h1>
-      <h1> Date Of Birth : {member.dateOfBirth}</h1>
-      <h1> image : {member.image}</h1>
-      <div>
-        <Link onClick={() => findMemberToUpdate(id)} to={`/members/${id}/update`}>
-          Edit
-        </Link>
-        <button onClick={() => handleDelete(id)}>Delete</button>
-      </div>
+      <h2>{member.firstName} {member.lastName}</h2>
+      <p> Relation : {member.relation}</p>
+      <p>Generation: {member.generation}</p>
+      <p>Date Of Birth: {member.dateOfBirth}</p>
+      <img src={member.image} alt="member" width={200}/>      
+
+      <label>Family Code (required to edit/delete):</label>
+      <input type="text" value={code} onChange={event => setCode(event.target.value)} />
+
+      <button onClick={handleUpdateClick}>Edit</button>
+      <button onClick={handleDelete}>Delete</button>
     </div>
   );
 }

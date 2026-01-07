@@ -35,7 +35,8 @@ const create = async (formData) => {
 
 const update = async (memberId, formData) => {
     try {
-        const response = await axios.put(`${BASE_URL}/${memberId}`, formData);
+        const response = await axios.put(`${BASE_URL}/${memberId}`, formData , getAuthConfig());
+
         return response.data.member;
     } catch (error) {
         console.error(error);
@@ -45,7 +46,7 @@ const update = async (memberId, formData) => {
 
 const deleteOne = async (memberId) => {
     try {
-        const response = await axios.delete(`${BASE_URL}/${memberId}`);
+        const response = await axios.delete(`${BASE_URL}/${memberId}`, { ...getAuthConfig(), data: formData });
         return response.data;
     } catch (error) {
         console.error(error);

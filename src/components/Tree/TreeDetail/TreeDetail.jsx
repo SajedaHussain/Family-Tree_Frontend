@@ -9,6 +9,7 @@ const TreeDetail = ({ findTreeToUpdate , deleteTrees }) => {
     const [tree, setTree] = useState(null)
     const { id } = useParams()
     const [familyData, setFamilyData] = useState(null); // تخزين المعلومات على شكل شجره
+    const [code, setCode] = useState('');
     const navigate = useNavigate()
     //داله لتحويل المعلومات على شكل شجره لتستقبلها المكتبه
     const formatDataForTree = (list, parentId = null) => {
@@ -51,21 +52,22 @@ useEffect(() => {
     }, [id]);
 
     const handleDelete = async () => {
-        const deletedTree = await treeService.deleteOne(id)
+        if (!code) return console.log('Please enter the family code to delete this tree!');
+        try{
+        const deletedTree = await treeService.deleteOne(id, { code })
          if (deletedTree){
             deleteTrees(id)
-            navigate('/')
+            navigate('/trees')
 
-         }
-         else{ console.log('Failed')}
+         }}
+         catch(error){ console.log(error)}
 
     }
-    if (!id) return <h1>Loading ...</h1>
     if (!tree) return <h1>Loading ...</h1> 
     return (
         <div>
             <h2> Family Name : {tree.lastName}</h2>
-            <div style={{ width: '100%', height: '500px' }}>
+            <div style={{ width: '100%', height: '600px', border: '1px solid #ccc', borderRadius: '8px', background: '#f9f9f9' }}>
                 {familyData ? 
                       (<Tree  
                         data={familyData}
@@ -74,9 +76,16 @@ useEffect(() => {
                     ) 
                       : (<p>No members found.</p>)}
             </div>
+
+            <label htmlFor="code">Enter Family Code:</label>
+            <input
+                type="text"
+                id="code"
+                value={code}
+                onChange={evt => setCode(evt.target.value)}
+                placeholder="Family code required"
+            />
            
-
-
             <div>
                 <Link onClick={() => findTreeToUpdate(id)} to={`/trees/${id}/update`}>Edit</Link>
                 <br />
