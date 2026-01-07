@@ -5,7 +5,7 @@ import * as treeService from '../../services/treeService'
 import * as memberService from '../../services/memberService'
 import { Link, useNavigate, useParams } from 'react-router'
 
-const TreeDetail = ({ findTreeToUpdate , deleteTrees , members}) => {
+const TreeDetail = ({ findTreeToUpdate , deleteTrees }) => {
     const [tree, setTree] = useState(null)
     const { id } = useParams()
     const [familyData, setFamilyData] = useState(null); // تخزين المعلومات على شكل شجره
