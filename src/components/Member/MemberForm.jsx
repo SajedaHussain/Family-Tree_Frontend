@@ -46,7 +46,7 @@ const MemberForm = (props) => {
       const updatedMember = await memberService.update(memberToUpdate._id, payload);
       if (updatedMember) {
         updateOneMember(updatedMember);
-        navigate("/");
+        navigate("/members");
       } else {
         console.log("something wrong");
       }
@@ -55,7 +55,7 @@ const MemberForm = (props) => {
 
       if (newMemberCreated) {
         updateMembers(newMemberCreated); // للحصول على اي قيمة جديدة مضافة للظهور اما باعادة رفرش للموقع او عمل ابديت
-        navigate("/");
+        navigate("/members");
       } else {
         console.log("some thing wrong");
       }
