@@ -1,48 +1,56 @@
-//IMPORT ==========================================================================================
 import { useState, useEffect } from "react";
 import * as memberService from "../../services/memberService";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
-function MemberDetail(props) {
+function MemberDetail({ findMemberToUpdate, deleteMember }) {
   const navigate = useNavigate();
-  const { id } = useParams(); // same as req.params
-  const { findMemberToUpdate, deleteMember } = props;
+  const { treeId, memberId } = useParams();
 
   const [member, setMember] = useState(null);
 
   useEffect(() => {
-    const getOneMember = async (id) => {
-      const member = await memberService.show(id);
-      setMember(member);
+    const getOneMember = async () => {
+      const data = await memberService.show(memberId);
+      setMember(data);
     };
-    if (id) getOneMember(id); //if teh id is exist the call the function
-  }, [id]);
+
+    if (memberId) getOneMember();
+  }, [memberId]);
 
   const handleDelete = async () => {
-    const deletedMember = await memberService.deleteOne(id);
-    if (deletedMember) {
-      deleteMember(id);
-      navigate("/");
+    const deleted = await memberService.deleteOne(memberId);
+    if (deleted) {
+      deleteMember(memberId, treeId);
+      navigate(`/trees/${treeId}/members`);
     } else {
-      console.log("somthing wrong");
+      console.log("something went wrong");
     }
   };
 
-  if (!member) return <h1>Loading.....</h1>;
+  if (!member) return <h1>Loading...</h1>;
 
   return (
     <div>
-      MemberDetails{id}
-      <h1>Member's First Name: {member.firstName}</h1>
-      <h1> Last Name : {member.lastName}</h1>
-      <h1> Relation : {member.relation}</h1>
-      <h1> Date Of Birth : {member.dateOfBirth}</h1>
-      <h1> image : {member.image}</h1>
+      <h2>Member Details</h2>
+
+      <p><strong>First Name:</strong> {member.firstName}</p>
+      <p><strong>Last Name:</strong> {member.lastName}</p>
+      <p><strong>Relation:</strong> {member.relation}</p>
+      <p><strong>Date of Birth:</strong> {member.dateOfBirth}</p>
+
+      {member.image && (
+        <img src={member.image} alt={member.firstName} width="200" />
+      )}
+
       <div>
-        <Link onClick={() => findMemberToUpdate(id)} to={`/members/${id}/update`}>
+        <Link
+          to={`/trees/${treeId}/members/${memberId}/edit`}
+          onClick={() => findMemberToUpdate(memberId)}
+        >
           Edit
         </Link>
-        <button onClick={() => handleDelete(id)}>Delete</button>
+
+        <button onClick={handleDelete}>Delete</button>
       </div>
     </div>
   );
