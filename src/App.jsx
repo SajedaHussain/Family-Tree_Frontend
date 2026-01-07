@@ -19,6 +19,10 @@ import MemberList from "./components/Member/MemberList";
 import MemberDetail from "./components/Member/MemberDetail";
 import MemberForm from "./components/Member/MemberForm";
 
+//Auth Components
+import SignUpForm from "./components/SignUpForm/SignUpForm";
+import SingInForm from "./components/SignInForm/SignInForm"
+
 const App = () => {
   const [trees, setTrees] = useState([]);
   const [members, setMembers] = useState([]);
@@ -27,7 +31,7 @@ const App = () => {
 
   const navigate = useNavigate();
 
- 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -94,6 +98,8 @@ const App = () => {
 
       <Routes>
         <Route path="/" element={<Landing />} />
+        <Route path="/sign-in" element={<SignInForm />} />
+        <Route path="/sign-up" element={<SignUpForm />} />
         <Route path="/trees" element={<TreeList trees={trees} />} />
         <Route
           path="/trees/new"
