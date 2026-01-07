@@ -15,8 +15,8 @@ const MemberList = ({ members }) => {
         ) : (
           <ul>
             {members.map((oneMember) => (
-              <li key={oneDuck._id}>
-                <Link to={`/ducks/${oneMember._id}`}> {oneMember.name}</Link>
+              <li key={oneMember._id}>
+                <Link to={`/members/${oneMember._id}`}> {oneMember.firstName} {oneMember.lastName}</Link>
               </li>
             ))}
           </ul>

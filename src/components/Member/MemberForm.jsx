@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import * as memberService from "../../services/membrService";
+import * as memberService from "../../services/memberService";
 import { useNavigate } from "react-router";
 //rafce to creac this code
 
@@ -14,12 +14,12 @@ const MemberForm = (props) => {
       : {
           firstName: "",
           lastName: "",
-          gender: "",
+          relation: "",
           dateOfBirth: "",
           image: "",
           generation: "",
           parentId: null,
-          treeCode: "",
+          tree_id: "",
         }
   );
 
@@ -43,7 +43,7 @@ const MemberForm = (props) => {
       generation: Number(formState.generation), //  لأرقام generation لتحويل ال
     };
     // payload.age = Number(payload.age); // ?????
-    //dateOfBirth   ,  gender , image
+    //dateOfBirth   ,  relation , image
     if (memberToUpdate) {
       const updatedMember = await memberService.update(memberToUpdate._id, payload);
       if (updatedMember) {
@@ -53,7 +53,7 @@ const MemberForm = (props) => {
         console.log("something wrong");
       }
     } else {
-      const newMemberCreated = await memberService.creat(payload);
+      const newMemberCreated = await memberService.create(payload);
 
       if (newMemberCreated) {
         updateMembers(newMemberCreated); // للحصول على اي قيمة جديدة مضافة للظهور اما باعادة رفرش للموقع او عمل ابديت
@@ -86,11 +86,13 @@ const MemberForm = (props) => {
           onChange={handleChange}
         />
 
-        <label htmlFor="gender"> Gender :</label>
-        <select name="gender" id="gender" value={formState.gender} onChange={handleChange}>
-          <option value="">Select gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
+        <label htmlFor="relation"> Relation :</label>
+        <select name="relation" id="relation" value={formState.relation} onChange={handleChange}>
+          <option value="">Select Relation</option>
+          <option value="Grandparents">Grandparents</option>
+          <option value="Parents">Parents</option>
+          <option value="Son">Son</option>
+          <option value="Daughter">Daughter</option>
         </select>
 
         <label htmlFor="dateOfBirth"> Date of Birth :</label>
@@ -104,25 +106,25 @@ const MemberForm = (props) => {
 
         <label htmlFor="image"> Picture :</label>
         <input
-          type="file"
+          type="text"
           name="image"
-          id="image"
-          value={formState.image}
+          placeholder="Image URL"
+          value={formState.image || ""}
           onChange={handleChange}
         />
 
         <label htmlFor="generation"> Generation :</label>
         <input
-          type="text"
+          type="number"
           name="generation"
           id="generation"
           value={formState.generation}
           onChange={handleChange}
         />
 
-        <label htmlFor="treeCode">Family Tree:</label>
+        <label htmlFor="tree_id">Family Tree:</label>
         {/* اختيار اسم العائله لاخذ ال ıd */}
-        <select name="treeCode" value={formState.treeCode} onChange={handleChange} required>
+        <select name="tree_id" value={formState.tree_id} onChange={handleChange} required>
           <option value="">Select Family</option>
           {trees &&
             trees.map((t) => (

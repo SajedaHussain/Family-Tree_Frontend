@@ -2,13 +2,14 @@ import axios from "axios";
 
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/member`;
 
-const index = async () => {
+const index = async (tree_id) => {
     try {
-        const response = await axios.get(BASE_URL, {params: { treeCode: treeCode }});
-        return response.data.members;
+        const config = tree_id ? { params: { tree_id } } : {};
+        const response = await axios.get(BASE_URL, config);
+        return response.data.member || [];
     } catch (error) {
         console.error(error);
-        
+
     }
 };
 
@@ -28,7 +29,7 @@ const create = async (formData) => {
         return response.data.member;
     } catch (error) {
         console.error(error);
-       
+
     }
 };
 
@@ -38,7 +39,7 @@ const update = async (memberId, formData) => {
         return response.data.member;
     } catch (error) {
         console.error(error);
-       
+
     }
 };
 
@@ -48,7 +49,7 @@ const deleteOne = async (memberId) => {
         return response.data;
     } catch (error) {
         console.error(error);
-       
+
     }
 };
 
