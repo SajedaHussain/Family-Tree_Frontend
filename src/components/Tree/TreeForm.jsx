@@ -35,7 +35,7 @@ const TreeForm = (props) => {
         if(newTreeCreated){
 
           updateTrees(newTreeCreated)
-          navigate('/')
+          navigate('/members/new',{ state: { selectedTreeId: newTreeCreated._id }})
 
         }
         else{
