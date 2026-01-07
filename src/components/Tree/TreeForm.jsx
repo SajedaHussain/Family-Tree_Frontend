@@ -15,7 +15,7 @@ const TreeForm = (props) => {
     console.log(formState)
 
     const payload = {...formState}
-    payload.age=Number(payload.numFamily) 
+    
     
     if (treeToUpdate) {
       const updateTree = await treeService.update(treeToUpdate._id, payload)
@@ -49,11 +49,12 @@ const TreeForm = (props) => {
     
  
   const handleChange =(event)=>{
-    const {lastName , value } = event.target 
-
-    const newFormState ={...formState , lastName:value} 
+    const {name , value } = event.target 
+    const finalValue = name === "numFamily" ? Number(value) : value;
+    const newFormState ={...formState , [name] :finalValue} 
 
     setFormState(newFormState)
+
 
   }
   //if you cant write the input in the so there is something wroong in the handle change
@@ -64,6 +65,9 @@ const TreeForm = (props) => {
       <form onSubmit={handleSubmit}>
         <label htmlFor="lastName"> Family Name:</label>
         <input type="text" name="lastName" id='lastName' value={formState.lastName} onChange={handleChange}/>
+
+        <label htmlFor="code"> Tree Access Code:</label>
+        <input type="text" name="code"  id='code' value={formState.code} onChange={handleChange} required />
         
         <label htmlFor="numFamily"> No. of Family members:</label>
         <input type="number" name="numFamily" id='numFamily' min= {0} value={formState.numFamily} onChange={handleChange}/>
