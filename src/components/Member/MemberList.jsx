@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 const MemberList = ({ members }) => {
   const { treeId } = useParams();
 
-  // نفلتر الممبرز حسب الشجرة
+  //choose the member based on tree id 
   const treeMembers = members.filter(
     (member) => member.tree === treeId
   );
