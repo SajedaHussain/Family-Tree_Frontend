@@ -1,4 +1,4 @@
-import React from "react";
+//IMPORT ==========================================================================================
 import { useState, useEffect } from "react";
 import * as memberService from "../../services/memberService";
 import { Link, useNavigate, useParams } from "react-router";
@@ -28,14 +28,14 @@ function MemberDetail(props) {
     }
   };
 
-  if (!id) return <h1>Loading ...</h1>;
   if (!member) return <h1>Loading.....</h1>;
+
   return (
     <div>
       MemberDetails{id}
       <h1>Member's First Name: {member.firstName}</h1>
       <h1> Last Name : {member.lastName}</h1>
-      <h1> Gender : {member.gender}</h1>
+      <h1> Relation : {member.relation}</h1>
       <h1> Date Of Birth : {member.dateOfBirth}</h1>
       <h1> image : {member.image}</h1>
       <div>
