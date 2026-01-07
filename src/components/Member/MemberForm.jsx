@@ -5,21 +5,21 @@ import { useNavigate } from "react-router";
 //rafce to creac this code
 
 const MemberForm = (props) => {
-  const { updateMembers, memberToUpdate, updateOneMember , trees } = props;
+  const { updateMembers, memberToUpdate, updateOneMember, trees } = props;
   const { setMembers, members } = props;
   const navigate = useNavigate();
   const [formState, setFormState] = useState(
-    memberToUpdate? memberToUpdate
+    memberToUpdate ? memberToUpdate
       : {
-          firstName: "",
-          lastName: "",
-          gender: "",
-          dateOfBirth: "",
-          image: "",
-          generation:"",
-          parentId: null,
-          treeCode: ""
-        }
+        firstName: "",
+        lastName: "",
+        relation: "",
+        dateOfBirth: "",
+        image: "",
+        generation: "",
+        parentId: null,
+        tree_id: ""
+      }
   );
 
   //the above line is instead of writhing :
@@ -37,12 +37,12 @@ const MemberForm = (props) => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    const payload = { 
-      ...formState, 
+    const payload = {
+      ...formState,
       generation: Number(formState.generation)//  لأرقام generation لتحويل ال
     };
     // payload.age = Number(payload.age); // ?????
-    //dateOfBirth   ,  gender , image
+    //dateOfBirth   ,  relation , image
     if (memberToUpdate) {
       const updatedMember = await memberService.update(memberToUpdate._id, payload);
       if (updatedMember) {
@@ -85,11 +85,13 @@ const MemberForm = (props) => {
           onChange={handleChange}
         />
 
-        <label htmlFor="gender"> Gender :</label>
-        <select name="gender" id="gender" value={formState.gender} onChange={handleChange}>
-          <option value="">Select gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
+        <label htmlFor="relation"> Relation :</label>
+        <select name="relation" id="relation" value={formState.relation} onChange={handleChange}>
+          <option value="">Select Relation</option>
+          <option value="Grandparents">Grandparents</option>
+          <option value="Parents">Parents</option>
+          <option value="Son">Son</option>
+          <option value="Daughter">Daughter</option>
         </select>
 
         <label htmlFor="dateOfBirth"> Date of Birth :</label>
@@ -103,36 +105,36 @@ const MemberForm = (props) => {
 
         <label htmlFor="image"> Picture :</label>
         <input
-          type="file"
+          type="text"
           name="image"
-          id="image"
-          value={formState.image}
+          placeholder="Image URL"
+          value={formState.image || ""}
           onChange={handleChange}
         />
 
         <label htmlFor="generation"> Generation :</label>
         <input
-          type="text"
+          type="number"
           name="generation"
           id="generation"
           value={formState.generation}
           onChange={handleChange}
         />
 
-        <label htmlFor="treeCode">Family Tree:</label>{/* اختيار اسم العائله لاخذ ال ıd */}
-        <select name="treeCode" value={formState.treeCode} onChange={handleChange} required>
+        <label htmlFor="tree_id">Family Tree:</label>{/* اختيار اسم العائله لاخذ ال ıd */}
+        <select name="tree_id" value={formState.tree_id} onChange={handleChange} required>
           <option value="">Select Family</option>
-              {trees && trees.map(t => (
-          <option key={t._id} value={t._id}>{t.lastName} Family</option>
+          {trees && trees.map(t => (
+            <option key={t._id} value={t._id}>{t.lastName} Family</option>
           ))}
         </select>
 
         <label htmlFor="parentId">Parent:</label>{/* اختيار اسم الاب لاخذ ال ıd */}
         <select name="parentId" value={formState.parentId} onChange={handleChange}>
-        <option value="">No Parent (Grandfather)</option>
+          <option value="">No Parent (Grandfather)</option>
           {members.map(m => (
-        <option key={m._id} value={m._id}>{m.firstName}</option>
-        ))}
+            <option key={m._id} value={m._id}>{m.firstName}</option>
+          ))}
         </select>
 
         <button type="submit">Save</button>

@@ -5,7 +5,7 @@ import * as treeService from '../../services/treeService'
 import * as memberService from '../../services/memberService'
 import { Link, useNavigate, useParams } from 'react-router'
 
-const TreeDetail = ({ findTreeToUpdate , deleteTrees , members}) => {
+const TreeDetail = ({ findTreeToUpdate , deleteTrees }) => {
     const [tree, setTree] = useState(null)
     const { id } = useParams()
     const [familyData, setFamilyData] = useState(null); // تخزين المعلومات على شكل شجره
@@ -20,7 +20,7 @@ const TreeDetail = ({ findTreeToUpdate , deleteTrees , members}) => {
             .map(m => ({
                 name: m.firstName,
                 attributes: { 
-                    Gender: m.gender,
+                    Relation: m.relation,
                     Gen: m.generation 
                 },
                 children: formatDataForTree(list, m._id) 
@@ -33,9 +33,8 @@ useEffect(() => {
                 const treeData = await treeService.show(id);
                 setTree(treeData);
 
-                const response = await memberService.index(id); 
-                const treeMembers = response.member || response; 
-
+                const treeMembers = await memberService.index(id); 
+               
                 // تحويل البيانات لشكل شجرة
                 const structured = formatDataForTree(treeMembers);
                 

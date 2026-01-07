@@ -1,9 +1,9 @@
-import React from "react";
+//IMPORT ==========================================================================================
 import { useState, useEffect } from "react";
 import * as memberService from "../../services/memberService";
 import { Link, useNavigate, useParams } from "react-router";
 
-function MemberDetails(props) {
+function MemberDetail(props) {
   const navigate = useNavigate();
   const { id } = useParams(); // same as req.params
   const { findMemberToUpdate, deleteMember } = props;
@@ -28,14 +28,14 @@ function MemberDetails(props) {
     }
   };
 
-  if (!id) return <h1>Loading ...</h1>;
   if (!member) return <h1>Loading.....</h1>;
+
   return (
     <div>
       MemberDetails{id}
       <h1>Member's First Name: {member.firstName}</h1>
       <h1> Last Name : {member.lastName}</h1>
-      <h1> Gender : {member.gender}</h1>
+      <h1> Relation : {member.relation}</h1>
       <h1> Date Of Birth : {member.dateOfBirth}</h1>
       <h1> image : {member.image}</h1>
       <div>
@@ -48,4 +48,4 @@ function MemberDetails(props) {
   );
 }
 
-export default MemberDetails;
+export default MemberDetail;
