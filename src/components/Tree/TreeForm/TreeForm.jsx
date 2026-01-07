@@ -30,11 +30,12 @@ const TreeForm = (props) => {
         // حالة التعديل
         const updatedTree = await treeService.update(treeToUpdate._id, payload);
         if (updatedTree) updateOneTree(updatedTree);
+
       } else if (updateTrees) {
         // حالة الإضافة
         const newTree = await treeService.create(payload);
         if (newTree) updateTrees(newTree);
-        navigate('/members/new',{ state: { selectedTreeId: newTree._id }})
+        navigate(`/members/new`,{ state: { selectedTreeId: newTree._id }})
 
       } else {
         console.log('No valid function provided for TreeForm!');

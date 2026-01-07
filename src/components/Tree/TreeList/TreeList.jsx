@@ -18,6 +18,10 @@ const TreeList = ({trees}) => {
             ))
         }
       </ul>}
+
+       
+       <Link to={`/trees/new`}>Add Tree</Link> 
+       
     </div>
   )
 }
