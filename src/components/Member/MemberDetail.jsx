@@ -28,8 +28,8 @@ function MemberDetails(props) {
     }
   };
 
-  if (!id) return <h1>Loading ...</h1>;
   if (!member) return <h1>Loading.....</h1>;
+  
   return (
     <div>
       MemberDetails{id}

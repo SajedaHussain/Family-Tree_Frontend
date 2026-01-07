@@ -33,9 +33,8 @@ useEffect(() => {
                 const treeData = await treeService.show(id);
                 setTree(treeData);
 
-                const response = await memberService.index(id); 
-                const treeMembers = response.member || response; 
-
+                const treeMembers = await memberService.index(id); 
+               
                 // تحويل البيانات لشكل شجرة
                 const structured = formatDataForTree(treeMembers);
                 
