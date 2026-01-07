@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import * as memberService from "../../services/membrService";
+import * as memberService from "../../services/memberService";
 import { useNavigate } from "react-router";
 //rafce to creac this code
 
@@ -52,7 +52,7 @@ const MemberForm = (props) => {
         console.log("something wrong");
       }
     } else {
-      const newMemberCreated = await memberService.creat(payload);
+      const newMemberCreated = await memberService.create(payload);
 
       if (newMemberCreated) {
         updateMembers(newMemberCreated); // للحصول على اي قيمة جديدة مضافة للظهور اما باعادة رفرش للموقع او عمل ابديت

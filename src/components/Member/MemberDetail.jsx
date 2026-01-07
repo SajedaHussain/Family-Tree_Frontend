@@ -11,7 +11,7 @@ function MemberDetails(props) {
   const [member, setMember] = useState(null);
 
   useEffect(() => {
-    const getOneDuck = async (id) => {
+    const getOneMember = async (id) => {
       const member = await memberService.show(id);
       setMember(member);
     };
