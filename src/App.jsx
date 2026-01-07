@@ -17,7 +17,7 @@ import TreeForm from "./components/Tree/TreeForm";
 import TreeList from "./components/Tree/TreeList";
 
 import MemberForm from "./components/Member/MemberForm";
-import MemberDetail from "./components/Member/MemberDetail";
+import MemberDetails from "./components/Member/MemberDetails";
 import MemberList from "./components/Member/MemberList";
 
 import { UserContext } from "./contexts/UserContext";
@@ -31,12 +31,23 @@ const App = () => {
     <>
       <NavBar />
       <Routes>
+        {/* Auth & Home */}
         {/* if the user is logged in we have the user object else we have the user set to null */}
         <Route path="/" element={user ? <Dashboard /> : <Landing />} />
         <Route path="/sign-up" element={<SignUpForm />} />
         <Route path="/sign-in" element={<SignInForm />} />
 
-        <Route path="/tree/:id" element={<TreeDetail members={members} />} />
+        {/* Trees */}
+        <Route path="/trees" element={<TreeList />} />
+        <Route path="/trees/new" element={<TreeForm />} />
+        <Route path="/trees/:id" element={<TreeDetail members={members} />} />
+        <Route path="/trees/:id/update" element={<TreeForm />} />
+
+        {/* Members */}
+        <Route path="/members" element={<MemberList />} />
+        <Route path="/members/new" element={<MemberForm />} />
+        <Route path="/members/:id" element={<MemberDetails />} />
+        <Route path="/members/:id/update" element={<MemberForm />} />
       </Routes>
     </>
   );
