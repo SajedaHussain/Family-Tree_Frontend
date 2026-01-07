@@ -2,7 +2,7 @@ import axios from "axios";
 
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/member`;
 
-const index = async () => {
+const index = async (tree_id) => {
     try {
         const config = tree_id ? { params: { tree_id } } : {};
         const response = await axios.get(BASE_URL, config);
