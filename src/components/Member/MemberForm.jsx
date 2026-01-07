@@ -114,7 +114,7 @@ const MemberForm = (props) => {
 
         <label htmlFor="generation"> Generation :</label>
         <input
-          type="text"
+          type="number"
           name="generation"
           id="generation"
           value={formState.generation}
