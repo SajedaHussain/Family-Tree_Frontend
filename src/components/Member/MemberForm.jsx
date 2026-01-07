@@ -17,7 +17,7 @@ const MemberForm = (props) => {
           gender: "",
           dateOfBirth: "",
           image: "",
-          generation:""
+          generation: "",
         }
   );
   //the above line is instead of writhing :
@@ -79,22 +79,14 @@ const MemberForm = (props) => {
           onChange={handleChange}
         />
 
-<<<<<<< HEAD
-        <lable htmlFor="gender">Ginder :</lable>
-=======
         <lable htmlFor="gender"> Gender :</lable>
->>>>>>> main
         <select name="gender" id="gender" value={formState.gender} onChange={handleChange}>
           <option value="">Select gender</option>
           <option value="male">Male</option>
           <option value="female">Female</option>
         </select>
 
-<<<<<<< HEAD
-        <lable htmlFor="dateOfBirth">Date of Birth :</lable>
-=======
         <lable htmlFor="dateOfBirth"> Date of Birth :</lable>
->>>>>>> main
         <input
           type="date"
           name="dateOfBirth"
@@ -102,10 +94,6 @@ const MemberForm = (props) => {
           value={formState.dateOfBirth}
           onChange={handleChange}
         />
-<<<<<<< HEAD
-        {/* to be niguatioted */}
-        <input type="file" name="image" id="image" accept="image/*" onChange={handleChange} />
-=======
 
         <lable htmlFor="image"> Picture :</lable>
         <input
@@ -115,7 +103,6 @@ const MemberForm = (props) => {
           value={formState.image}
           onChange={handleChange}
         />
->>>>>>> main
 
         <lable htmlFor="generation"> Generation :</lable>
         <input
@@ -125,7 +112,6 @@ const MemberForm = (props) => {
           value={formState.generation}
           onChange={handleChange}
         />
-
 
         <button type="submit">Save</button>
       </form>
