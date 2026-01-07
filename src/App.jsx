@@ -75,7 +75,7 @@ const App = () => {
 
         {/* Member Routes */}
         <Route path="/members" element={<MemberList members={members} />} />
-        <Route path="/members/new" element={<MemberForm updateMembers={addMember} trees={trees}members={members} /> }/>
+        <Route path="/members/new" element={<MemberForm updateMembers={addMember} trees={trees} members={members} />} />
         <Route path="/members/:id" element={<MemberDetail findMemberToUpdate={findMemberToUpdate} deleteMember={deleteMember} /> } />
         <Route path="/members/:id/update" element={<MemberForm memberToUpdate={memberToUpdate} updateOneMember={updateOneMember} trees={trees} members={members}/>}/>
       </Routes>
