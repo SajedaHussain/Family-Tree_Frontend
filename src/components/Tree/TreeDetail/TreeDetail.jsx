@@ -36,9 +36,9 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
             .map(member => ({
                 name: member.firstName,
                 lastName: member.lastName,
-                relation:member.relation,
-                dateOfBirth:member.dateOfBirth,
-                image:member.image,
+                relation: member.relation,
+                dateOfBirth: member.dateOfBirth,
+                image: member.image,
                 attributes: {
                     Relation: member.relation,
                     Generation: member.generation,
@@ -73,8 +73,6 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
         loadTreeData()
     }, [treeId])
 
-
-
     const handleDelete = async () => {
         if (!code) return console.log('Please enter the family code to delete this tree!');
         try {
@@ -89,6 +87,49 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
 
     }
     if (!tree) return <h1>Loading ...</h1>
+   const renderCustomNode = ({ nodeDatum }) => (
+  <g>
+    {/* 1. عرض الصورة أو الإيموجي الافتراضي */}
+    {nodeDatum.image ? (
+      <image
+        href={nodeDatum.image}
+        x="-25" 
+        y="-40"
+        width="50"
+        height="50"
+        style={{ cursor: 'pointer' }}
+        onClick={() => handleNodeClick({ data: nodeDatum })}
+      />
+    ) : (
+      <text
+        x="-20" 
+        y="-5"
+        style={{ fontSize: '40px', cursor: 'pointer', userSelect: 'none' }}
+        onClick={() => handleNodeClick({ data: nodeDatum })}
+      >
+        👤
+      </text>
+    )}
+
+    {/* 2. عرض الاسم تحت الصورة */}
+    <text
+      fill="#333" 
+      x="0" 
+      y="30" 
+      textAnchor="middle" 
+      style={{ 
+        fontSize: '14px', 
+        fontWeight: '600', 
+        fontFamily: 'Arial',
+        pointerEvents: 'none' 
+      }}
+    >
+      {nodeDatum.name}
+    </text>
+    
+  </g>
+);
+
     return (
         <div>
 
@@ -108,6 +149,8 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
                         pathFunc="step"
                         translate={{ x: 250, y: 50 }}
                         onNodeClick={handleNodeClick}
+                        renderCustomNodeElement={(rd3tProps) =>
+                            renderCustomNode({ ...rd3tProps, onNodeClick: handleNodeClick })}
                     />
                     ) : (
                         <div>
