@@ -13,14 +13,13 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
 
     const [selectedNodeData, setSelectedNodeData] = useState(null);
 
-    const handleNodeClick = (nodeData, evt) => {
+    const handleNodeClick = (nodeDatum) => {
         // Set the state to show the pop-up with the clicked node's data
-        setSelectedNodeData(nodeData);
+        setSelectedNodeData(nodeDatum);
     };
 
     const [tree, setTree] = useState(null)
     const [familyData, setFamilyData] = useState(null)
-    const [code, setCode] = useState('');
 
     const formatDataForTree = (membersList, parentId = null) => {
         return membersList
@@ -73,7 +72,6 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
     }, [treeId])
 
     const handleDelete = async (verifiedCode) => {
-        if (!code) return console.log('Please enter the family code to delete this tree!');
         try {
             const deletedTree = await treeService.deleteOne(treeId, { code: verifiedCode });
             if (deletedTree) {
@@ -87,49 +85,65 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
 
     if (!tree) return <h1>Loading ...</h1>
 
+const renderCustomNode = ({ nodeDatum, toggleNode }) => (
+    <g>
+        {/* 1. تعريف القناع الدائري للصورة */}
+        <defs>
+            <clipPath id={`circleClip-${nodeDatum.name}`}>
+                <circle cx="0" cy="-15" r="25" />
+            </clipPath>
+        </defs>
 
-    const renderCustomNode = ({ nodeDatum }) => (
-        <g>
-            {/* 1. عرض الصورة أو الإيموجي الافتراضي */}
+        {/* 2. المنطقة القابلة للضغط لفتح وإغلاق الفروع */}
+        <g onClick={toggleNode} style={{ cursor: 'pointer' }}>
             {nodeDatum.image ? (
-                <image
-                    href={nodeDatum.image}
-                    x="-25"
-                    y="-40"
-                    width="50"
-                    height="50"
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => handleNodeClick({ data: nodeDatum })}
-                />
+                <>
+                    {/* دائرة خلفية لتعطي إطاراً جميلاً */}
+                    <circle r="27" fill="#2d5a27" cx="0" cy="-15" />
+                    <image
+                        href={nodeDatum.image}
+                        x="-25"
+                        y="-40"
+                        width="50"
+                        height="50"
+                        clipPath={`url(#circleClip-${nodeDatum.name})`}
+                        preserveAspectRatio="xMidYMid slice"
+                    />
+                </>
             ) : (
+                /* إذا ما فيه صورة: أظهر الإيموجي في نص الدائرة */
                 <text
-                    x="-20"
+                    x="0"
                     y="-5"
-                    style={{ fontSize: '40px', cursor: 'pointer', userSelect: 'none' }}
-                    onClick={() => handleNodeClick({ data: nodeDatum })}
+                    textAnchor="middle"
+                    style={{ fontSize: '30px', pointerEvents: 'none', userSelect: 'none' }}
                 >
                     👤
                 </text>
             )}
-
-            {/* 2. عرض الاسم تحت الصورة */}
-            <text
-                fill="#333"
-                x="0"
-                y="30"
-                textAnchor="middle"
-                style={{
-                    fontSize: '14px',
-                    fontWeight: '600',
-                    fontFamily: 'Arial',
-                    pointerEvents: 'none'
-                }}
-            >
-                {nodeDatum.name}
-            </text>
-
+            
+            {/* علامة الزائد تظهر فقط عند وجود أبناء مخفيين */}
+            {nodeDatum.children && nodeDatum.children.length > 0 && nodeDatum.__rd3t.collapsed && (
+                <text x="22" y="-30" style={{ fontSize: '14px' }}>➕</text>
+            )}
         </g>
-    );
+
+        {/* 3. اسم العضو - يفتح البوب أب */}
+        <text
+            fill="#333"
+            x="0"
+            y="35"
+            textAnchor="middle"
+            style={{ fontSize: '14px', fontWeight: '600', cursor: 'pointer' }}
+            onClick={(e) => {
+                e.stopPropagation();
+                handleNodeClick(nodeDatum);
+            }}
+        >
+            {nodeDatum.name}
+        </text>
+    </g>
+);
 
     const handleProtectedAction = async (actionType) => {
 
@@ -188,14 +202,13 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
                         orientation="vertical"
                         pathFunc="step"
                         translate={{ x: 250, y: 50 }}
-                        onNodeClick={handleNodeClick}
-                        renderCustomNodeElement={(rd3tProps) =>
-                            renderCustomNode({ ...rd3tProps, onNodeClick: handleNodeClick })}
+
+                        renderCustomNodeElement={(rd3tProps) => renderCustomNode(rd3tProps)}
                     />
                     ) : (
                         <div>
                             <p>No members found.</p>
-                            <button  onClick={() => handleProtectedAction('add')}>+ Add First Member</button>
+                            <button onClick={() => handleProtectedAction('add')}>+ Add First Member</button>
                         </div>
                     )}
             </div>

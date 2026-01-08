@@ -5,7 +5,7 @@ const PopupCard = ({ data, onClose }) => {
 
   if (!data) return null;
 
-  const memberInfo = data.data; 
+  const memberInfo = data; 
   const attributes = memberInfo.attributes;
 
   return (
@@ -22,7 +22,7 @@ const PopupCard = ({ data, onClose }) => {
             <>
               <p><strong>Relation:</strong> {attributes.Relation }</p>
               <p><strong>Generation:</strong> {attributes.Generation}</p>
-              <p><strong>Date Of Birth:</strong> {memberInfo.dateOfBirth }</p>
+              <p><strong>Date Of Birth:</strong> {memberInfo.dateOfBirth.split('T')[0] }</p>
               {attributes.RecordCount && (
                 <p><strong>Record Count:</strong> {attributes.RecordCount}</p>
               )}
