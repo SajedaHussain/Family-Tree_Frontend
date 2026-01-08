@@ -1,0 +1,52 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background-color: #1f2937; /* لون غامق نظيف */
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.nav-left,
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* مسافة بين العناصر */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-left a,
+.nav-right a,
+.nav-btn {
+  text-decoration: none;
+  color: #e5e7eb; /* لون فاتح للنص */
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background 0.3s, color 0.3s;
+}
+
+.nav-left a:hover,
+.nav-right a:hover {
+  background-color: #374151; /* لون خلفية عند hover */
+}
+
+.nav-btn {
+  background-color: #ef4444; /* لون أحمر للزر */
+  border: none;
+  cursor: pointer;
+}
+
+.nav-btn:hover {
+  background-color: #b91c1c; /* أحمر غامق عند hover */
+  color: #fff;
+}
+
+.nav-username {
+  font-weight: 600;
+  color: #f3f4f6;
+}
