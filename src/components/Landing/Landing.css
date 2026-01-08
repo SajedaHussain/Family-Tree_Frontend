@@ -1,29 +1,81 @@
-
-.landing-title {
-  font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 2rem;
-  color: #1a202c;
+/* الحاوية الرئيسية تشغل كامل الشاشة */
+.landing-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f0f7ef 0%, #d9e8d6 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
 }
 
+/* عنوان الصفحة */
+.landing-title {
+  font-size: 3.5rem;
+  color: #2d5a27;
+  margin-bottom: 40px;
+  font-weight: 800;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  letter-spacing: -1px;
+}
+
+/* حاوية الأزرار */
 .landing-buttons {
   display: flex;
-  gap: 1.5rem;
+  gap: 20px;
 }
 
+/* التنسيق العام للأزرار */
 .landing-btn {
-  padding: 0.8rem 2rem;
-  font-size: 1.2rem;
-  font-weight: bold;
-  border: none;
-  border-radius: 10px;
+  padding: 15px 40px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px; /* أزرار دائرية الحواف جداً */
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  background-color: #4f46e5; /* لون أزرق */
-  color: #fff;
+  transition: all 0.3s ease;
+  border: none;
+  min-width: 160px;
 }
 
-.landing-btn:hover {
+/* زر تسجيل الدخول (Sign In) */
+.landing-btn:first-child {
+  background-color: #2d5a27;
+  color: white;
+  box-shadow: 0 4px 15px rgba(45, 90, 39, 0.3);
+}
+
+.landing-btn:first-child:hover {
+  background-color: #21441d;
   transform: translateY(-3px);
-  background-color: #4338ca; /* غامق شوي عند المرور */
+  box-shadow: 0 6px 20px rgba(45, 90, 39, 0.4);
+}
+
+/* زر إنشاء حساب (Sign Up) */
+.landing-btn:last-child {
+  background-color: white;
+  color: #2d5a27;
+  border: 2px solid #2d5a27;
+}
+
+.landing-btn:last-child:hover {
+  background-color: #f9fdf9;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* تأثير حركي بسيط عند فتح الصفحة */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.landing-container {
+  animation: fadeInScale 0.8s ease-out;
 }

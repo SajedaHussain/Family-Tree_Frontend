@@ -1,74 +1,75 @@
 .tree-form-container {
-  max-width: 450px;
+  max-width: 500px;
   margin: 50px auto;
-  padding: 35px;
-  background: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .tree-form-container h1 {
+  color: #2d5a27;
   text-align: center;
-  color: #2c3e50;
   margin-bottom: 30px;
   font-size: 1.8rem;
+  font-weight: 600;
 }
 
 .tree-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 
 .tree-form label {
-  font-size: 0.95rem;
   font-weight: 600;
-  color: #34495e;
-  margin-bottom: -12px;
+  margin-bottom: 8px;
+  color: #444;
+  font-size: 0.95rem;
 }
 
 .tree-form input {
-  padding: 12px 16px;
-  border: 2px solid #edf2f7;
-  border-radius: 10px;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
   font-size: 1rem;
-  background-color: #f8fafc;
   transition: all 0.3s ease;
+  outline: none;
 }
 
 .tree-form input:focus {
-  outline: none;
-  border-color: #48bb78; /* لون أخضر ليرمز للشجر */
-  background-color: #fff;
-  box-shadow: 0 0 0 4px rgba(72, 187, 120, 0.1);
+  border-color: #2d5a27;
+  box-shadow: 0 0 8px rgba(45, 90, 39, 0.15);
+}
+
+.tree-form input[type="number"] {
+  width: 100px;
 }
 
 .tree-form button {
-  margin-top: 15px;
-  padding: 15px;
-  background-color: #48bb78; /* لون أخضر شجري */
+  background-color: #2d5a27;
   color: white;
+  padding: 14px;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: transform 0.2s, background 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-top: 10px;
 }
 
 .tree-form button:hover {
-  background-color: #38a169;
+  background-color: #22451e;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .tree-form button:active {
-  transform: scale(0.97);
+  transform: translateY(0);
 }
 
-/* تنسيق للرسائل التوضيحية */
-.tree-form-container p {
-  text-align: center;
-  font-size: 0.85rem;
-  color: #718096;
-  margin-top: 20px;
+.tree-form input:invalid:not(:placeholder-shown) {
+  border-color: #ff4d4d;
 }

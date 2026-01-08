@@ -1,79 +1,76 @@
-/* تنسيق الحاوية الرئيسية */
 .member-form-container {
-  max-width: 500px;
-  margin: 40px auto;
+  max-width: 550px;
+  margin: 30px auto;
   padding: 30px;
-  background: #ffffff;
-  border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .member-form-container h2 {
+  color: #2d5a27;
   text-align: center;
-  color: #333;
   margin-bottom: 25px;
-  font-weight: 600;
+  font-size: 1.7rem;
 }
 
-/* تنسيق الفورم */
-.member-form {
+.member-form-container form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 15px; 
 }
 
-/* تنسيق العناوين (Labels) */
-.member-form label {
-  font-size: 0.9rem;
-  font-weight: bold;
-  color: #555;
-  margin-bottom: -10px;
-}
-
-/* تنسيق حقول الإدخال والقوائم */
-.member-form input,
-.member-form select {
+.member-form-container input,
+.member-form-container select {
   padding: 12px 15px;
-  border: 1px solid #ddd;
+  border: 2px solid #f0f0f0;
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.3s ease;
+  background-color: #fafafa;
+}
+
+.member-form-container input:focus,
+.member-form-container select:focus {
   outline: none;
+  border-color: #2d5a27;
+  background-color: #ffffff;
+  box-shadow: 0 0 8px rgba(45, 90, 39, 0.1);
 }
 
-.member-form input:focus,
-.member-form select:focus {
-  border-color: #4a90e2;
-  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+.member-form-container label {
+  font-weight: 600;
+  color: #555;
+  margin-bottom: -10px; 
+  font-size: 0.9rem;
+  margin-top: 5px;
 }
 
-/* تنسيق زر الحفظ */
-.member-form button {
-  margin-top: 10px;
-  padding: 14px;
-  background-color: #4a90e2;
+.member-form-container button[type="submit"] {
+  background-color: #2d5a27;
   color: white;
+  padding: 15px;
   border: none;
   border-radius: 8px;
   font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s ease;
+  margin-top: 15px;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
-.member-form button:hover {
-  background-color: #357abd;
+.member-form-container button[type="submit"]:hover {
+  background-color: #21441d;
+  transform: translateY(-2px);
 }
 
-.member-form button:active {
-  transform: scale(0.98);
+.member-form-container select[name="parentId"] {
+  background-color: #fefefe;
+  border: 2px dashed #e0e0e0; 
 }
 
-/* جعل التصميم متجاوب مع الموبايل */
-@media (max-width: 600px) {
-  .member-form-container {
-    margin: 20px;
-    padding: 20px;
-  }
+.member-form-container input[type="date"] {
+  color: #666;
+  cursor: pointer;
 }
