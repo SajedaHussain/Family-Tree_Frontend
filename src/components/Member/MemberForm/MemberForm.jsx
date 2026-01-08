@@ -1,14 +1,12 @@
-import React from "react";
 import { useState } from "react";
-import * as memberService from "../../../services/memberService";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router-dom";
+import * as memberService from "../../services/memberService";
 import "./MemberForm.css";
-//rafce to creac this code
 
-const MemberForm = (props) => {
-  const { updateMembers, memberToUpdate, updateOneMember, trees } = props;
-  const { setMembers, members } = props;
+const MemberForm = ({ updateMembers, memberToUpdate, updateOneMember }) => {
   const navigate = useNavigate();
+  const { treeId } = useParams();
+
   const [formState, setFormState] = useState(
     memberToUpdate ? memberToUpdate
       : {
@@ -24,17 +22,12 @@ const MemberForm = (props) => {
       }
   );
 
-  //the above line is instead of writhing :
-  // THIS 100% OK TOO!!!!!
-  // const [name, setName] = useState('')
-  //...
-
-  const handleChange = (evt) => {
-    const { name, value } = evt.target;
-    const finalValue = value === "" ? null : value;//عشان اذا تركه فاضي يعرف القيمه null
-    const newFormState = { ...formState, [name]: finalValue };
-
-    setFormState(newFormState);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormState({
+      ...formState,
+      [name]: value === "" ? null : value,
+    });
   };
 
   const handleSubmit = async (evt) => {
@@ -42,7 +35,8 @@ const MemberForm = (props) => {
     try{
     const payload = {
       ...formState,
-      generation: Number(formState.generation)//  لأرقام generation لتحويل ال
+      generation: Number(formState.generation),
+      tree: treeId, // ⭐ أهم سطر
     };
     // payload.age = Number(payload.age); // ?????
     //dateOfBirth   ,  relation , image
@@ -61,7 +55,9 @@ const MemberForm = (props) => {
       } else {
         console.log("some thing wrong");
       }
-    }
+
+      navigate(`/trees/${treeId}/members`);
+    } 
     }catch(error){
       console.log(error)
     }
@@ -72,26 +68,28 @@ const MemberForm = (props) => {
     <h2>{memberToUpdate ? 'Edit Member' : 'Add New Member'}</h2>
 
       <form onSubmit={handleSubmit}>
-        <label htmlFor="firstName">First Name :</label>
         <input
-          type="text"
           name="firstName"
-          id="firstName"
+          placeholder="First Name"
           value={formState.firstName}
           onChange={handleChange}
+          required
         />
 
-        <label htmlFor="lastName">Last Name :</label>
         <input
-          type="text"
           name="lastName"
-          id="lastName"
+          placeholder="Last Name"
           value={formState.lastName}
           onChange={handleChange}
+          required
         />
 
-        <label htmlFor="relation"> Relation :</label>
-        <select name="relation" id="relation" value={formState.relation} onChange={handleChange}>
+        <select
+          name="relation"
+          value={formState.relation || ""}
+          onChange={handleChange}
+          required
+        >
           <option value="">Select Relation</option>
           <option value="Grandparents">Grandparents</option>
           <option value="Parents">Parents</option>
@@ -99,46 +97,41 @@ const MemberForm = (props) => {
           <option value="Daughter">Daughter</option>
         </select>
 
-        <label htmlFor="dateOfBirth"> Date of Birth :</label>
         <input
           type="date"
           name="dateOfBirth"
-          id="dateOfBirth"
-          value={formState.dateOfBirth}
+          value={formState.dateOfBirth || ""}
           onChange={handleChange}
         />
 
-        <label htmlFor="image"> Picture :</label>
         <input
-          type="text"
           name="image"
           placeholder="Image URL"
           value={formState.image || ""}
           onChange={handleChange}
         />
 
-        <label htmlFor="generation"> Generation :</label>
         <input
           type="number"
           name="generation"
-          id="generation"
-          value={formState.generation}
+          placeholder="Generation"
+          value={formState.generation || ""}
           onChange={handleChange}
         />
 
         <label htmlFor="tree_id">Family Tree:</label>{/* اختيار اسم العائله لاخذ ال ıd */}
         <select name="tree_id" value={formState.tree_id} onChange={handleChange} required>
           <option value="">Select Family</option>
-          {trees && trees.map(t => (
-            <option key={t._id} value={t._id}>{t.lastName} Family</option>
+          {trees && trees.map(tree => (
+            <option key={tree._id} value={tree._id}>{tree.lastName} Family</option>
           ))}
         </select>
 
         <label htmlFor="parentId">Parent:</label>{/* اختيار اسم الاب لاخذ ال ıd */}
         <select name="parentId" value={formState.parentId} onChange={handleChange}>
           <option value="">No Parent (Grandfather)</option>
-          {members.map(m => (
-            <option key={m._id} value={m._id}>{m.firstName}</option>
+          {members.map(member => (
+            <option key={member._id} value={member._id}>{member.firstName}</option>
           ))}
         </select>
 

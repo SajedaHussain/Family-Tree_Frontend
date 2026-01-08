@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import * as treeService from '../../../services/treeService';
-import { useNavigate } from 'react-router';
+import * as treeService from '../../services/treeService';
+import { useNavigate } from 'react-router-dom';
 import  "./TreeForm.css";
 
 const TreeForm = (props) => {

@@ -1,29 +1,27 @@
 import React from 'react'
-import { Link } from 'react-router'
-import Tree from 'react-d3-tree';
+import { Link } from 'react-router-dom'
 import "./TreeList";
-//rafce for arrow function
-const TreeList = ({trees}) => {
 
+const TreeList = ({ trees }) => {
   return (
     <div>
       <h1>Tree List</h1>
-      {!trees.length ? <div>No Trees found </div> : 
+      {!trees.length ? (
+        <div>No Trees found</div>
+      ) : (
         <ul>
-        {
-            trees.map((oneTree)=> (
-                <li key={oneTree._id}>
-                    <Link to={`/trees/${oneTree._id}`}>{oneTree.lastName} Family</Link>
-                </li>
-            ))
-        }
-      </ul>}
-
-       
-       <Link to={`/trees/new`}>Add Tree</Link> 
-       
+          {trees.map((familyTree) => (
+            <li key={familyTree._id}>
+              <Link to={`/trees/${familyTree._id}`}>
+                {familyTree.lastName} Family
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   )
 }
 
 export default TreeList
+

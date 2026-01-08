@@ -1,55 +1,68 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Tree from 'react-d3-tree'
+<<<<<<< HEAD:src/components/Tree/TreeDetail/TreeDetail.jsx
 import { useState, useEffect } from 'react'
 import * as treeService from '../../../services/treeService'
 import * as memberService from '../../../services/memberService'
 import { Link, useNavigate, useParams } from 'react-router'
+=======
+import * as treeService from '../../services/treeService'
+import * as memberService from '../../services/memberService'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+>>>>>>> main:src/components/Tree/TreeDetail.jsx
 
-const TreeDetail = ({ findTreeToUpdate , deleteTrees }) => {
-    const [tree, setTree] = useState(null)
+const TreeDetail = ({ findTreeToUpdate, deleteTrees }) => {
     const { id } = useParams()
+<<<<<<< HEAD:src/components/Tree/TreeDetail/TreeDetail.jsx
     const [familyData, setFamilyData] = useState(null); // تخزين المعلومات على شكل شجره
     const [code, setCode] = useState('');
+=======
+>>>>>>> main:src/components/Tree/TreeDetail.jsx
     const navigate = useNavigate()
-    //داله لتحويل المعلومات على شكل شجره لتستقبلها المكتبه
-    const formatDataForTree = (list, parentId = null) => {
-        return list
-            .filter(m => {
-                const mPid = m.parentId?._id || m.parentId;
-                return mPid === parentId;
+
+    const [tree, setTree] = useState(null)
+    const [familyData, setFamilyData] = useState(null)
+
+    const formatDataForTree = (membersList, parentId = null) => {
+        return membersList
+            .filter(member => {
+                const parent = member.parentId?._id || member.parentId
+                return parent === parentId
             })
-            .map(m => ({
-                name: m.firstName,
-                attributes: { 
-                    Relation: m.relation,
-                    Gen: m.generation 
+            .map(member => ({
+                name: member.firstName,
+                attributes: {
+                    Relation: member.relation,
+                    Generation: member.generation,
                 },
-                children: formatDataForTree(list, m._id) 
-            }));
-    };
+                children: formatDataForTree(membersList, member._id),
+            }))
+    }
 
-useEffect(() => {
-        const getOneTree = async (id) => {
+
+    useEffect(() => {
+        const loadTreeData = async () => {
             try {
-                const treeData = await treeService.show(id);
-                setTree(treeData);
+                const treeData = await treeService.show(id)
+                setTree(treeData)
 
-                const treeMembers = await memberService.index(id); 
-               
-                // تحويل البيانات لشكل شجرة
-                const structured = formatDataForTree(treeMembers);
-                
-                if (structured.length > 0) {
-                    setFamilyData(structured[0]);
+                const membersList = await memberService.index(id)
+                const structuredMembers = formatDataForTree(membersList)
+
+                if (structuredMembers.length > 0) {
+                    setFamilyData({
+                        name: `${treeData.lastName} Family`,
+                        children: structuredMembers,
+                    })
                 }
             } catch (error) {
-                console.error("Error loading tree data:", error);
+                console.error("Error loading tree:", error)
             }
-        };
+        }
 
-        if (id) getOneTree(id);
+        loadTreeData()
+    }, [id])
 
-    }, [id]);
 
     const handleDelete = async () => {
         if (!code) return console.log('Please enter the family code to delete this tree!');
