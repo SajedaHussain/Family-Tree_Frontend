@@ -79,3 +79,65 @@
 .landing-container {
   animation: fadeInScale 0.8s ease-out;
 }
+/* صورة الموقع */
+.landing-image {
+  width: 200px;
+  max-width: 80%;
+  margin: 20px 0;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  animation: fadeInScale 0.8s ease-out;
+}
+
+/* وصف قصير */
+.landing-description {
+  font-size: 1.2rem;
+  color: #2d5a27;
+  max-width: 600px;
+  margin-bottom: 30px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* مربعات المميزات */
+.landing-cards {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.landing-card {
+  background-color: white;
+  border-radius: 20px;
+  padding: 20px;
+  width: 250px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.landing-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+.landing-card h3 {
+  color: #2d5a27;
+  margin-bottom: 10px;
+}
+
+.landing-card p {
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* استجابة للشاشات الصغيرة */
+@media (max-width: 768px) {
+  .landing-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+}
