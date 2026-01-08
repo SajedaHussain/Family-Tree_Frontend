@@ -1,8 +1,9 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
-
+import { Link, useParams, useNavigate } from "react-router-dom";
+import "./MemberList.css";
 const MemberList = ({ members }) => {
   const { treeId } = useParams();
+  const navigate = useNavigate();
 
   const treeMembers = members.filter(
     (member) =>
@@ -13,9 +14,12 @@ const MemberList = ({ members }) => {
     <div>
       <h2>Family Members</h2>
 
-      <Link to={`/trees/${treeId}/members/new`}>
+      <button
+        className="add-member-btn"
+        onClick={() => navigate(`/trees/${treeId}/members/new`)}
+      >
         ➕ Add New Member
-      </Link>
+      </button>
 
       {!treeMembers.length ? (
         <div>No members found</div>
@@ -23,9 +27,15 @@ const MemberList = ({ members }) => {
         <ul>
           {treeMembers.map((oneMember) => (
             <li key={oneMember._id}>
-              <Link to={`/trees/${treeId}/members/${oneMember._id}`}>
-                {oneMember.firstName} {oneMember.lastName}
-              </Link>
+              <button
+                className="member-item-btn"
+                onClick={() => navigate(`/trees/${treeId}/members/${oneMember._id}`)}
+              >
+                <span className="member-name">
+                  {oneMember.firstName} {oneMember.lastName}
+                </span>
+                <span className="arrow-icon">→</span>
+              </button>
             </li>
           ))}
         </ul>
