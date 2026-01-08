@@ -1,27 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import Tree from 'react-d3-tree'
-<<<<<<< HEAD:src/components/Tree/TreeDetail/TreeDetail.jsx
-import { useState, useEffect } from 'react'
 import * as treeService from '../../../services/treeService'
 import * as memberService from '../../../services/memberService'
-import { Link, useNavigate, useParams } from 'react-router'
-=======
-import * as treeService from '../../services/treeService'
-import * as memberService from '../../services/memberService'
 import { Link, useNavigate, useParams } from 'react-router-dom'
->>>>>>> main:src/components/Tree/TreeDetail.jsx
 
 const TreeDetail = ({ findTreeToUpdate, deleteTrees }) => {
-    const { id } = useParams()
-<<<<<<< HEAD:src/components/Tree/TreeDetail/TreeDetail.jsx
-    const [familyData, setFamilyData] = useState(null); // تخزين المعلومات على شكل شجره
-    const [code, setCode] = useState('');
-=======
->>>>>>> main:src/components/Tree/TreeDetail.jsx
+    const { treeId } = useParams()
     const navigate = useNavigate()
 
     const [tree, setTree] = useState(null)
     const [familyData, setFamilyData] = useState(null)
+     const [code, setCode] = useState('');
 
     const formatDataForTree = (membersList, parentId = null) => {
         return membersList
@@ -43,10 +32,10 @@ const TreeDetail = ({ findTreeToUpdate, deleteTrees }) => {
     useEffect(() => {
         const loadTreeData = async () => {
             try {
-                const treeData = await treeService.show(id)
+                const treeData = await treeService.show(treeId)
                 setTree(treeData)
 
-                const membersList = await memberService.index(id)
+                const membersList = await memberService.index(treeId)
                 const structuredMembers = formatDataForTree(membersList)
 
                 if (structuredMembers.length > 0) {
@@ -61,15 +50,15 @@ const TreeDetail = ({ findTreeToUpdate, deleteTrees }) => {
         }
 
         loadTreeData()
-    }, [id])
+    }, [treeId])
 
 
     const handleDelete = async () => {
         if (!code) return console.log('Please enter the family code to delete this tree!');
         try{
-        const deletedTree = await treeService.deleteOne(id, { code })
+        const deletedTree = await treeService.deleteOne(treeId, { code })
          if (deletedTree){
-            deleteTrees(id)
+            deleteTrees(treeId)
             navigate('/trees')
 
          }}
@@ -100,7 +89,7 @@ const TreeDetail = ({ findTreeToUpdate, deleteTrees }) => {
             />
            
             <div>
-                <Link onClick={() => findTreeToUpdate(id)} to={`/trees/${id}/update`}>Edit</Link>
+                <Link onClick={() => findTreeToUpdate(treeId)} to={`/trees/${treeId}/edit`}>Edit</Link>
                 <br />
                 <button onClick={handleDelete}>Delete</button>
             </div>

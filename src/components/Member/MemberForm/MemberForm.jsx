@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import * as memberService from "../../services/memberService";
+import * as memberService from "../../../services/memberService";
 import "./MemberForm.css";
 
-const MemberForm = ({ updateMembers, memberToUpdate, updateOneMember }) => {
+const MemberForm = ({ members, updateMembers, updateOneMember }) => {
   const navigate = useNavigate();
-  const { treeId } = useParams();
+  const { treeId,memberId } = useParams();
 
+  const [memberToUpdate,setMemberToUpdate] = useState(null)
   const [formState, setFormState] = useState(
     memberToUpdate ? memberToUpdate
       : {
@@ -22,6 +23,30 @@ const MemberForm = ({ updateMembers, memberToUpdate, updateOneMember }) => {
       }
   );
 
+
+  useEffect(()=>{
+
+    (async ()=>{
+      const data = await memberService.show(memberId)
+      setMemberToUpdate(data)
+    })()
+  },[])
+
+
+  useEffect(()=>{
+    setFormState( memberToUpdate ? memberToUpdate
+      : {
+        firstName: "",
+        lastName: "",
+        relation: "",
+        dateOfBirth: "",
+        image: "",
+        generation: "",
+        parentId: null,
+        tree_id: "",
+         code: '',
+      })
+  },[memberToUpdate])
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormState({
@@ -36,10 +61,9 @@ const MemberForm = ({ updateMembers, memberToUpdate, updateOneMember }) => {
     const payload = {
       ...formState,
       generation: Number(formState.generation),
-      tree: treeId, // ⭐ أهم سطر
+      tree_id: treeId, // ⭐ أهم سطر
     };
-    // payload.age = Number(payload.age); // ?????
-    //dateOfBirth   ,  relation , image
+    
     if (memberToUpdate) {
       const updatedMember = await memberService.update(memberToUpdate._id, payload);
       if (updatedMember) {
@@ -119,21 +143,17 @@ const MemberForm = ({ updateMembers, memberToUpdate, updateOneMember }) => {
           onChange={handleChange}
         />
 
-        <label htmlFor="tree_id">Family Tree:</label>{/* اختيار اسم العائله لاخذ ال ıd */}
-        <select name="tree_id" value={formState.tree_id} onChange={handleChange} required>
-          <option value="">Select Family</option>
-          {trees && trees.map(tree => (
-            <option key={tree._id} value={tree._id}>{tree.lastName} Family</option>
-          ))}
-        </select>
-
-        <label htmlFor="parentId">Parent:</label>{/* اختيار اسم الاب لاخذ ال ıd */}
-        <select name="parentId" value={formState.parentId} onChange={handleChange}>
-          <option value="">No Parent (Grandfather)</option>
-          {members.map(member => (
-            <option key={member._id} value={member._id}>{member.firstName}</option>
-          ))}
-        </select>
+        {members.length !== 0 && 
+        <>
+          <label htmlFor="parentId">Parent:</label>{/* اختيار اسم الاب لاخذ ال ıd */}
+          <select name="parentId" value={formState.parentId} onChange={handleChange}>
+            <option value="">No Parent (Grandfather)</option>
+            {members.map(member => (
+              <option key={member._id} value={member._id}>{member.firstName}</option>
+            ))}
+          </select>
+        </>
+        }
 
         
         <label htmlFor="code"> acssec Code :</label>

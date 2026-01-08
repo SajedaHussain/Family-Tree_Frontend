@@ -10,6 +10,7 @@ const Landing = () => {
     <div className="landing-container">
       <h1 className="landing-title"> Family Tree</h1>
       <div className="landing-buttons">
+        
         <button onClick={() => navigate('/signin')} className="landing-btn">
           Sign In
         </button>

@@ -1,18 +1,40 @@
-import React, { useState } from 'react';
-import * as treeService from '../../services/treeService';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import * as treeService from '../../../services/treeService';
+import { useNavigate, useParams } from 'react-router-dom';
 import  "./TreeForm.css";
 
 const TreeForm = (props) => {
-  const { updateTrees, treeToUpdate, updateOneTree } = props;
+  const { updateTrees, updateOneTree } = props;
   const navigate = useNavigate();
 
+  const [treeToUpdate, setTreeToUpdate] = useState(null)
   // الحالة الافتراضية: تعديل أو إنشاء
   const [formState, setFormState] = useState(
     treeToUpdate
       ? treeToUpdate
       : { lastName: '', code: '', numFamily: 0 }
   );
+  const {treeId} = useParams()
+
+
+  useEffect(()=>{
+    async function fetchTree(){
+    const data = await treeService.show(treeId)
+    console.log(treeId)
+    console.log('response from API',data)
+    setTreeToUpdate(data)
+    }
+    fetchTree()
+
+  },[])
+
+
+  useEffect(()=>{
+    setFormState(treeToUpdate
+      ? treeToUpdate
+      : { lastName: '', code: '', numFamily: 0 })
+  },[treeToUpdate])
+
 
   // handleChange: يدعم النصوص والأرقام
   const handleChange = (e) => {
@@ -35,7 +57,7 @@ const TreeForm = (props) => {
         // حالة الإضافة
         const newTree = await treeService.create(payload);
         if (newTree) updateTrees(newTree);
-        navigate(`/members/new`,{ state: { selectedTreeId: newTree._id }})
+        navigate(`/trees/${newTree._id}/members/new`,{ state: { selectedTreeId: newTree._id }})
 
       } else {
         console.log('No valid function provided for TreeForm!');
@@ -45,6 +67,8 @@ const TreeForm = (props) => {
       console.error('Error in TreeForm submit:', error);
     }
   };
+
+  console.log(treeToUpdate)
 
   return (
     

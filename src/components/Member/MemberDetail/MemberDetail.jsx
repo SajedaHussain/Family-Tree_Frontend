@@ -5,32 +5,32 @@ import { Link, useNavigate, useParams } from "react-router";
 
 function MemberDetail(props) {
   const navigate = useNavigate();
-  const { id } = useParams(); // same as req.params
+  const { memberId, treeId } = useParams(); // same as req.params
   const { findMemberToUpdate, deleteMember } = props;
 
   const [member, setMember] = useState(null);
   const [code, setCode] = useState('');
 
   useEffect(() => {
-    const getOneMember = async (id) => {
-      const member = await memberService.show(id);
+    const getOneMember = async (memberId) => {
+      const member = await memberService.show(memberId);
       setMember(member);
-      navigate(`/members/${id}`)
+      // navigate(`/members/${memberId}`)
     };
-    if (id) getOneMember(id); //if teh id is exist the call the function
-  }, [id]);
+    if (memberId) getOneMember(memberId); //if teh id is exist the call the function
+  }, [memberId]);
 
    const handleUpdateClick = () => {
-    findMemberToUpdate(id);
-    navigate(`/members/${id}/update`, { state: { code } }); // نمرر الكود للمكون الجديد
+    findMemberToUpdate(memberId);
+    navigate(`/trees/${treeId}/members/${memberId}/edit`, { state: { code } }); // نمرر الكود للمكون الجديد
   };
 
   const handleDelete = async () => {
     if (!code) return console.log('Enter family code to delete this member');
     try{
-    const deletedMember = await memberService.deleteOne(id, { tree_id: member.tree_id, code });
+    const deletedMember = await memberService.deleteOne(memberId, { tree_id: member.tree_id, code });
     if (deletedMember) {
-      deleteMember(id);
+      deleteMember(memberId);
      navigate("/members");
     }
   }catch(error){
