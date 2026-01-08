@@ -1,92 +1,85 @@
-import React from "react";
 import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import * as memberService from "../../services/memberService";
-import { useNavigate } from "react-router";
-//rafce to creac this code
 
-const MemberForm = (props) => {
-  const { updateMembers, memberToUpdate, updateOneMember, trees } = props;
-  const { setMembers, members } = props;
+const MemberForm = ({ updateMembers, memberToUpdate, updateOneMember }) => {
   const navigate = useNavigate();
+  const { treeId } = useParams();
+
   const [formState, setFormState] = useState(
-    memberToUpdate ? memberToUpdate
-      : {
-        firstName: "",
-        lastName: "",
-        relation: "",
-        dateOfBirth: "",
-        image: "",
-        generation: "",
-        parentId: null,
-        tree_id: ""
-      }
+    memberToUpdate || {
+      firstName: "",
+      lastName: "",
+      relation: "",
+      dateOfBirth: "",
+      image: "",
+      generation: "",
+      parentId: null,
+    }
   );
 
-  //the above line is instead of writhing :
-  // THIS 100% OK TOO!!!!!
-  // const [name, setName] = useState('')
-  //...
-
-  const handleChange = (evt) => {
-    const { name, value } = evt.target;
-    const finalValue = value === "" ? null : value;//عشان اذا تركه فاضي يعرف القيمه null
-    const newFormState = { ...formState, [name]: finalValue };
-
-    setFormState(newFormState);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormState({
+      ...formState,
+      [name]: value === "" ? null : value,
+    });
   };
 
-  const handleSubmit = async (evt) => {
-    evt.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     const payload = {
       ...formState,
-      generation: Number(formState.generation)//  لأرقام generation لتحويل ال
+      generation: Number(formState.generation),
+      tree: treeId, // ⭐ أهم سطر
     };
-    // payload.age = Number(payload.age); // ?????
-    //dateOfBirth   ,  relation , image
-    if (memberToUpdate) {
-      const updatedMember = await memberService.update(memberToUpdate._id, payload);
-      if (updatedMember) {
-        updateOneMember(updatedMember);
-        navigate("/");
-      } else {
-        console.log("something wrong");
-      }
-    } else {
-      const newMemberCreated = await memberService.create(payload);
 
-      if (newMemberCreated) {
-        updateMembers(newMemberCreated); // للحصول على اي قيمة جديدة مضافة للظهور اما باعادة رفرش للموقع او عمل ابديت
-        navigate("/");
-      } else {
-        console.log("some thing wrong");
+    try {
+      if (memberToUpdate && updateOneMember) {
+        const updated = await memberService.update(
+          memberToUpdate._id,
+          payload
+        );
+        if (updated) updateOneMember(updated, treeId);
+      } else if (updateMembers) {
+        const created = await memberService.create(payload);
+        if (created) updateMembers(created, treeId);
       }
+
+      navigate(`/trees/${treeId}/members`);
+    } catch (err) {
+      console.error(err);
     }
   };
 
   return (
     <div>
-      Member Form
+      <h2>{memberToUpdate ? "Edit Member" : "Add Member"}</h2>
+
       <form onSubmit={handleSubmit}>
-        <label htmlFor="firstName">First Name :</label>
         <input
-          type="text"
           name="firstName"
-          id="firstName"
+          placeholder="First Name"
           value={formState.firstName}
           onChange={handleChange}
+          required
         />
 
-        <label htmlFor="lastName">Last Name :</label>
         <input
-          type="text"
           name="lastName"
-          id="lastName"
+          placeholder="Last Name"
           value={formState.lastName}
           onChange={handleChange}
+          required
         />
 
-        <label htmlFor="relation"> Relation :</label>
-        <select name="relation" id="relation" value={formState.relation} onChange={handleChange}>
+        <select
+          name="relation"
+          value={formState.relation || ""}
+          onChange={handleChange}
+          required
+        >
           <option value="">Select Relation</option>
           <option value="Grandparents">Grandparents</option>
           <option value="Parents">Parents</option>
@@ -94,48 +87,27 @@ const MemberForm = (props) => {
           <option value="Daughter">Daughter</option>
         </select>
 
-        <label htmlFor="dateOfBirth"> Date of Birth :</label>
         <input
           type="date"
           name="dateOfBirth"
-          id="dateOfBirth"
-          value={formState.dateOfBirth}
+          value={formState.dateOfBirth || ""}
           onChange={handleChange}
         />
 
-        <label htmlFor="image"> Picture :</label>
         <input
-          type="text"
           name="image"
           placeholder="Image URL"
           value={formState.image || ""}
           onChange={handleChange}
         />
 
-        <label htmlFor="generation"> Generation :</label>
         <input
           type="number"
           name="generation"
-          id="generation"
-          value={formState.generation}
+          placeholder="Generation"
+          value={formState.generation || ""}
           onChange={handleChange}
         />
-
-        <label htmlFor="tree_id">Family Tree:</label>{/* اختيار اسم العائله لاخذ ال ıd */}
-        <select name="tree_id" value={formState.tree_id} onChange={handleChange} required>
-          <option value="">Select Family</option>
-          {trees && trees.map(t => (
-            <option key={t._id} value={t._id}>{t.lastName} Family</option>
-          ))}
-        </select>
-
-        <label htmlFor="parentId">Parent:</label>{/* اختيار اسم الاب لاخذ ال ıd */}
-        <select name="parentId" value={formState.parentId} onChange={handleChange}>
-          <option value="">No Parent (Grandfather)</option>
-          {members.map(m => (
-            <option key={m._id} value={m._id}>{m.firstName}</option>
-          ))}
-        </select>
 
         <button type="submit">Save</button>
       </form>
