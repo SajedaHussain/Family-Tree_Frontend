@@ -195,7 +195,7 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
                     treeCode={tree.code}
                     onEdit={() => {
                         const memberId = selectedNodeData._id;
-                        navigate(`/trees/${treeId}/members/${memberId}/edit`);
+                        navigate(`/trees/${treeId}/members/${memberId}/edit`)
                     }}
                     onDelete={async (verifiedCode) => {
 
@@ -204,7 +204,11 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
                             await memberService.deleteOne(memberId, { code: verifiedCode });
 
                             setSelectedNodeData(null);
-                            window.location.reload();
+                            const updatedMembers = await memberService.index(treeId);
+                            const structured = formatDataForTree(updatedMembers, null);
+                            setFamilyData(structured.length > 0 ? structured[0] : null);
+
+                            Swal.fire('Deleted!', 'Member has been removed.', 'success');
                         } catch (error) {
                             console.error("Error deleting member:", error);
                             Swal.fire('Error', 'Could not delete member', 'error');

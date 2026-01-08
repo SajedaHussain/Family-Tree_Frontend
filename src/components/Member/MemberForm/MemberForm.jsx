@@ -24,39 +24,49 @@ const MemberForm = ({ members, updateMembers, updateOneMember }) => {
   );
 
 
-  useEffect(() => {
-    if (!memberId) return;
-    (async () => {
-      const data = await memberService.show(memberId)
-      setFormState({
-        firstName: data.firstName || "",
-        lastName: data.lastName || "",
-        relation: data.relation || "",
-        dateOfBirth: data.dateOfBirth?.slice(0, 10) || "",
-        image: data.image || "",
-        generation: data.generation?.toString() || "",
-        parentId: data.parentId || "",
-      });
-    })()
-  }, [])
+useEffect(() => {
+  if (memberId) {
+  
+    const fetchMember = async () => {
+      try {
+        const data = await memberService.show(memberId);
+        setFormState({
+          firstName: data.firstName || "",
+          lastName: data.lastName || "",
+          relation: data.relation || "",
+          dateOfBirth: data.dateOfBirth?.slice(0, 10) || "",
+          image: data.image || "",
+          generation: data.generation?.toString() || "",
+          parentId: data.parentId?._id || data.parentId || "", 
+          code: "", 
+        });
+      
+        setMemberToUpdate(data);
+      } catch (err) {
+        console.error("Error fetching member:", err);
+      }
+    };
+    fetchMember();
+  } else {
+    // حالة الإضافة: تصفير الفورم
+    setFormState({
+      firstName: "",
+      lastName: "",
+      relation: "",
+      dateOfBirth: "",
+      image: "",
+      generation: "",
+      parentId: "",
+      tree_id: treeId,
+      code: "",
+    });
+    setMemberToUpdate(null);
+  }
+}, [memberId, treeId]);
 
 
-  useEffect(() => {
-    setFormState(memberToUpdate ? memberToUpdate
-      : {
-        firstName: "",
-        lastName: "",
-        relation: "",
-        dateOfBirth: "",
-        image: "",
-        generation: "",
-        parentId: "",
-        tree_id: "",
-        code: '',
-      })
-  }, [memberToUpdate])
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (evt) => {
+    const { name, value } = evt.target;
     setFormState({
       ...formState,
       [name]: value || ""
@@ -71,13 +81,13 @@ const MemberForm = ({ members, updateMembers, updateOneMember }) => {
         ...formState,
         generation: Number(formState.generation),
         tree_id: treeId,
-        parentId: formState.parentId || "",
+        parentId: formState.parentId || null,
         code: formState.code,
       };
 
       if (memberToUpdate) {
         const updatedMember = await memberService.update(
-          memberToUpdate,
+          memberToUpdate._id,
           payload
         );
         if (updatedMember) {
