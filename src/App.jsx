@@ -21,7 +21,7 @@ import MemberForm from "./components/Member/MemberForm";
 
 //Auth Components
 import SignUpForm from "./components/SignUpForm/SignUpForm";
-import SingInForm from "./components/SignInForm/SignInForm"
+import SignInForm from "./components/SignInForm/SignInForm"
 
 const App = () => {
   const [trees, setTrees] = useState([]);
