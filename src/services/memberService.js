@@ -14,7 +14,7 @@ const index = async (tree_id) => {
         }
       : { headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' } };
     const response = await axios.get(BASE_URL, config);
-    return response.data.members || [];
+    return response.data.member || [];
   } catch (error) {
     console.error(error);
     return [];

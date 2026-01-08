@@ -3,10 +3,19 @@ import Tree from 'react-d3-tree'
 import * as treeService from '../../../services/treeService'
 import * as memberService from '../../../services/memberService'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import PopupCard from '../PopupCard/PopupCard'
 
 const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
     const { treeId } = useParams()
     const navigate = useNavigate()
+
+
+    const [selectedNodeData, setSelectedNodeData] = useState(null);
+
+    const handleNodeClick = (nodeData, evt) => {
+        // Set the state to show the pop-up with the clicked node's data
+        setSelectedNodeData(nodeData);
+    };
 
     const [tree, setTree] = useState(null)
     const [familyData, setFamilyData] = useState(null)
@@ -77,6 +86,14 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
     if (!tree) return <h1>Loading ...</h1> 
     return (
         <div>
+
+ {selectedNodeData && (
+        <PopupCard
+          data={selectedNodeData}
+          onClose={() => setSelectedNodeData(null)}
+        />
+      )}
+
             <h2> Family Name : {tree.lastName}</h2>
             <div style={{ width: '100%', height: '600px', border: '1px solid #ccc', borderRadius: '8px', background: '#f9f9f9' }}>
                 {familyData ? 
@@ -85,6 +102,7 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
                         orientation="vertical" 
                         pathFunc="step"
                         translate={{ x: 250, y: 50 }}
+                        onNodeClick={handleNodeClick}
                         />
                     ):(
                     <div>
