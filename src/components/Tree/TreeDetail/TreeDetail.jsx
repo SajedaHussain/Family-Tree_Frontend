@@ -59,10 +59,8 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
                 const structuredMembers = formatDataForTree(membersList, null)
 
                 if (structuredMembers.length > 0) {
-                    setFamilyData({
-                        name: `${treeData.lastName} Family`,
-                        children: structuredMembers,
-                    })
+                    //نحط الجد في اول عقده ( رأس الشجره)
+                    setFamilyData(structuredMembers[0])
                 } else {
                     setFamilyData(null);
                 }
@@ -197,7 +195,7 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
                     ) : (
                         <div>
                             <p>No members found.</p>
-                            <Link to={`/trees/${treeId}/members/new`}>+ Add First Member</Link>
+                            <button  onClick={() => handleProtectedAction('add')}>+ Add First Member</button>
                         </div>
                     )}
             </div>
