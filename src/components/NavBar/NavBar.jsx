@@ -1,7 +1,8 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-
 import { UserContext } from '../../contexts/UserContext';
+import './NavBar.css';
+
 
 const NavBar = () => {
   const { user, setUser } = useContext(UserContext);
@@ -11,26 +12,39 @@ const NavBar = () => {
     setUser(null);
   };
 
-  // The nav bar gets the user from the context which is either
-  // {username, _id} if logged in or null if not, and shows
-  // set of the correct set of links
   return (
-    <nav>
-      {user ? (
-        <ul>
-          <li>Welcome, {user.username}</li>
-          <li><Link to='/'>Dashboard</Link></li>
-          <button onClick={handleSignOut}>Sign Out</button>
-        </ul>
-      ) : (
-        <ul>
-          <li><Link to='/'>Home</Link></li>
-          <li><Link to='/trees'>Trees</Link></li>
-          <li><Link to='/sign-in'>Sign In</Link></li>
-          <li><Link to='/sign-up'>Sign Up</Link></li>
-          
-        </ul>
-      )}
+    <nav className="navbar">
+      <ul className="nav-left">
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+
+        {user && (
+          <li>
+            <Link to="/trees">Trees</Link>
+          </li>
+        )}
+      </ul>
+
+      <ul className="nav-right">
+        {user ? (
+          <>
+            <li className="nav-username">
+              Welcome, {user.username}
+            </li>
+            <li>
+              <button onClick={handleSignOut} className="nav-btn">
+                Sign Out
+              </button>
+            </li>
+          </>
+        ) : (
+          <>
+            <li><Link to="/sign-in">Sign In</Link></li>
+            <li><Link to="/sign-up">Sign Up</Link></li>
+          </>
+        )}
+      </ul>
     </nav>
   );
 };
