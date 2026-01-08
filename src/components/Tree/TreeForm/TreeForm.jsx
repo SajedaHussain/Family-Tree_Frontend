@@ -1,17 +1,40 @@
-import React, { useState } from 'react';
-import * as treeService from '../../services/treeService';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import * as treeService from '../../../services/treeService';
+import { useNavigate, useParams } from 'react-router-dom';
+import  "./TreeForm.css";
 
 const TreeForm = (props) => {
-  const { updateTrees, treeToUpdate, updateOneTree } = props;
+  const { updateTrees, updateOneTree } = props;
   const navigate = useNavigate();
 
+  const [treeToUpdate, setTreeToUpdate] = useState(null)
   // الحالة الافتراضية: تعديل أو إنشاء
   const [formState, setFormState] = useState(
     treeToUpdate
       ? treeToUpdate
       : { lastName: '', code: '', numFamily: 0 }
   );
+  const {treeId} = useParams()
+
+
+  useEffect(()=>{
+    async function fetchTree(){
+    const data = await treeService.show(treeId)
+    console.log(treeId)
+    console.log('response from API',data)
+    setTreeToUpdate(data)
+    }
+    fetchTree()
+
+  },[])
+
+
+  useEffect(()=>{
+    setFormState(treeToUpdate
+      ? treeToUpdate
+      : { lastName: '', code: '', numFamily: 0 })
+  },[treeToUpdate])
+
 
   // handleChange: يدعم النصوص والأرقام
   const handleChange = (e) => {
@@ -29,23 +52,30 @@ const TreeForm = (props) => {
         // حالة التعديل
         const updatedTree = await treeService.update(treeToUpdate._id, payload);
         if (updatedTree) updateOneTree(updatedTree);
+
       } else if (updateTrees) {
         // حالة الإضافة
         const newTree = await treeService.create(payload);
         if (newTree) updateTrees(newTree);
+        navigate(`/trees/${newTree._id}/members/new`,{ state: { selectedTreeId: newTree._id }})
+
       } else {
         console.log('No valid function provided for TreeForm!');
       }
-      navigate('/trees'); // نرجع لقائمة الأشجار بعد العملية
+      
     } catch (error) {
       console.error('Error in TreeForm submit:', error);
     }
   };
 
+  console.log(treeToUpdate)
+
   return (
-    <div>
+    
+    <div className="tree-form-container">
       <h1>{treeToUpdate ? 'Edit Tree' : 'New Tree'}</h1>
-      <form onSubmit={handleSubmit}>
+      
+      <form onSubmit={handleSubmit} className="tree-form">
         <label htmlFor="lastName">Family Name:</label>
         <input
           type="text"

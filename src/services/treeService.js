@@ -17,7 +17,7 @@ const index = async () => {
 const show = async (id) => {
     try {
         const response = await axios.get(`${BASE_URL}/${id}`);
-        return response.data.tree; 
+         return response.data.tree;  
     } catch (error) {
         console.error(error);
       

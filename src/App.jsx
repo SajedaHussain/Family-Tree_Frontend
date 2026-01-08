@@ -10,14 +10,14 @@ import NavBar from "./components/NavBar/NavBar";
 import Landing from "./components/Landing/Landing";
 
 // Tree Components
-import TreeList from "./components/Tree/TreeList";
-import TreeDetail from "./components/Tree/TreeDetail";
-import TreeForm from "./components/Tree/TreeForm";
+import TreeList from "./components/Tree/TreeList/TreeList";
+import TreeDetail from "./components/Tree/TreeDetail/TreeDetail";
+import TreeForm from "./components/Tree/TreeForm/TreeForm";
 
 // Member Components
-import MemberList from "./components/Member/MemberList";
-import MemberDetail from "./components/Member/MemberDetail";
-import MemberForm from "./components/Member/MemberForm";
+import MemberList from "./components/Member/MemberList/MemberList";
+import MemberDetail from "./components/Member/MemberDetail/MemberDetail";
+import MemberForm from "./components/Member/MemberForm/MemberForm";
 
 //Auth Components
 import SignUpForm from "./components/SignUpForm/SignUpForm";
@@ -95,8 +95,9 @@ const App = () => {
   return (
     <>
       <NavBar />
-
       <Routes>
+        <Route path="/sign-in" element={<SignInForm />} />
+        <Route path="/sign-up" element={<SignUpForm />} />  
         <Route path="/" element={<Landing />} />
         <Route path="/sign-in" element={<SignInForm />} />
         <Route path="/sign-up" element={<SignUpForm />} />
@@ -118,8 +119,8 @@ const App = () => {
           path="/trees/:treeId/edit"
           element={
             <TreeForm
-              treeToUpdate={treeToUpdate}
               updateOneTree={updateOneTree}
+               trees={trees}
             />
           }
         />
@@ -136,6 +137,7 @@ const App = () => {
           element={
             <MemberForm
               updateMembers={addMember}
+              members={members}
             />
           }
         />
@@ -154,6 +156,8 @@ const App = () => {
             <MemberForm
               memberToUpdate={memberToUpdate}
               updateOneMember={updateOneMember}
+              trees={trees}
+              members={members}
             />
           }
         />

@@ -38,24 +38,25 @@ const create = async (formData) => {
 
 // UPDATE member
 const update = async (memberId, formData) => {
-  try {
-    const response = await axios.put(`${BASE_URL}/${memberId}`, formData);
-    return response.data.member;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+    try {
+        const response = await axios.put(`${BASE_URL}/${memberId}`, formData , getAuthConfig());
+
+        return response.data.member;
+    } catch (error) {
+        console.error(error);
+
+    }
 };
 
 // DELETE member
 const deleteOne = async (memberId) => {
-  try {
-    const response = await axios.delete(`${BASE_URL}/${memberId}`);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+    try {
+        const response = await axios.delete(`${BASE_URL}/${memberId}`, { ...getAuthConfig(), data: formData });
+        return response.data;
+    } catch (error) {
+        console.error(error);
+
+    }
 };
 
 export {
