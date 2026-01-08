@@ -5,9 +5,9 @@ import "./MemberForm.css";
 
 const MemberForm = ({ members, updateMembers, updateOneMember }) => {
   const navigate = useNavigate();
-  const { treeId,memberId } = useParams();
+  const { treeId, memberId } = useParams();
 
-  const [memberToUpdate,setMemberToUpdate] = useState(null)
+  const [memberToUpdate, setMemberToUpdate] = useState(null)
   const [formState, setFormState] = useState(
     memberToUpdate ? memberToUpdate
       : {
@@ -19,22 +19,30 @@ const MemberForm = ({ members, updateMembers, updateOneMember }) => {
         generation: "",
         parentId: null,
         tree_id: "",
-         code: '',
+        code: '',
       }
   );
 
 
-  useEffect(()=>{
-
-    (async ()=>{
+  useEffect(() => {
+    if (!memberId) return;
+    (async () => {
       const data = await memberService.show(memberId)
-      setMemberToUpdate(data)
+      setFormState({
+        firstName: data.firstName || "",
+        lastName: data.lastName || "",
+        relation: data.relation || "",
+        dateOfBirth: data.dateOfBirth?.slice(0, 10) || "",
+        image: data.image || "",
+        generation: data.generation?.toString() || "",
+        parentId: data.parentId || "",
+      });
     })()
-  },[])
+  }, [])
 
 
-  useEffect(()=>{
-    setFormState( memberToUpdate ? memberToUpdate
+  useEffect(() => {
+    setFormState(memberToUpdate ? memberToUpdate
       : {
         firstName: "",
         lastName: "",
@@ -42,54 +50,59 @@ const MemberForm = ({ members, updateMembers, updateOneMember }) => {
         dateOfBirth: "",
         image: "",
         generation: "",
-        parentId: null,
+        parentId: "",
         tree_id: "",
-         code: '',
+        code: '',
       })
-  },[memberToUpdate])
+  }, [memberToUpdate])
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormState({
       ...formState,
-      [name]: value === "" ? null : value,
+      [name]: value || ""
     });
   };
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    try{
-    const payload = {
-      ...formState,
-      generation: Number(formState.generation),
-      tree_id: treeId, // ⭐ أهم سطر
-    };
-    
-    if (memberToUpdate) {
-      const updatedMember = await memberService.update(memberToUpdate._id, payload);
-      if (updatedMember) {
-        updateOneMember(updatedMember);
-      
-      }
-    } else if(updateMembers) {
-      const newMemberCreated = await memberService.create(payload);
 
-      if (newMemberCreated) {
-        updateMembers(newMemberCreated); // للحصول على اي قيمة جديدة مضافة للظهور اما باعادة رفرش للموقع او عمل ابديت
-        navigate(`/members/${newMemberCreated._id}`);
-      } else {
-        console.log("some thing wrong");
-      }
+    try {
+      const payload = {
+        ...formState,
+        generation: Number(formState.generation),
+        tree_id: treeId,
+        parentId: formState.parentId || null,
+        code: formState.code,
+      };
 
-      navigate(`/trees/${treeId}/members`);
-    } 
-    }catch(error){
-      console.log(error)
+      if (memberToUpdate) {
+        const updatedMember = await memberService.update(
+          memberToUpdate._id,
+          payload
+        );
+        if (updatedMember) {
+          updateOneMember(updatedMember);
+          navigate(`/trees/${treeId}`);
+        }
+
+      } else if (updateMembers) {
+        const newMemberCreated = await memberService.create(payload);
+
+        if (newMemberCreated) {
+          updateMembers(newMemberCreated);
+          navigate(`/trees/${treeId}`);
+        } else {
+          console.log("something wrong");
+        }
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
   return (
     <div className="member-form-container">
-    <h2>{memberToUpdate ? 'Edit Member' : 'Add New Member'}</h2>
+      <h2>{memberToUpdate ? 'Edit Member' : 'Add New Member'}</h2>
 
       <form onSubmit={handleSubmit}>
         <input
@@ -143,21 +156,22 @@ const MemberForm = ({ members, updateMembers, updateOneMember }) => {
           onChange={handleChange}
         />
 
-        {members.length !== 0 && 
-        <>
-          <label htmlFor="parentId">Parent:</label>{/* اختيار اسم الاب لاخذ ال ıd */}
-          <select name="parentId" value={formState.parentId} onChange={handleChange}>
-            <option value="">No Parent (Grandfather)</option>
-            {members.map(member => (
-              <option key={member._id} value={member._id}>{member.firstName}</option>
-            ))}
-          </select>
-        </>
+        {members.length !== 0 &&
+          <>
+            <label htmlFor="parentId">Parent:</label>{/* اختيار اسم الاب لاخذ ال ıd */}
+            <select name="parentId" value={formState.parentId} onChange={handleChange}>
+              <option value="">No Parent (Grandfather)</option>
+              {members.map(member => (
+                <option key={member._id} value={member._id}>{member.firstName}</option>
+              ))}
+            </select>
+          </>
         }
 
-        
+
         <label htmlFor="code"> acssec Code :</label>
         <input
+        
           type="text"
           name="code"
           id="code"

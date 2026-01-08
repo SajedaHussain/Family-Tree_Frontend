@@ -4,7 +4,7 @@ import * as treeService from '../../../services/treeService'
 import * as memberService from '../../../services/memberService'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
-const TreeDetail = ({ findTreeToUpdate, deleteTrees }) => {
+const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
     const { treeId } = useParams()
     const navigate = useNavigate()
 
@@ -13,20 +13,26 @@ const TreeDetail = ({ findTreeToUpdate, deleteTrees }) => {
      const [code, setCode] = useState('');
 
     const formatDataForTree = (membersList, parentId = null) => {
-        return membersList
-            .filter(member => {
-                const parent = member.parentId?._id || member.parentId
-                return parent === parentId
-            })
-            .map(member => ({
-                name: member.firstName,
-                attributes: {
-                    Relation: member.relation,
-                    Generation: member.generation,
-                },
-                children: formatDataForTree(membersList, member._id),
-            }))
-    }
+  return membersList
+    .filter(member => {
+      const memberParentId =
+        member.parentId && typeof member.parentId === 'object'
+          ? member.parentId._id
+          : member.parentId;
+
+      if (parentId === null) return !memberParentId;
+
+      return String(memberParentId) === String(parentId);
+    })
+    .map(member => ({
+      name: member.firstName,
+      attributes: {
+        Relation: member.relation,
+        Generation: member.generation,
+      },
+      children: formatDataForTree(membersList, member._id),
+    }));
+};
 
 
     useEffect(() => {
@@ -36,13 +42,15 @@ const TreeDetail = ({ findTreeToUpdate, deleteTrees }) => {
                 setTree(treeData)
 
                 const membersList = await memberService.index(treeId)
-                const structuredMembers = formatDataForTree(membersList)
+                const structuredMembers = formatDataForTree(membersList, null)
 
                 if (structuredMembers.length > 0) {
                     setFamilyData({
                         name: `${treeData.lastName} Family`,
                         children: structuredMembers,
                     })
+                } else {
+                    setFamilyData(null);
                 }
             } catch (error) {
                 console.error("Error loading tree:", error)
@@ -52,13 +60,14 @@ const TreeDetail = ({ findTreeToUpdate, deleteTrees }) => {
         loadTreeData()
     }, [treeId])
 
+ 
 
     const handleDelete = async () => {
         if (!code) return console.log('Please enter the family code to delete this tree!');
         try{
         const deletedTree = await treeService.deleteOne(treeId, { code })
          if (deletedTree){
-            deleteTrees(treeId)
+            deleteTree(treeId)
             navigate('/trees')
 
          }}
@@ -74,9 +83,15 @@ const TreeDetail = ({ findTreeToUpdate, deleteTrees }) => {
                       (<Tree  
                         data={familyData}
                         orientation="vertical" 
-                        pathFunc="step"/>
-                    ) 
-                      : (<p>No members found.</p>)}
+                        pathFunc="step"
+                        translate={{ x: 250, y: 50 }}
+                        />
+                    ):(
+                    <div>
+                    <p>No members found.</p>
+                    <Link to={`/trees/${treeId}/members/new`}>+ Add First Member</Link>
+                     </div> 
+                     ) }
             </div>
 
             <label htmlFor="code">Enter Family Code:</label>
@@ -89,9 +104,10 @@ const TreeDetail = ({ findTreeToUpdate, deleteTrees }) => {
             />
            
             <div>
-                <Link onClick={() => findTreeToUpdate(treeId)} to={`/trees/${treeId}/edit`}>Edit</Link>
+                <Link onClick={() =>{ findTreeToUpdate(treeId); navigate(`/trees/${treeId}/edit`)}}>Edit</Link>
                 <br />
                 <button onClick={handleDelete}>Delete</button>
+                <Link to={`/trees/${treeId}/members/new`}>Add New Member</Link>
             </div>
         </div>
     )

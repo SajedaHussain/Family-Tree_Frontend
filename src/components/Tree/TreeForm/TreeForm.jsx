@@ -37,14 +37,14 @@ const TreeForm = (props) => {
 
 
   // handleChange: يدعم النصوص والأرقام
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (event) => {
+    const { name, value } = event.target;
     const finalValue = name === 'numFamily' ? Number(value) : value;
     setFormState({ ...formState, [name]: finalValue });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     const payload = { ...formState };
 
     try {
