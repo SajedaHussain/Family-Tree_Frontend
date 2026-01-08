@@ -35,6 +35,7 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
             })
             .map(member => ({
                 name: member.firstName,
+                _id: member._id,
                 lastName: member.lastName,
                 relation: member.relation,
                 dateOfBirth: member.dateOfBirth,
@@ -85,65 +86,65 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
 
     if (!tree) return <h1>Loading ...</h1>
 
-const renderCustomNode = ({ nodeDatum, toggleNode }) => (
-    <g>
-        {/* 1. تعريف القناع الدائري للصورة */}
-        <defs>
-            <clipPath id={`circleClip-${nodeDatum.name}`}>
-                <circle cx="0" cy="-15" r="25" />
-            </clipPath>
-        </defs>
+    const renderCustomNode = ({ nodeDatum, toggleNode }) => (
+        <g>
+            {/* 1. تعريف القناع الدائري للصورة */}
+            <defs>
+                <clipPath id={`circleClip-${nodeDatum.name}`}>
+                    <circle cx="0" cy="-15" r="25" />
+                </clipPath>
+            </defs>
 
-        {/* 2. المنطقة القابلة للضغط لفتح وإغلاق الفروع */}
-        <g onClick={toggleNode} style={{ cursor: 'pointer' }}>
-            {nodeDatum.image ? (
-                <>
-                    {/* دائرة خلفية لتعطي إطاراً جميلاً */}
-                    <circle r="27" fill="#2d5a27" cx="0" cy="-15" />
-                    <image
-                        href={nodeDatum.image}
-                        x="-25"
-                        y="-40"
-                        width="50"
-                        height="50"
-                        clipPath={`url(#circleClip-${nodeDatum.name})`}
-                        preserveAspectRatio="xMidYMid slice"
-                    />
-                </>
-            ) : (
-                /* إذا ما فيه صورة: أظهر الإيموجي في نص الدائرة */
-                <text
-                    x="0"
-                    y="-5"
-                    textAnchor="middle"
-                    style={{ fontSize: '30px', pointerEvents: 'none', userSelect: 'none' }}
-                >
-                    👤
-                </text>
-            )}
-            
-            {/* علامة الزائد تظهر فقط عند وجود أبناء مخفيين */}
-            {nodeDatum.children && nodeDatum.children.length > 0 && nodeDatum.__rd3t.collapsed && (
-                <text x="22" y="-30" style={{ fontSize: '14px' }}>➕</text>
-            )}
+            {/* 2. المنطقة القابلة للضغط لفتح وإغلاق الفروع */}
+            <g onClick={toggleNode} style={{ cursor: 'pointer' }}>
+                {nodeDatum.image ? (
+                    <>
+                        {/* دائرة خلفية لتعطي إطاراً جميلاً */}
+                        <circle r="27" fill="#2d5a27" cx="0" cy="-15" />
+                        <image
+                            href={nodeDatum.image}
+                            x="-25"
+                            y="-40"
+                            width="50"
+                            height="50"
+                            clipPath={`url(#circleClip-${nodeDatum.name})`}
+                            preserveAspectRatio="xMidYMid slice"
+                        />
+                    </>
+                ) : (
+                    /* إذا ما فيه صورة: أظهر الإيموجي في نص الدائرة */
+                    <text
+                        x="0"
+                        y="-5"
+                        textAnchor="middle"
+                        style={{ fontSize: '30px', pointerEvents: 'none', userSelect: 'none' }}
+                    >
+                        👤
+                    </text>
+                )}
+
+                {/* علامة الزائد تظهر فقط عند وجود أبناء مخفيين */}
+                {nodeDatum.children && nodeDatum.children.length > 0 && nodeDatum.__rd3t.collapsed && (
+                    <text x="22" y="-30" style={{ fontSize: '14px' }}>➕</text>
+                )}
+            </g>
+
+            {/* 3. اسم العضو - يفتح البوب أب */}
+            <text
+                fill="#333"
+                x="0"
+                y="35"
+                textAnchor="middle"
+                style={{ fontSize: '14px', fontWeight: '600', cursor: 'pointer' }}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    handleNodeClick(nodeDatum);
+                }}
+            >
+                {nodeDatum.name}
+            </text>
         </g>
-
-        {/* 3. اسم العضو - يفتح البوب أب */}
-        <text
-            fill="#333"
-            x="0"
-            y="35"
-            textAnchor="middle"
-            style={{ fontSize: '14px', fontWeight: '600', cursor: 'pointer' }}
-            onClick={(e) => {
-                e.stopPropagation();
-                handleNodeClick(nodeDatum);
-            }}
-        >
-            {nodeDatum.name}
-        </text>
-    </g>
-);
+    );
 
     const handleProtectedAction = async (actionType) => {
 
@@ -191,6 +192,24 @@ const renderCustomNode = ({ nodeDatum, toggleNode }) => (
                 <PopupCard
                     data={selectedNodeData}
                     onClose={() => setSelectedNodeData(null)}
+                    treeCode={tree.code}
+                    onEdit={() => {
+                        const memberId = selectedNodeData._id;
+                        navigate(`/trees/${treeId}/members/${memberId}/edit`);
+                    }}
+                    onDelete={async (verifiedCode) => {
+
+                        try {
+                            const memberId = selectedNodeData._id;
+                            await memberService.deleteOne(memberId, { code: verifiedCode });
+
+                            setSelectedNodeData(null);
+                            window.location.reload();
+                        } catch (error) {
+                            console.error("Error deleting member:", error);
+                            Swal.fire('Error', 'Could not delete member', 'error');
+                        }
+                    }}
                 />
             )}
 

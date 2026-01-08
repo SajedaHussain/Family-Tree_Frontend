@@ -17,7 +17,7 @@ const MemberForm = ({ members, updateMembers, updateOneMember }) => {
         dateOfBirth: "",
         image: "",
         generation: "",
-        parentId: null,
+        parentId: "",
         tree_id: "",
         code: '',
       }
@@ -71,13 +71,13 @@ const MemberForm = ({ members, updateMembers, updateOneMember }) => {
         ...formState,
         generation: Number(formState.generation),
         tree_id: treeId,
-        parentId: formState.parentId || null,
+        parentId: formState.parentId || "",
         code: formState.code,
       };
 
       if (memberToUpdate) {
         const updatedMember = await memberService.update(
-          memberToUpdate._id,
+          memberToUpdate,
           payload
         );
         if (updatedMember) {
@@ -108,7 +108,7 @@ const MemberForm = ({ members, updateMembers, updateOneMember }) => {
         <input
           name="firstName"
           placeholder="First Name"
-          value={formState.firstName}
+          value={formState.firstName || ""}
           onChange={handleChange}
           required
         />
@@ -116,7 +116,7 @@ const MemberForm = ({ members, updateMembers, updateOneMember }) => {
         <input
           name="lastName"
           placeholder="Last Name"
-          value={formState.lastName}
+          value={formState.lastName || ""}
           onChange={handleChange}
           required
         />
@@ -159,7 +159,7 @@ const MemberForm = ({ members, updateMembers, updateOneMember }) => {
         {members.length !== 0 &&
           <>
             <label htmlFor="parentId">Parent:</label>{/* اختيار اسم الاب لاخذ ال ıd */}
-            <select name="parentId" value={formState.parentId} onChange={handleChange}>
+            <select name="parentId" value={formState.parentId || ""} onChange={handleChange}>
               <option value="">No Parent (Grandfather)</option>
               {members.map(member => (
                 <option key={member._id} value={member._id}>{member.firstName}</option>
@@ -171,11 +171,11 @@ const MemberForm = ({ members, updateMembers, updateOneMember }) => {
 
         <label htmlFor="code"> acssec Code :</label>
         <input
-        
+
           type="text"
           name="code"
           id="code"
-          value={formState.code}
+          value={formState.code || ""}
           onChange={handleChange}
         />
 
