@@ -4,6 +4,7 @@ import * as treeService from '../../../services/treeService'
 import * as memberService from '../../../services/memberService'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import PopupCard from '../PopupCard/PopupCard'
+import Swal from 'sweetalert2';
 
 const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
     const { treeId } = useParams()
@@ -73,10 +74,10 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
         loadTreeData()
     }, [treeId])
 
-    const handleDelete = async () => {
+    const handleDelete = async (verifiedCode) => {
         if (!code) return console.log('Please enter the family code to delete this tree!');
         try {
-            const deletedTree = await treeService.deleteOne(treeId, { code })
+            const deletedTree = await treeService.deleteOne(treeId, { code: verifiedCode });
             if (deletedTree) {
                 deleteTree(treeId)
                 navigate('/trees')
@@ -84,51 +85,92 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
             }
         }
         catch (error) { console.log(error) }
-
     }
-    if (!tree) return <h1>Loading ...</h1>
-   const renderCustomNode = ({ nodeDatum }) => (
-  <g>
-    {/* 1. عرض الصورة أو الإيموجي الافتراضي */}
-    {nodeDatum.image ? (
-      <image
-        href={nodeDatum.image}
-        x="-25" 
-        y="-40"
-        width="50"
-        height="50"
-        style={{ cursor: 'pointer' }}
-        onClick={() => handleNodeClick({ data: nodeDatum })}
-      />
-    ) : (
-      <text
-        x="-20" 
-        y="-5"
-        style={{ fontSize: '40px', cursor: 'pointer', userSelect: 'none' }}
-        onClick={() => handleNodeClick({ data: nodeDatum })}
-      >
-        👤
-      </text>
-    )}
 
-    {/* 2. عرض الاسم تحت الصورة */}
-    <text
-      fill="#333" 
-      x="0" 
-      y="30" 
-      textAnchor="middle" 
-      style={{ 
-        fontSize: '14px', 
-        fontWeight: '600', 
-        fontFamily: 'Arial',
-        pointerEvents: 'none' 
-      }}
-    >
-      {nodeDatum.name}
-    </text>
-    
-  </g>
-);
+    if (!tree) return <h1>Loading ...</h1>
+
+
+    const renderCustomNode = ({ nodeDatum }) => (
+        <g>
+            {/* 1. عرض الصورة أو الإيموجي الافتراضي */}
+            {nodeDatum.image ? (
+                <image
+                    href={nodeDatum.image}
+                    x="-25"
+                    y="-40"
+                    width="50"
+                    height="50"
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => handleNodeClick({ data: nodeDatum })}
+                />
+            ) : (
+                <text
+                    x="-20"
+                    y="-5"
+                    style={{ fontSize: '40px', cursor: 'pointer', userSelect: 'none' }}
+                    onClick={() => handleNodeClick({ data: nodeDatum })}
+                >
+                    👤
+                </text>
+            )}
+
+            {/* 2. عرض الاسم تحت الصورة */}
+            <text
+                fill="#333"
+                x="0"
+                y="30"
+                textAnchor="middle"
+                style={{
+                    fontSize: '14px',
+                    fontWeight: '600',
+                    fontFamily: 'Arial',
+                    pointerEvents: 'none'
+                }}
+            >
+                {nodeDatum.name}
+            </text>
+
+        </g>
+    );
+
+    const handleProtectedAction = async (actionType) => {
+
+        const { value: enteredCode } = await Swal.fire({
+            title: 'Security Check',
+            text: 'Please enter the Family Code to proceed',
+            input: 'text',
+            inputPlaceholder: 'Enter code here...',
+            showCancelButton: true,
+            confirmButtonColor: '#2d5a27',
+            confirmButtonText: 'Verify',
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'You need to enter the code!';
+                }
+            }
+        });
+
+
+        if (!enteredCode) return;
+
+        if (enteredCode === tree.code) {
+            if (actionType === 'edit') {
+                findTreeToUpdate(treeId);
+                navigate(`/trees/${treeId}/edit`);
+            } else if (actionType === 'add') {
+                navigate(`/trees/${treeId}/members/new`);
+            } else if (actionType === 'delete') {
+                handleDelete(enteredCode);
+            }
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Access Denied',
+                text: 'The code you entered is incorrect.',
+                confirmButtonColor: '#ff4d4d'
+            });
+        }
+    };
 
     return (
         <div>
@@ -160,20 +202,13 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
                     )}
             </div>
 
-            <label htmlFor="code">Enter Family Code:</label>
-            <input
-                type="text"
-                id="code"
-                value={code}
-                onChange={evt => setCode(evt.target.value)}
-                placeholder="Family code required"
-            />
-
             <div>
-                <Link onClick={() => { findTreeToUpdate(treeId); navigate(`/trees/${treeId}/edit`) }}>Edit</Link>
-                <br />
-                <button onClick={handleDelete}>Delete</button>
-                <Link to={`/trees/${treeId}/members/new`}>Add New Member</Link>
+                <div className="action-buttons">
+                    <button onClick={() => handleProtectedAction('add')}>➕ Add Member</button>
+                    <button onClick={() => handleProtectedAction('edit')}>✏️ Edit Tree</button>
+                    <button className="delete-btn" onClick={() => handleProtectedAction('delete')}>🗑️ Delete Tree</button>
+                </div>
+
             </div>
         </div>
     )
