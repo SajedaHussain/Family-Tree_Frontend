@@ -12,7 +12,7 @@ const TreeForm = (props) => {
   const [formState, setFormState] = useState(
     treeToUpdate
       ? treeToUpdate
-      : { lastName: '', code: '', numFamily: 0 }
+      : {  lastName: '', code: '', numFamily: 1 }
   );
   const {treeId} = useParams()
 
@@ -20,20 +20,28 @@ const TreeForm = (props) => {
   useEffect(()=>{
     async function fetchTree(){
     const data = await treeService.show(treeId)
-    console.log(treeId)
-    console.log('response from API',data)
-    setTreeToUpdate(data)
+    setTreeToUpdate(data.tree)
     }
-    fetchTree()
+     if (treeId) fetchTree();
+}, [treeId]);
 
-  },[])
 
+  useEffect(() => {
+  if (treeToUpdate) {
+    setFormState({
+      lastName: treeToUpdate.lastName || '',
+      code: treeToUpdate.code || '',
+      numFamily: treeToUpdate.numFamily ?? 1,
+    });
+  } else {
+    setFormState({
+      lastName: '',
+      code: '',
+      numFamily: 1,
+    });
+  }
+}, [treeToUpdate]);
 
-  useEffect(()=>{
-    setFormState(treeToUpdate
-      ? treeToUpdate
-      : { lastName: '', code: '', numFamily: 0 })
-  },[treeToUpdate])
 
 
   // handleChange: يدعم النصوص والأرقام
@@ -44,29 +52,29 @@ const TreeForm = (props) => {
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    const payload = { ...formState };
+  event.preventDefault();
+  const payload = { ...formState };
 
-    try {
-      if (treeToUpdate && updateOneTree) {
-        // حالة التعديل
-        const updatedTree = await treeService.update(treeToUpdate._id, payload);
-        if (updatedTree) updateOneTree(updatedTree);
-
-      } else if (updateTrees) {
-        // حالة الإضافة
-        const newTree = await treeService.create(payload);
-        if (newTree) updateTrees(newTree);
-        navigate(`/trees/${newTree._id}/members/new`,{ state: { selectedTreeId: newTree._id }})
-
-      } else {
-        console.log('No valid function provided for TreeForm!');
+  try {
+    if (treeId && treeToUpdate) {
+      const updatedTree = await treeService.update(treeId, payload);
+      if (updatedTree && updateOneTree) {
+        updateOneTree(updatedTree);
+        navigate('/trees');
       }
       
-    } catch (error) {
-      console.error('Error in TreeForm submit:', error);
+    } else if (updateTrees) {
+      const newTree = await treeService.create(payload);
+      if (newTree) {
+        updateTrees(newTree);
+        navigate(`/trees/${newTree._id}/members/new`);
+      }
     }
-  };
+
+  } catch (error) {
+    console.error('Error in TreeForm submit:', error);
+  }
+};
 
   console.log(treeToUpdate)
 
@@ -102,7 +110,7 @@ const TreeForm = (props) => {
           name="numFamily"
           id="numFamily"
           value={formState.numFamily}
-          min={0}
+          min={1}
           onChange={handleChange}
           required
         />
