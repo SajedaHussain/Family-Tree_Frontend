@@ -1,0 +1,114 @@
+/* إصلاح الفتحة البيضاء */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #d9e8d6;
+}
+
+/* الحاوية الرئيسية */
+.member-detail-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #f0f7ef 0%, #d9e8d6 100%);
+}
+
+/* اسم العضو */
+.member-detail-container h2 {
+  color: #2d5a27;
+  margin-bottom: 15px;
+  font-size: 2rem;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+/* معلومات العضو */
+.member-detail-container p {
+  color: #2d5a27cc;
+  font-size: 1rem;
+  margin: 5px 0;
+}
+
+/* صورة العضو */
+.member-detail-container img {
+  width: 200px;
+  max-width: 80%;
+  border-radius: 15px;
+  margin: 20px 0;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+/* إدخال الكود */
+.member-detail-container label {
+  margin-top: 15px;
+  color: #2d5a27;
+  font-weight: 600;
+}
+.member-detail-container input {
+  margin-top: 5px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 2px solid #2d5a27;
+  font-size: 1rem;
+  width: 220px;
+  text-align: center;
+  outline: none;
+  transition: all 0.3s ease;
+}
+.member-detail-container input:focus {
+  border-color: #21441d;
+  box-shadow: 0 0 10px rgba(45,90,39,0.2);
+}
+
+/* الأزرار */
+.member-detail-container button {
+  margin-top: 15px;
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+/* زر التعديل */
+.member-detail-container button:first-of-type {
+  background-color: #2d5a27;
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(45,90,39,0.3);
+}
+.member-detail-container button:first-of-type:hover {
+  background-color: #21441d;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(45,90,39,0.4);
+}
+
+/* زر الحذف */
+.member-detail-container button:last-of-type {
+  background-color: #fff;
+  color: #2d5a27;
+  border: 2px solid #2d5a27;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+}
+.member-detail-container button:last-of-type:hover {
+  background-color: #f9fdf9;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+/* استجابة الشاشات الصغيرة */
+@media (max-width: 768px) {
+  .member-detail-container img {
+    width: 150px;
+  }
+  .member-detail-container input {
+    width: 180px;
+  }
+}

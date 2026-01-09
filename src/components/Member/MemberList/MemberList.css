@@ -1,0 +1,83 @@
+/* إصلاح الفتحة البيضاء */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #d9e8d6;
+}
+
+/* الحاوية الرئيسية */
+.member-list-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #f0f7ef 0%, #d9e8d6 100%);
+}
+
+/* العنوان */
+.member-list-container h2 {
+  color: #2d5a27;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+/* زر إضافة عضو */
+.member-list-container a {
+  display: inline-block;
+  margin-bottom: 25px;
+  padding: 10px 25px;
+  border-radius: 50px;
+  background-color: #2d5a27;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.member-list-container a:hover {
+  background-color: #21441d;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(45,90,39,0.4);
+}
+
+/* القائمة */
+.member-list-container ul {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  max-width: 400px;
+}
+
+.member-list-container li {
+  padding: 12px 15px;
+  margin: 8px 0;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+  transition: all 0.2s ease;
+}
+
+.member-list-container li:hover {
+  background-color: #e0f0db;
+  transform: translateX(5px);
+}
+
+/* روابط الأعضاء */
+.member-list-container li a {
+  color: #2d5a27;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* استجابة الشاشات الصغيرة */
+@media (max-width: 768px) {
+  .member-list-container ul {
+    width: 90%;
+  }
+}

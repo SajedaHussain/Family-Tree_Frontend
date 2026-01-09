@@ -1,0 +1,90 @@
+/* إصلاح الفتحة البيضاء */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #d9e8d6;
+}
+
+/* الحاوية الرئيسية */
+.member-form-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #f0f7ef 0%, #d9e8d6 100%);
+}
+
+/* عنوان الفورم */
+.member-form-container h2 {
+  color: #2d5a27;
+  margin-bottom: 25px;
+  font-size: 2rem;
+  font-weight: 800;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+/* الفورم */
+.member-form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* إدخالات النصوص و select */
+.member-form-container input,
+.member-form-container select {
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 2px solid #2d5a27;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.member-form-container input:focus,
+.member-form-container select:focus {
+  border-color: #21441d;
+  box-shadow: 0 0 10px rgba(45,90,39,0.2);
+}
+
+/* الوسوم Labels */
+.member-form-container label {
+  font-weight: 600;
+  color: #2d5a27;
+  margin-top: 10px;
+}
+
+/* زر الحفظ */
+.member-form-container button {
+  margin-top: 15px;
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  border: none;
+  background-color: #2d5a27;
+  color: white;
+  box-shadow: 0 4px 15px rgba(45,90,39,0.3);
+  transition: all 0.3s ease;
+}
+
+.member-form-container button:hover {
+  background-color: #21441d;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(45,90,39,0.4);
+}
+
+/* استجابة للشاشات الصغيرة */
+@media (max-width: 768px) {
+  .member-form-container form {
+    width: 90%;
+  }
+}

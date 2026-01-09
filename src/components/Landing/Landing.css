@@ -126,3 +126,24 @@
     align-items: center;
   }
 }
+/* إصلاح الفتحة البيضاء */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+body {
+  background: #d9e8d6; /* لون افتراضي إذا ما ظهر gradient */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.landing-container {
+  min-height: 100vh; /* تضمن تغطية كامل الشاشة */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f0f7ef 0%, #d9e8d6 100%);
+  text-align: center;
+  animation: fadeInScale 0.8s ease-out;
+}

@@ -11,7 +11,7 @@ const MemberList = ({ members }) => {
   );
 
   return (
-    <div>
+    <div className="member-list-container">
       <h2>Family Members</h2>
 
       <Link to={`/trees/${treeId}/members/new`}>

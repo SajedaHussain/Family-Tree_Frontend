@@ -45,7 +45,7 @@ function MemberDetail(props) {
   if (!member) return <h1>Loading.....</h1>;
 
   return (
-    <div>
+    <div className="member-detail-container">
       <h2>{member.firstName} {member.lastName}</h2>
       <p> Relation : {member.relation}</p>
       <p>Generation: {member.generation}</p>
