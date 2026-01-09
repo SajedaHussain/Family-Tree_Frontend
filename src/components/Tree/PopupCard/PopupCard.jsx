@@ -9,7 +9,8 @@ const PopupCard = ({ data, onClose, treeCode, onEdit, onDelete }) => {
 
   const memberInfo = data;
   const attributes = memberInfo.attributes;
-//https://sweetalert2.github.io/ المكتبه اللي استخدمت منها الكود جدا رائعه :
+  
+  //https://sweetalert2.github.io/ المكتبه اللي استخدمت منها الكود جدا رائعه :
   const handleProtectedAction = async (actionType) => {
     const { value: enteredCode } = await Swal.fire({
       title: 'Security Check',
@@ -61,6 +62,11 @@ const PopupCard = ({ data, onClose, treeCode, onEdit, onDelete }) => {
               {attributes.RecordCount && (
                 <p><strong>Record Count:</strong> {attributes.RecordCount}</p>
               )}
+
+              <div className="action-buttons">
+                <button onClick={() => handleProtectedAction('edit')}>✏️ Edit </button>
+                <button className="delete-btn" onClick={() => handleProtectedAction('delete')}>🗑️ Delete </button>
+              </div>
               <div className="member-image-container">
                 {memberInfo.image ? (
                   <img
@@ -78,10 +84,6 @@ const PopupCard = ({ data, onClose, treeCode, onEdit, onDelete }) => {
           ) : (
             <h1>👪</h1>
           )}
-        </div>
-        <div className="action-buttons">
-          <button onClick={() => handleProtectedAction('edit')}>✏️ Edit </button>
-          <button className="delete-btn" onClick={() => handleProtectedAction('delete')}>🗑️ Delete </button>
         </div>
       </div>
     </div>

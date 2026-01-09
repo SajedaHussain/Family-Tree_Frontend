@@ -88,17 +88,15 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
 
     const renderCustomNode = ({ nodeDatum, toggleNode }) => (
         <g className="node-group">
-            {/* 1. الحاوية المستطيلة الرئيسية */}
             <rect className="node-rect" x="-70" y="-25" width="140" height="50" rx="8" />
 
-            {/* خط جانبي جمالي */}
             <rect className="node-sidebar" x="-70" y="-25" width="5" height="50" rx="2" />
 
-            {/* 2. منطقة الصورة / الإيموجي (تفتح وتغلق العقده) */}
+            {/* اذا ضغطنا على الصوره تنفتح او تنغلق العقده*/}
             <g
                 className="node-avatar-area"
-                onClick={(e) => {
-                    e.stopPropagation();
+                onClick={(event) => {
+                    event.stopPropagation();
                     toggleNode();
                 }}
             >
@@ -111,26 +109,26 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
                         preserveAspectRatio="xMidYMid slice"
                     />
                 ) : (
-                    /* الإيموجي الافتراضي إذا لم توجد صورة */
+                    /* الإيموجي  إذامافي صورة */
                     <text x="-40" y="10" className="node-default-emoji">
-                        {nodeDatum.children && nodeDatum.children.length > 0 ? '🌳' : '👤'}
+                        {nodeDatum.children && nodeDatum.children.length > 0 ? '👤' : '👤'}
                     </text>
                 )}
 
-                {/* مؤشر صغير إذا كانت العقدة مغلقة وبها أبناء */}
+                {/* +اذا في ابناء و العقده مغلقه*/}
                 {nodeDatum.children && nodeDatum.children.length > 0 && nodeDatum.__rd3t.collapsed && (
                     <text x="-65" y="-15" className="collapse-indicator">＋</text>
                 )}
             </g>
 
-            {/* 3. منطقة الاسم (تفتح بوب الديتيل) */}
+            {/*  الاسم اذا ضغطنا عليه تطلع معلومات الشخص) */}
             <text
                 className="node-name-text"
                 x="-15"
                 y="5"
                 textAnchor="start"
-                onClick={(e) => {
-                    e.stopPropagation();
+                onClick={(event) => {
+                    event.stopPropagation();
                     handleNodeClick(nodeDatum);
                 }}
             >
