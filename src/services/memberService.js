@@ -2,21 +2,10 @@ import axios from "axios";
 
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/members`;
 
-const getAuthConfig = () => ({
-  headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-});
-
 // GET all members OR members by tree
 const index = async (tree_id) => {
   try {
-    const config = tree_id ? { 
-          params: { tree_id },
-          headers: {              
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache',
-          },
-        }
-      : { headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' } };
+    const config = tree_id ? { params: { tree_id } } : {};
     const response = await axios.get(BASE_URL, config);
     return response.data.member || [];
   } catch (error) {
@@ -39,7 +28,6 @@ const show = async (memberId) => {
 // CREATE member
 const create = async (formData) => {
   try {
-    
     const response = await axios.post(BASE_URL, formData);
     return response.data.member;
   } catch (error) {
@@ -61,16 +49,21 @@ const update = async (memberId, formData) => {
 };
 
 // DELETE member
-const deleteOne = async (memberId, formData = {}) => {
+const deleteOne = async (memberId) => {
     try {
-        const response = await axios.delete(`${BASE_URL}/${memberId}`, { ...getAuthConfig(), data: formData });
-        return response.data;
+        const response = await axios.delete(
+    `${BASE_URL}/${memberId}/${treeId}`,
+    {
+      ...getAuthConfig(),
+      data: { code }
+    }
+  );
+  return response.data.member;
     } catch (error) {
         console.error(error);
 
     }
 };
-
 
 export {
   index,

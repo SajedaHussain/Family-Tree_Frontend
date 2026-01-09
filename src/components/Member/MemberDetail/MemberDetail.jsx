@@ -27,12 +27,12 @@ function MemberDetail(props) {
   };
 
   const handleDelete = async () => {
-    if (!code) return console.log('Enter family code to delete this member');
+    if (!code) return alert("Enter family code");
     try{
-    const deletedMember = await memberService.deleteOne(memberId, { tree_id: member.tree_id, code });
+    const deletedMember = await memberService.deleteOne(memberId,member.tree_id, code);
     if (deletedMember) {
       deleteMember(memberId);
-     navigate("/members");
+     navigate(`/trees/${member.tree_id}/members`);
     }
   }catch(error){
     console.log("somthing wrong");

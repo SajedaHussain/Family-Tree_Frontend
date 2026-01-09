@@ -86,7 +86,7 @@ const App = () => {
 
   const deleteMember = (id, treeId) => {
     setMembers(members.filter(memb => memb._id !== id));
-    navigate(`/trees/${treeId}/members`);
+   
   };
 
   const findMemberToUpdate = (id) => {
