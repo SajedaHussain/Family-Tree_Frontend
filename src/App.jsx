@@ -4,11 +4,13 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 // Services
 import * as treeService from "./services/treeService";
 import * as memberService from "./services/memberService";
+import * as profileService from "./services/profileService";
 
 // Components
 import NavBar from "./components/NavBar/NavBar";
 import Landing from "./components/Landing/Landing";
 import Dashboard from './components/Dashboard/Dashboard';
+import ProfilePage from "./components/Profile/ProfilePage";
 
 // Tree Components
 import TreeList from "./components/Tree/TreeList/TreeList";
@@ -29,6 +31,7 @@ const App = () => {
   const [members, setMembers] = useState([]);
   const [treeToUpdate, setTreeToUpdate] = useState(null);
   const [memberToUpdate, setMemberToUpdate] = useState(null);
+  const [profile, setProfile] = useState(null);
 
   const navigate = useNavigate();
 
@@ -50,7 +53,7 @@ const App = () => {
   //TREE FUNCTIONS 
   const addTree = (newTree) => {
     setTrees([...trees, newTree]);
-    
+
   };
 
   const updateOneTree = (updatedTree) => {
@@ -86,12 +89,23 @@ const App = () => {
 
   const deleteMember = (id, treeId) => {
     setMembers(members.filter(memb => memb._id !== id));
-   
+
   };
 
   const findMemberToUpdate = (id) => {
     setMemberToUpdate(members.find(memb => memb._id === id));
   };
+
+  //Profile Functin
+  useEffect(() => {
+    const fetchProfile = async () => {
+      if (user) {
+        const userProfile = await profileService.getMyProfile();
+        setProfile(userProfile || null);
+      }
+    };
+    fetchProfile();
+  }, [user]);
 
   return (
     <>
@@ -100,12 +114,10 @@ const App = () => {
         <Route path="/" element={<Landing />} />
         <Route path="/dashboard" element={<Dashboard trees={trees} members={members} />} />
         <Route path="/sign-in" element={<SignInForm />} />
-        <Route path="/sign-up" element={<SignUpForm />} />  
+        <Route path="/sign-up" element={<SignUpForm />} />
         <Route path="/trees" element={<TreeList trees={trees} />} />
-        <Route
-          path="/trees/new"
-          element={<TreeForm updateTrees={addTree} />}
-        />
+        <Route path="/trees/new" element={<TreeForm updateTrees={addTree} />}/>
+        <Route path="/profile" element={<ProfilePage profile={profile} setProfile={setProfile} />}/>
         <Route
           path="/trees/:treeId"
           element={
@@ -120,7 +132,7 @@ const App = () => {
           element={
             <TreeForm
               updateOneTree={updateOneTree}
-               trees={trees}
+              trees={trees}
             />
           }
         />
