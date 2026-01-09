@@ -5,6 +5,7 @@ import * as memberService from '../../../services/memberService'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import PopupCard from '../PopupCard/PopupCard'
 import Swal from 'sweetalert2';
+import "./TreeDetail.css";
 
 const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
     const { treeId } = useParams()
@@ -59,7 +60,6 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
                 const structuredMembers = formatDataForTree(membersList, null)
 
                 if (structuredMembers.length > 0) {
-                    //نحط الجد في اول عقده ( رأس الشجره)
                     setFamilyData(structuredMembers[0])
                 } else {
                     setFamilyData(null);
@@ -87,55 +87,48 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
     if (!tree) return <h1>Loading ...</h1>
 
     const renderCustomNode = ({ nodeDatum, toggleNode }) => (
-        <g>
-            {/* 1. تعريف القناع الدائري للصورة */}
-            <defs>
-                <clipPath id={`circleClip-${nodeDatum.name}`}>
-                    <circle cx="0" cy="-15" r="25" />
-                </clipPath>
-            </defs>
+        <g className="node-group">
+            {/* 1. الحاوية المستطيلة الرئيسية */}
+            <rect className="node-rect" x="-70" y="-25" width="140" height="50" rx="8" />
 
-            {/* 2. المنطقة القابلة للضغط لفتح وإغلاق الفروع */}
-            <g onClick={toggleNode} style={{ cursor: 'pointer' }}>
+            {/* خط جانبي جمالي */}
+            <rect className="node-sidebar" x="-70" y="-25" width="5" height="50" rx="2" />
+
+            {/* 2. منطقة الصورة / الإيموجي (تفتح وتغلق العقده) */}
+            <g
+                className="node-avatar-area"
+                onClick={(e) => {
+                    e.stopPropagation();
+                    toggleNode();
+                }}
+            >
                 {nodeDatum.image ? (
-                    <>
-                        {/* دائرة خلفية لتعطي إطاراً جميلاً */}
-                        <circle r="27" fill="#2d5a27" cx="0" cy="-15" />
-                        <image
-                            href={nodeDatum.image}
-                            x="-25"
-                            y="-40"
-                            width="50"
-                            height="50"
-                            clipPath={`url(#circleClip-${nodeDatum.name})`}
-                            preserveAspectRatio="xMidYMid slice"
-                        />
-                    </>
+                    <image
+                        href={nodeDatum.image}
+                        x="-58" y="-18"
+                        width="36" height="36"
+                        className="node-image"
+                        preserveAspectRatio="xMidYMid slice"
+                    />
                 ) : (
-                    /* إذا ما فيه صورة: أظهر الإيموجي في نص الدائرة */
-                    <text
-                        x="0"
-                        y="-5"
-                        textAnchor="middle"
-                        style={{ fontSize: '30px', pointerEvents: 'none', userSelect: 'none' }}
-                    >
-                        👤
+                    /* الإيموجي الافتراضي إذا لم توجد صورة */
+                    <text x="-40" y="10" className="node-default-emoji">
+                        {nodeDatum.children && nodeDatum.children.length > 0 ? '🌳' : '👤'}
                     </text>
                 )}
 
-                {/* علامة الزائد تظهر فقط عند وجود أبناء مخفيين */}
+                {/* مؤشر صغير إذا كانت العقدة مغلقة وبها أبناء */}
                 {nodeDatum.children && nodeDatum.children.length > 0 && nodeDatum.__rd3t.collapsed && (
-                    <text x="22" y="-30" style={{ fontSize: '14px' }}>➕</text>
+                    <text x="-65" y="-15" className="collapse-indicator">＋</text>
                 )}
             </g>
 
-            {/* 3. اسم العضو - يفتح البوب أب */}
+            {/* 3. منطقة الاسم (تفتح بوب الديتيل) */}
             <text
-                fill="#333"
-                x="0"
-                y="35"
-                textAnchor="middle"
-                style={{ fontSize: '14px', fontWeight: '600', cursor: 'pointer' }}
+                className="node-name-text"
+                x="-15"
+                y="5"
+                textAnchor="start"
                 onClick={(e) => {
                     e.stopPropagation();
                     handleNodeClick(nodeDatum);
@@ -218,14 +211,15 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
             )}
 
             <h2> Family Name : {tree.lastName}</h2>
-            <div style={{ width: '100%', height: '600px', border: '1px solid #ccc', borderRadius: '8px', background: '#f9f9f9' }}>
+            <div className="tree-container">
                 {familyData ?
                     (<Tree
                         data={familyData}
                         orientation="vertical"
-                        pathFunc="step"
-                        translate={{ x: 250, y: 50 }}
-
+                        pathFunc="diagonal"
+                        translate={{ x: 700, y: 50 }}
+                        nodeSize={{ x: 120, y: 120 }}
+                        separation={{ siblings: 1.5, nonSiblings: 2 }}
                         renderCustomNodeElement={(rd3tProps) => renderCustomNode(rd3tProps)}
                     />
                     ) : (
