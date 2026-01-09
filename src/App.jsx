@@ -97,12 +97,10 @@ const App = () => {
     <>
       <NavBar />
       <Routes>
+        <Route path="/" element={<Landing />} />
         <Route path="/dashboard" element={<Dashboard trees={trees} members={members} />} />
         <Route path="/sign-in" element={<SignInForm />} />
         <Route path="/sign-up" element={<SignUpForm />} />  
-        <Route path="/" element={<Landing />} />
-        <Route path="/sign-in" element={<SignInForm />} />
-        <Route path="/sign-up" element={<SignUpForm />} />
         <Route path="/trees" element={<TreeList trees={trees} />} />
         <Route
           path="/trees/new"
