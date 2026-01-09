@@ -1,83 +1,110 @@
-/* إصلاح الفتحة البيضاء */
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #d9e8d6;
-}
-
-/* الحاوية الرئيسية */
 .member-list-container {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 40px 20px;
-  background: linear-gradient(135deg, #f0f7ef 0%, #d9e8d6 100%);
+  max-width: 750px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-/* العنوان */
 .member-list-container h2 {
   color: #2d5a27;
+  text-align: center;
   font-size: 2rem;
-  margin-bottom: 20px;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
-
-/* زر إضافة عضو */
-.member-list-container a {
-  display: inline-block;
-  margin-bottom: 25px;
-  padding: 10px 25px;
-  border-radius: 50px;
+.add-member-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
   background-color: #2d5a27;
-  color: white;
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
+  color: #ffffff;
+  border: none;
+  padding: 16px;
+  border-radius: 14px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 35px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(45, 90, 39, 0.2);
 }
 
-.member-list-container a:hover {
-  background-color: #21441d;
+.add-member-btn:hover {
+  background-color: #1e3d1a;
   transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(45,90,39,0.4);
+  box-shadow: 0 8px 25px rgba(45, 90, 39, 0.3);
 }
 
-/* القائمة */
+.add-member-btn:active {
+  transform: translateY(0);
+}
+
 .member-list-container ul {
   list-style: none;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.member-item-btn {
   width: 100%;
-  max-width: 400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 25px;
+  background-color: #fcfdfc;
+  border: 1px solid #edf2ed;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
-.member-list-container li {
-  padding: 12px 15px;
-  margin: 8px 0;
+.member-item-btn:hover {
   background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
-  transition: all 0.2s ease;
+  border-color: #2d5a27;
+  transform: scale(1.02);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
-.member-list-container li:hover {
-  background-color: #e0f0db;
+.member-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.member-item-btn:hover .member-name {
+  color: #2d5a27;
+}
+
+.arrow-icon {
+  font-size: 1.2rem;
+  color: #2d5a27;
+  transition: transform 0.2s ease;
+}
+
+.member-item-btn:hover .arrow-icon {
   transform: translateX(5px);
 }
 
-/* روابط الأعضاء */
-.member-list-container li a {
-  color: #2d5a27;
-  text-decoration: none;
-  font-weight: 600;
+.no-members {
+  text-align: center;
+  padding: 40px;
+  border: 2px dashed #ccd5cc;
+  border-radius: 15px;
+  color: #777;
+  background-color: #f9faf9;
 }
 
-/* استجابة الشاشات الصغيرة */
-@media (max-width: 768px) {
-  .member-list-container ul {
-    width: 90%;
+@media (max-width: 600px) {
+  .member-list-container {
+    margin: 20px;
+    padding: 20px;
   }
 }

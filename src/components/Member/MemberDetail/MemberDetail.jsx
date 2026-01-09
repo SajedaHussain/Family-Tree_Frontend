@@ -16,7 +16,7 @@ function MemberDetail(props) {
     const getOneMember = async (memberId) => {
       const member = await memberService.show(memberId);
       setMember(member);
-      // navigate(`/members/${memberId}`)
+      
     };
     if (memberId) getOneMember(memberId); //if teh id is exist the call the function
   }, [memberId]);

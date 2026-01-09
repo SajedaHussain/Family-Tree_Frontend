@@ -87,11 +87,13 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
     if (!tree) return <h1>Loading ...</h1>
 
     const renderCustomNode = ({ nodeDatum, toggleNode }) => (
-        <g className="node-group">
-            <rect className="node-rect" x="-70" y="-25" width="140" height="50" rx="8" />
+           <g className="node-group">
+            <rect className="node-rect" x="-70" y="-25" width="180" height="50" rx="8" />
+
             <rect className="node-sidebar" x="-70" y="-25" width="5" height="50" rx="2" />
 
-              <g
+            {/* اذا ضغطنا على الصوره تنفتح او تنغلق العقده*/}
+            <g
                 className="node-avatar-area"
                 onClick={(event) => {
                     event.stopPropagation();
@@ -102,7 +104,7 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
                     <image
                         href={nodeDatum.image}
                         x="-58" y="-18"
-                        width="36" height="36"
+                        width="40" height="40"
                         className="node-image"
                         preserveAspectRatio="xMidYMid slice"
                     />
@@ -206,19 +208,19 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
             )}
 
             <h2> Family Name : {tree.lastName}</h2>
-            <div  className="tree-container">
+            <div className="tree-container">
                 {familyData ?
                     (<Tree
                         data={familyData}
                         orientation="vertical"
-                        pathFunc="step"
-                        translate={{ x: 250, y: 50 }}
+                        pathFunc="diagonal"
+                        translate={{ x: 700, y: 50 }}
                         nodeSize={{ x: 120, y: 120 }}
                         separation={{ siblings: 1.5, nonSiblings: 2 }}
                         renderCustomNodeElement={(rd3tProps) => renderCustomNode(rd3tProps)}
                     />
                     ) : (
-                        <div>
+                        <div className='button-no'>
                             <p>No members found.</p>
                             <button onClick={() => handleProtectedAction('add')}>+ Add First Member</button>
                         </div>

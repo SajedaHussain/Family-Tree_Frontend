@@ -1,0 +1,95 @@
+:root {
+  --primary-color: #2e7d32; /* نفس لونك الأساسي */
+  --primary-rgb: 46, 125, 50;
+  --bg-color: #f8f9fa;
+}
+
+.tree-list-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+.tree-list-container h1 {
+  text-align: center;
+  color: var(--primary-color);
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 40px;
+  letter-spacing: -1px;
+}
+
+/* تنسيق الشبكة */
+.tree-grid {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* بطاقة العائلة - مستوحاة من تصميم الفورم */
+.tree-grid li {
+  background: #ffffff;
+  border-radius: 20px; /* نفس استدارة الفورم */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+  border-top: 5px solid var(--primary-color); /* التوقيع الخاص بتصميمك */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+}
+
+.tree-grid li:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* الزر داخل القائمة */
+.tree-grid li button {
+  width: 100%;
+  padding: 30px 20px;
+  background: transparent;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.tree-grid li:hover button {
+  color: var(--primary-color);
+}
+
+/* زر "Add New Tree" - مميز أسفل القائمة */
+.tree-list-container > button {
+  display: block;
+  margin: 40px auto 0;
+  padding: 14px 30px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 16px rgba(var(--primary-rgb), 0.2);
+  transition: all 0.3s ease;
+}
+
+.tree-list-container > button:hover {
+  background-color: #1b5e20;
+  transform: scale(1.05);
+  box-shadow: 0 12px 20px rgba(var(--primary-rgb), 0.3);
+}
+
+/* رسالة No Trees */
+.tree-list-container div:not(.tree-grid) {
+  text-align: center;
+  color: #888;
+  font-size: 1.1rem;
+  padding: 40px;
+  background: #fff;
+  border-radius: 20px;
+  border: 2px dashed #eee;
+}

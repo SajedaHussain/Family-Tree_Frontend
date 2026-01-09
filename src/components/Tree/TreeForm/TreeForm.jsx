@@ -43,8 +43,6 @@ const TreeForm = (props) => {
 }, [treeToUpdate]);
 
 
-
-  // handleChange: يدعم النصوص والأرقام
   const handleChange = (event) => {
     const { name, value } = event.target;
     const finalValue = name === 'numFamily' ? Number(value) : value;

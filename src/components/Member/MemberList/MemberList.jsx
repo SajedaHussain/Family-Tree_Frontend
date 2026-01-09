@@ -14,9 +14,12 @@ const MemberList = ({ members }) => {
     <div className="member-list-container">
       <h2>Family Members</h2>
 
-      <Link to={`/trees/${treeId}/members/new`}>
+      <button
+        className="add-member-btn"
+        onClick={() => navigate(`/trees/${treeId}/members/new`)}
+      >
         ➕ Add New Member
-      </Link>
+      </button>
 
       {!treeMembers.length ? (
         <div>No members found</div>
@@ -24,9 +27,14 @@ const MemberList = ({ members }) => {
         <ul>
           {treeMembers.map((oneMember) => (
             <li key={oneMember._id}>
-              <Link to={`/trees/${treeId}/members/${oneMember._id}`}>
-                {oneMember.firstName} {oneMember.lastName}
-              </Link>
+              <button
+                className="member-item-btn"
+                onClick={() => navigate(`/trees/${treeId}/members/${oneMember._id}`)}
+              ><span className="member-name">
+                  {oneMember.firstName} {oneMember.lastName}
+                </span>
+                <span className="arrow-icon">→</span>
+              </button>
             </li>
           ))}
         </ul>
