@@ -88,7 +88,7 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
 
     const renderCustomNode = ({ nodeDatum, toggleNode }) => (
         <g className="node-group">
-            <rect className="node-rect" x="-70" y="-25" width="140" height="50" rx="8" />
+            <rect className="node-rect" x="-70" y="-25" width="180" height="50" rx="8" />
 
             <rect className="node-sidebar" x="-70" y="-25" width="5" height="50" rx="2" />
 
@@ -104,7 +104,7 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
                     <image
                         href={nodeDatum.image}
                         x="-58" y="-18"
-                        width="36" height="36"
+                        width="40" height="40"
                         className="node-image"
                         preserveAspectRatio="xMidYMid slice"
                     />
@@ -221,7 +221,7 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
                         renderCustomNodeElement={(rd3tProps) => renderCustomNode(rd3tProps)}
                     />
                     ) : (
-                        <div>
+                        <div className='button-no'>
                             <p>No members found.</p>
                             <button onClick={() => handleProtectedAction('add')}>+ Add First Member</button>
                         </div>
