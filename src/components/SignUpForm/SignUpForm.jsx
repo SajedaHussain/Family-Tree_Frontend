@@ -27,7 +27,7 @@ const SignUpForm = () => {
     evt.preventDefault();
     const user = await authService.signUp(formData)
     setUser(user); // this line will print the form data to the console
-    navigate('/')
+    navigate('/dashboard')
   };
 
   const isFormInvalid = () => {

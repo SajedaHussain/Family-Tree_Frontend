@@ -23,7 +23,7 @@ const SignInForm = () => {
     try {
       const signedInUser = await signIn(formData);
       setUser(signedInUser);
-      navigate('/');
+      navigate('/dashboard');
     } catch (err) {
       setMessage(err.message);
     }
