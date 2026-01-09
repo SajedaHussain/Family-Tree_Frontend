@@ -1,5 +1,3 @@
-/* MemberList.css */
-
 .member-list-container {
   max-width: 750px;
   margin: 40px auto;
@@ -7,7 +5,6 @@
   background-color: #ffffff;
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  /* نستخدم خطوط النظام الافتراضية لتجنب خطأ Google Fonts */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
@@ -19,8 +16,6 @@
   font-weight: 700;
   letter-spacing: -0.5px;
 }
-
-/* زر إضافة عضو جديد - كـ Button */
 .add-member-btn {
   display: flex;
   align-items: center;
@@ -50,7 +45,6 @@
   transform: translateY(0);
 }
 
-/* تنسيق القائمة */
 .member-list-container ul {
   list-style: none;
   padding: 0;
@@ -59,7 +53,6 @@
   gap: 12px;
 }
 
-/* أزرار أعضاء العائلة */
 .member-item-btn {
   width: 100%;
   display: flex;
@@ -100,7 +93,6 @@
   transform: translateX(5px);
 }
 
-/* حالة عدم وجود بيانات */
 .no-members {
   text-align: center;
   padding: 40px;
@@ -110,7 +102,6 @@
   background-color: #f9faf9;
 }
 
-/* لتجنب تداخل العناصر في الموبايل */
 @media (max-width: 600px) {
   .member-list-container {
     margin: 20px;
