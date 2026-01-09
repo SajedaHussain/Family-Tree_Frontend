@@ -38,10 +38,6 @@ const Dashboard = ({ trees, members }) => {
           <p>{trees.length}</p>
         </div>
 
-        <div className="dashboard-card" onClick={() => navigate("/trees")}>
-          <h3>Total Members</h3>
-          <p>{members.length}</p>
-        </div>
 
         <div className="dashboard-card" onClick={() => navigate("/trees/new")}>
           <h3>Add New Tree</h3>

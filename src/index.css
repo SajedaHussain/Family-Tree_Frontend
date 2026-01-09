@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600&display=swap');
+
+:root {
+  --primary-color: #2e7d32; 
+  --secondary-color: #f5f5f5;
+  --accent-color: #8d6e63; 
+  --text-color: #333;
+  --white: #ffffff;
+  --shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fafafa;
+  color: var(--text-color);
+}
