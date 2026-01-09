@@ -2,9 +2,11 @@ import { useNavigate } from "react-router-dom";
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import './Landing.css'; 
+
 const Landing = () => {
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
+  
   const [showCards, setShowCards] = useState(false);
   useEffect(() => { 
     if (user) { 

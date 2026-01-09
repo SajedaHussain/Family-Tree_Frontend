@@ -31,6 +31,7 @@ const NavBar = () => {
           <>
             <li className="nav-username">
               Welcome, {user.username}
+              <Link to ='/dashboard'>Dashboard</Link>
             </li>
             <li>
               <button onClick={handleSignOut} className="nav-btn">

@@ -18,7 +18,7 @@ const MemberForm = ({ members, updateMembers, updateOneMember }) => {
         image: "",
         generation: "",
         parentId: "",
-        tree_id: "",
+        treeId: "",
         code: '',
       }
   );
@@ -57,7 +57,7 @@ const MemberForm = ({ members, updateMembers, updateOneMember }) => {
         image: "",
         generation: "",
         parentId: "",
-        tree_id: treeId,
+        treeId: treeId,
         code: "",
       });
       setMemberToUpdate(null);
@@ -80,7 +80,7 @@ const MemberForm = ({ members, updateMembers, updateOneMember }) => {
       const payload = {
         ...formState,
         generation: Number(formState.generation),
-        tree_id: treeId,
+        treeId: treeId,
         parentId: formState.parentId || null,
         code: formState.code,
       };
@@ -171,7 +171,7 @@ const MemberForm = ({ members, updateMembers, updateOneMember }) => {
             <select name="parentId" value={formState.parentId || ""} onChange={handleChange}>
               <option value="">No Parent (Grandfather)</option>
               {members
-                .filter(memb => memb.tree_id === treeId)
+                .filter(memb => memb.treeId === treeId)
                 .map(member => (
                   <option key={member._id} value={member._id}>{member.firstName}</option>
                 ))}

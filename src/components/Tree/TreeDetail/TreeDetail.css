@@ -1,0 +1,115 @@
+div {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  max-width: 100%;
+  margin: 20px auto;
+  padding: 20px;
+  color: #333;
+}
+
+
+h2 {
+  color: #2d5a27;
+  border-right: 5px solid #2d5a27;
+  padding-right: 15px;
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+
+
+.tree-container {
+  width: 85%;          
+  height: 500px;         
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0; 
+  border-radius: 12px;   
+  padding: 0;          
+  overflow: hidden;     
+  margin: 0 auto 30px auto;
+  box-shadow: 0 10px 40px rgba(45, 90, 39, 0.15); 
+}
+
+
+
+.rd3t-link {
+  stroke: #2d5a27;       
+  stroke-width: 2px;
+  opacity: 0.5;
+}
+
+
+
+.action-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.action-buttons button {
+  background-color: #ffffff; 
+  color: #2d5a27;            
+  border: 1px solid #2d5a27; 
+  padding: 10px 24px;       
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin:1px;
+}
+
+.action-buttons button:hover {
+  background-color: #f0f7f0; 
+  transform: translateY(-1px);
+}
+
+
+.action-buttons .delete-btn {
+  background-color: #ffffff;
+  color: #ff6b6b;
+  border: 1px solid #ff6b6b;
+}
+
+.action-buttons .delete-btn:hover {
+  background-color: #fff5f5;
+  color: #e25555;
+  border-color: #e25555;
+}
+
+
+
+.rd3t-tooltip {
+  display: none !important;
+}
+
+.rd3t-label {
+  display: none !important;
+}
+
+
+
+.node-rect {
+  fill: #ffffff;
+  stroke: #dddddd;
+  stroke-width: 1.5;
+}
+
+.node-sidebar {
+  fill: #2d5a27;
+}
+
+.node-name-text {
+  font-size: 14px;
+  fill: #333;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.node-name-text:hover {
+  fill: #2d5a27;
+  text-decoration: underline;
+}

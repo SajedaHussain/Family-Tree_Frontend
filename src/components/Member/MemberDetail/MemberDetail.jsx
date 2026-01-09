@@ -30,11 +30,11 @@ function MemberDetail(props) {
   if (!code) return alert("Enter family code");
 
   try {
-    const deletedMember = await memberService.deleteOne(memberId, member.tree_id, code);
+    const deletedMember = await memberService.deleteOne(memberId, member.treeId, code);
 
     if (deletedMember) {
       deleteMember(memberId);
-      navigate(`/trees/${member.tree_id}/members`);
+      navigate(`/trees/${member.treeId}/members`);
     }
   } catch (error) {
     console.log("Something went wrong:", error);
