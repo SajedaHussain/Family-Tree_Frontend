@@ -1,5 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect , useContext} from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
+import { UserContext } from "./contexts/UserContext";
+
 
 // Services
 import * as treeService from "./services/treeService";
@@ -27,6 +29,7 @@ import SignUpForm from "./components/SignUpForm/SignUpForm";
 import SignInForm from "./components/SignInForm/SignInForm"
 
 const App = () => {
+  const { user, setUser } = useContext(UserContext);
   const [trees, setTrees] = useState([]);
   const [members, setMembers] = useState([]);
   const [treeToUpdate, setTreeToUpdate] = useState(null);
@@ -106,6 +109,7 @@ const App = () => {
     };
     fetchProfile();
   }, [user]);
+  console.log("USER FROM CONTEXT:", user);
 
   return (
     <>
