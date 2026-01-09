@@ -17,46 +17,56 @@ const MemberForm = ({ members, updateMembers, updateOneMember }) => {
         dateOfBirth: "",
         image: "",
         generation: "",
-        parentId: null,
+        parentId: "",
         tree_id: "",
         code: '',
       }
   );
 
 
-  useEffect(() => {
-    if (!memberId) return;
-    (async () => {
-      const data = await memberService.show(memberId)
-      setFormState({
-        firstName: data.firstName || "",
-        lastName: data.lastName || "",
-        relation: data.relation || "",
-        dateOfBirth: data.dateOfBirth?.slice(0, 10) || "",
-        image: data.image || "",
-        generation: data.generation?.toString() || "",
-        parentId: data.parentId || "",
-      });
-    })()
-  }, [])
+useEffect(() => {
+  if (memberId) {
+  
+    const fetchMember = async () => {
+      try {
+        const data = await memberService.show(memberId);
+        setFormState({
+          firstName: data.firstName || "",
+          lastName: data.lastName || "",
+          relation: data.relation || "",
+          dateOfBirth: data.dateOfBirth?.slice(0, 10) || "",
+          image: data.image || "",
+          generation: data.generation?.toString() || "",
+          parentId: data.parentId?._id || data.parentId || "", 
+          code: "", 
+        });
+      
+        setMemberToUpdate(data);
+      } catch (err) {
+        console.error("Error fetching member:", err);
+      }
+    };
+    fetchMember();
+  } else {
+    // حالة الإضافة: تصفير الفورم
+    setFormState({
+      firstName: "",
+      lastName: "",
+      relation: "",
+      dateOfBirth: "",
+      image: "",
+      generation: "",
+      parentId: "",
+      tree_id: treeId,
+      code: "",
+    });
+    setMemberToUpdate(null);
+  }
+}, [memberId, treeId]);
 
 
-  useEffect(() => {
-    setFormState(memberToUpdate ? memberToUpdate
-      : {
-        firstName: "",
-        lastName: "",
-        relation: "",
-        dateOfBirth: "",
-        image: "",
-        generation: "",
-        parentId: "",
-        tree_id: "",
-        code: '',
-      })
-  }, [memberToUpdate])
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (evt) => {
+    const { name, value } = evt.target;
     setFormState({
       ...formState,
       [name]: value || ""
@@ -108,7 +118,7 @@ const MemberForm = ({ members, updateMembers, updateOneMember }) => {
         <input
           name="firstName"
           placeholder="First Name"
-          value={formState.firstName}
+          value={formState.firstName || ""}
           onChange={handleChange}
           required
         />
@@ -116,7 +126,7 @@ const MemberForm = ({ members, updateMembers, updateOneMember }) => {
         <input
           name="lastName"
           placeholder="Last Name"
-          value={formState.lastName}
+          value={formState.lastName || ""}
           onChange={handleChange}
           required
         />
@@ -159,7 +169,7 @@ const MemberForm = ({ members, updateMembers, updateOneMember }) => {
         {members.length !== 0 &&
           <>
             <label htmlFor="parentId">Parent:</label>{/* اختيار اسم الاب لاخذ ال ıd */}
-            <select name="parentId" value={formState.parentId} onChange={handleChange}>
+            <select name="parentId" value={formState.parentId || ""} onChange={handleChange}>
               <option value="">No Parent (Grandfather)</option>
               {members.map(member => (
                 <option key={member._id} value={member._id}>{member.firstName}</option>
@@ -171,11 +181,11 @@ const MemberForm = ({ members, updateMembers, updateOneMember }) => {
 
         <label htmlFor="code"> acssec Code :</label>
         <input
-        
+
           type="text"
           name="code"
           id="code"
-          value={formState.code}
+          value={formState.code || ""}
           onChange={handleChange}
         />
 
