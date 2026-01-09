@@ -12,7 +12,7 @@ const TreeForm = (props) => {
   const [formState, setFormState] = useState(
     treeToUpdate
       ? treeToUpdate
-      : {  lastName: '', code: '', numFamily: 1 }
+      : { lastName: '', code: '', numFamily: 0 }
   );
   const {treeId} = useParams()
 
@@ -30,22 +30,11 @@ const TreeForm = (props) => {
   if (treeId) fetchTree();
 }, [treeId])
 
-  useEffect(() => {
-  if (treeToUpdate) {
-    setFormState({
-      lastName: treeToUpdate.lastName || '',
-      code: treeToUpdate.code || '',
-      numFamily: treeToUpdate.numFamily ?? 1,
-    });
-  } else {
-    setFormState({
-      lastName: '',
-      code: '',
-      numFamily: 1,
-    });
-  }
-}, [treeToUpdate]);
-
+  useEffect(()=>{
+    setFormState(treeToUpdate
+      ? treeToUpdate
+      : { lastName: '', code: '', numFamily: 0 })
+  },[treeToUpdate])
 
 
   // handleChange: يدعم النصوص والأرقام
@@ -56,8 +45,8 @@ const TreeForm = (props) => {
   };
 
   const handleSubmit = async (event) => {
-  event.preventDefault();
-  const payload = { ...formState };
+    event.preventDefault();
+    const payload = { ...formState };
 
   try {
     if (treeId ) {
@@ -74,11 +63,7 @@ const TreeForm = (props) => {
         navigate(`/trees/${newTree._id}/members/new`);
       }
     }
-
-  } catch (error) {
-    console.error('Error in TreeForm submit:', error);
-  }
-};
+  };
 
   console.log(treeToUpdate)
 
@@ -114,7 +99,7 @@ const TreeForm = (props) => {
           name="numFamily"
           id="numFamily"
           value={formState.numFamily}
-          min={1}
+          min={0}
           onChange={handleChange}
           required
         />
@@ -123,6 +108,6 @@ const TreeForm = (props) => {
       </form>
     </div>
   );
-};
+};}
 
 export default TreeForm;
