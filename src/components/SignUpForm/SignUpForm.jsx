@@ -4,6 +4,7 @@ import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as authService from '../../services/authService';
 import { UserContext } from '../../contexts/UserContext';
+import './SignUpForm.css'
 
 const SignUpForm = () => {
   const navigate = useNavigate();
