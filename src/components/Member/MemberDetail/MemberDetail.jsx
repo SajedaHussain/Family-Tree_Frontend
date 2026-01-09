@@ -23,7 +23,7 @@ function MemberDetail(props) {
 
    const handleUpdateClick = () => {
     findMemberToUpdate(memberId);
-    navigate(`/trees/${treeId}/members/${memberId}/edit`, { state: { code } }); // نمرر الكود للمكون الجديد
+    navigate(`/trees/${treeId}/members/${memberId}/edit`, { state: { code } }); 
   };
 
   const handleDelete = async () => {

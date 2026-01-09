@@ -38,31 +38,31 @@ const create = async (formData) => {
 
 // UPDATE member
 const update = async (memberId, formData) => {
-    try {
-        const response = await axios.put(`${BASE_URL}/${memberId}`, formData , getAuthConfig());
+  try {
+    const response = await axios.put(`${BASE_URL}/${memberId}`, formData, getAuthConfig(tree_id, code));
 
-        return response.data.member;
-    } catch (error) {
-        console.error(error);
+    return response.data.member;
+  } catch (error) {
+    console.error(error);
 
-    }
+  }
 };
 
 // DELETE member
-const deleteOne = async (memberId) => {
-    try {
-        const response = await axios.delete(
-    `${BASE_URL}/${memberId}/${treeId}`,
-    {
-      ...getAuthConfig(),
-      data: { code }
-    }
-  );
-  return response.data.member;
-    } catch (error) {
-        console.error(error);
+const getAuthConfig = (tree_id, code) => ({
+  headers: { 'Content-Type': 'application/json' },
+  data: { tree_id, code }
+});
 
-    }
+
+const deleteOne = async (memberId, tree_id, code) => {
+  try {
+    const response = await axios.delete(`${BASE_URL}/${memberId}`, getAuthConfig(tree_id, code));
+    return response.data.member;
+  } catch (error) {
+    console.error(error);
+
+  }
 };
 
 export {
