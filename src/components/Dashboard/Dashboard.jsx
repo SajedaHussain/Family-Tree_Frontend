@@ -38,7 +38,7 @@ const Dashboard = ({ trees, members }) => {
           <p>{trees.length}</p>
         </div>
 
-        <div className="dashboard-card" onClick={() => navigate("/trees")}>
+        <div className="dashboard-card" >
           <h3>Total Members</h3>
           <p>{members.length}</p>
         </div>

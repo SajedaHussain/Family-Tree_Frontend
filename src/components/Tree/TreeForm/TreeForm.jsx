@@ -8,33 +8,40 @@ const TreeForm = (props) => {
   const navigate = useNavigate();
 
   const [treeToUpdate, setTreeToUpdate] = useState(null)
-  // الحالة الافتراضية: تعديل أو إنشاء
+  
   const [formState, setFormState] = useState(
     treeToUpdate
       ? treeToUpdate
-      : { lastName: '', code: '', numFamily: 0 }
+      : {  lastName: '', code: '', numFamily: 1 }
   );
   const {treeId} = useParams()
 
 
- useEffect(() => {
-  async function fetchTree() {
-    try {
-      const data = await treeService.show(treeId);
-      const treeData = data.tree ? data.tree : data;
-      setTreeToUpdate(treeData);
-    } catch (error) {
-      console.error("Error fetching tree:", error);
-    }
-  }
-  if (treeId) fetchTree();
-}, [treeId])
-
   useEffect(()=>{
-    setFormState(treeToUpdate
-      ? treeToUpdate
-      : { lastName: '', code: '', numFamily: 0 })
-  },[treeToUpdate])
+    async function fetchTree(){
+    const data = await treeService.show(treeId)
+    setTreeToUpdate(data.tree)
+    }
+     if (treeId) fetchTree();
+}, [treeId]);
+
+
+  useEffect(() => {
+  if (treeToUpdate) {
+    setFormState({
+      lastName: treeToUpdate.lastName || '',
+      code: treeToUpdate.code || '',
+      numFamily: treeToUpdate.numFamily ?? 1,
+    });
+  } else {
+    setFormState({
+      lastName: '',
+      code: '',
+      numFamily: 1,
+    });
+  }
+}, [treeToUpdate]);
+
 
 
   // handleChange: يدعم النصوص والأرقام
@@ -45,32 +52,36 @@ const TreeForm = (props) => {
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    const payload = { ...formState };
+  event.preventDefault();
+  const payload = { ...formState };
 
   try {
-    if (treeId ) {
+    if (treeId && treeToUpdate) {
       const updatedTree = await treeService.update(treeId, payload);
       if (updatedTree && updateOneTree) {
         updateOneTree(updatedTree);
-        navigate(`/trees/${treeId}`);
+        navigate('/trees');
       }
       
-    } else {
+    } else if (updateTrees) {
       const newTree = await treeService.create(payload);
       if (newTree) {
         updateTrees(newTree);
         navigate(`/trees/${newTree._id}/members/new`);
       }
     }
-  };
+
+  } catch (error) {
+    console.error('Error in TreeForm submit:', error);
+  }
+};
 
   console.log(treeToUpdate)
 
   return (
     
     <div className="tree-form-container">
-      <h1>{treeId ? 'Edit Tree' : 'New Tree'}</h1>
+      <h1>{treeToUpdate ? 'Edit Tree' : 'New Tree'}</h1>
       
       <form onSubmit={handleSubmit} className="tree-form">
         <label htmlFor="lastName">Family Name:</label>
@@ -99,7 +110,7 @@ const TreeForm = (props) => {
           name="numFamily"
           id="numFamily"
           value={formState.numFamily}
-          min={0}
+          min={1}
           onChange={handleChange}
           required
         />
@@ -108,6 +119,6 @@ const TreeForm = (props) => {
       </form>
     </div>
   );
-};}
+};
 
 export default TreeForm;

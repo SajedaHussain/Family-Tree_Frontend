@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import * as memberService from "../../../services/memberService";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import './MemberDetail.css'
 
 function MemberDetail(props) {
   const navigate = useNavigate();
