@@ -50,7 +50,7 @@ const App = () => {
   //TREE FUNCTIONS 
   const addTree = (newTree) => {
     setTrees([...trees, newTree]);
-    navigate(`/trees/${newTree._id}/members`);
+    
   };
 
   const updateOneTree = (updatedTree) => {

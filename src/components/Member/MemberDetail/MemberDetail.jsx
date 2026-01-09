@@ -26,18 +26,21 @@ function MemberDetail(props) {
     navigate(`/trees/${treeId}/members/${memberId}/edit`, { state: { code } }); 
   };
 
-  const handleDelete = async () => {
-    if (!code) return alert("Enter family code");
-    try{
-    const deletedMember = await memberService.deleteOne(memberId,member.tree_id, code);
+ const handleDelete = async () => {
+  if (!code) return alert("Enter family code");
+
+  try {
+    const deletedMember = await memberService.deleteOne(memberId, member.tree_id, code);
+
     if (deletedMember) {
       deleteMember(memberId);
-     navigate(`/trees/${member.tree_id}/members`);
+      navigate(`/trees/${member.tree_id}/members`);
     }
-  }catch(error){
-    console.log("somthing wrong");
-    }
+  } catch (error) {
+    console.log("Something went wrong:", error);
+    alert("Failed to delete member. Make sure the code is correct.");
   }
+};
 
   if (!member) return <h1>Loading.....</h1>;
 
@@ -46,9 +49,8 @@ function MemberDetail(props) {
       <h2>{member.firstName} {member.lastName}</h2>
       <p> Relation : {member.relation}</p>
       <p>Generation: {member.generation}</p>
-      <p>Date Of Birth: {member.dateOfBirth}</p>
+      <p>Date Of Birth: {new Date(member.dateOfBirth).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
       <img src={member.image} alt="member" width={200}/>      
-
       <label>Family Code (required to edit/delete):</label>
       <input type="text" value={code} onChange={event => setCode(event.target.value)} />
 

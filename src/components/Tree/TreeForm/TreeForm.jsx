@@ -20,7 +20,7 @@ const TreeForm = (props) => {
   useEffect(()=>{
     async function fetchTree(){
     const data = await treeService.show(treeId)
-    setTreeToUpdate(data.tree)
+    setTreeToUpdate(data)
     }
      if (treeId) fetchTree();
 }, [treeId]);

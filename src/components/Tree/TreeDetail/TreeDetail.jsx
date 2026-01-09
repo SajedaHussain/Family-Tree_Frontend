@@ -164,7 +164,7 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
         });
 
 
-        if (!enteredCode) return;
+        if (!tree) return;
 
         if (enteredCode === tree.code) {
             if (actionType === 'edit') {

@@ -7,7 +7,7 @@ const MemberList = ({ members }) => {
 
   const treeMembers = members.filter(
     (member) =>
-      member.tree === treeId 
+      member.tree_id === treeId 
   );
 
   return (
