@@ -100,20 +100,15 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
                     toggleNode();
                 }}
             >
-                {nodeDatum.image ? (
+
                     <image
-                        href={nodeDatum.image}
+                        href={nodeDatum.image || "https://i.postimg.cc/2qtsw-YGj/af.png"}
                         x="-58" y="-18"
                         width="40" height="40"
                         className="node-image"
                         preserveAspectRatio="xMidYMid slice"
                     />
-                ) : (
-                    /* الإيموجي  إذامافي صورة */
-                    <text x="-40" y="10" className="node-default-emoji">
-                        {nodeDatum.children && nodeDatum.children.length > 0 ? '👤' : '👤'}
-                    </text>
-                )}
+        
 
                 {/* +اذا في ابناء و العقده مغلقه*/}
                 {nodeDatum.children && nodeDatum.children.length > 0 && nodeDatum.__rd3t.collapsed && (
