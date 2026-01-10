@@ -1,5 +1,6 @@
 import { useState } from "react";
-import * as personalityService from "../../services/personalityService";
+import * as personalityService from "../../../services/personalityService";
+import './PersonalityForm.css'
 
 const PersonalityForm = ({ addPersonality }) => {
   const [formData, setFormData] = useState({
