@@ -24,7 +24,12 @@ const NavBar = () => {
             <Link to="/trees">Trees</Link>
           </li>
         )}
+
+        <li>
+          <Link to="/personalities">Personalities</Link>
+        </li>
       </ul>
+
 
 
       <ul className="nav-right">
