@@ -9,10 +9,10 @@ const PersonalityList = ({ personalities }) => {
         <p>No personalities yet</p>
       ) : (
         <ul>
-          {personalities.map((p) => (
-            <li key={p._id}>
-              <Link to={`/personalities/${p._id}`}>
-                {p.name} – {p.personalityType}
+          {personalities.map((person) => (
+            <li key={person._id}>
+              <Link to={`/personalities/${person._id}`}>
+                {person.name} – {person.personalityType}
               </Link>
             </li>
           ))}
