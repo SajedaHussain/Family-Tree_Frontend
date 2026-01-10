@@ -10,7 +10,7 @@ const Dashboard = ({ trees, members }) => {
   const [recentTrees, setRecentTrees] = useState([]);
 
   useEffect(() => {
-    // جلب آخر 3 أشجار مضافة كمثال
+    //ناخذ اخر 3 ابديتات
     if (trees && trees.length > 0) {
       setRecentTrees(trees.slice(-3).reverse());
     }
@@ -20,18 +20,12 @@ const Dashboard = ({ trees, members }) => {
 
   return (
     <main className="dashboard-container">
-      {/* ترحيب المستخدم */}
+    
       <div className="dashboard-welcome">
-        <img
-          src="/images/avatar.png"
-          alt="User Avatar"
-          className="dashboard-avatar"
-        />
         <h1>Welcome, {user.username}!</h1>
         <p>Here's a quick overview of your Family Trees.</p>
       </div>
 
-      {/* الكروت الرئيسية */}
       <div className="dashboard-cards">
         <div className="dashboard-card" onClick={() => navigate("/trees")}>
           <h3>Total Trees</h3>
@@ -49,7 +43,6 @@ const Dashboard = ({ trees, members }) => {
         </div>
       </div>
 
-      {/* آخر الأشجار */}
       <div className="dashboard-recent">
         <h2>Recently Added Trees</h2>
         {recentTrees.length === 0 ? (

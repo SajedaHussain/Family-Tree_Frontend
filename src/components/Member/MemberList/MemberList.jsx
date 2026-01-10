@@ -1,9 +1,10 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams , useNavigate } from "react-router-dom";
 import './MemberList.css'
 
 const MemberList = ({ members }) => {
   const { treeId } = useParams();
+   const navigate = useNavigate();
 
   const treeMembers = members.filter(
     (member) =>

@@ -74,7 +74,7 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
 
     const handleDelete = async (verifiedCode) => {
         try {
-            const deletedTree = await treeService.deleteOne(treeId, { code: verifiedCode });
+            const deletedTree = await treeService.deleteOne(treeId);
             if (deletedTree) {
                 deleteTree(treeId)
                 navigate('/trees')
@@ -100,20 +100,14 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
                     toggleNode();
                 }}
             >
-                {nodeDatum.image ? (
-                    <image
-                        href={nodeDatum.image}
+                 <image
+                        href={nodeDatum.image || "https://i.postimg.cc/2qtsw-YGj/af.png"}
                         x="-58" y="-18"
                         width="40" height="40"
                         className="node-image"
                         preserveAspectRatio="xMidYMid slice"
                     />
-                ) : (
-                    /* الإيموجي  إذامافي صورة */
-                    <text x="-40" y="10" className="node-default-emoji">
-                        {nodeDatum.children && nodeDatum.children.length > 0 ? '👤' : '👤'}
-                    </text>
-                )}
+        
 
                 {/* +اذا في ابناء و العقده مغلقه*/}
                 {nodeDatum.children && nodeDatum.children.length > 0 && nodeDatum.__rd3t.collapsed && (
@@ -136,6 +130,7 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
             </text>
         </g>
     );
+
     const handleProtectedAction = async (actionType) => {
 
         const { value: enteredCode } = await Swal.fire({
@@ -154,7 +149,7 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
         });
 
 
-        if (!tree) return;
+        if (!enteredCode) return;
 
         if (enteredCode === tree.code) {
             if (actionType === 'edit') {

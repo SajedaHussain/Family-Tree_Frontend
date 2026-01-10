@@ -1,6 +1,6 @@
 import { useState } from "react";
 import * as personalityService from "../../../services/personalityService";
-import './PersonalityForm.css'
+import "./PersonalityForm.css";
 
 const PersonalityForm = ({ addPersonality }) => {
   const [formData, setFormData] = useState({
@@ -24,10 +24,11 @@ const PersonalityForm = ({ addPersonality }) => {
   };
 
   return (
-    <div>
+    <div className="personality-form-container">
       <h2>🧠 Add Personality</h2>
 
       <a
+        className="test-link"
         href="https://www.16personalities.com/ar/اختبار-الشخصية"
         target="_blank"
         rel="noreferrer"
@@ -35,7 +36,7 @@ const PersonalityForm = ({ addPersonality }) => {
         🔗 Take the personality test
       </a>
 
-      <form onSubmit={handleSubmit}>
+      <form className="personality-form" onSubmit={handleSubmit}>
         <input
           name="name"
           placeholder="Name"

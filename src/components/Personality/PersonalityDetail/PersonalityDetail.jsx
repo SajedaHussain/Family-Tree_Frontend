@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import * as personalityService from "../../services/personalityService";
+import * as personalityService from "../../../services/personalityService";
+import "./PersonalityDetail.css";
 
 const PersonalityDetail = () => {
   const { id } = useParams();
@@ -13,14 +14,18 @@ const PersonalityDetail = () => {
   if (!personality) return <p>Loading...</p>;
 
   return (
-    <div>
+    <div className="personality-detail">
       <h2>🧠 Personality Details</h2>
 
-      <p><strong>Name:</strong> {personality.name}</p>
-      <p><strong>Type:</strong> {personality.personalityType}</p>
-      <p><strong>Occupation:</strong> {personality.occupation}</p>
+      <div className="personality-card">
+        <p><strong>Name:</strong> {personality.name}</p>
+        <p><strong>Type:</strong> {personality.personalityType}</p>
+        <p><strong>Occupation:</strong> {personality.occupation}</p>
+      </div>
 
-      <Link to="/personalities">⬅ Back</Link>
+      <Link to="/personalities" className="back-link">
+        ⬅ Back to list
+      </Link>
     </div>
   );
 };

@@ -1,8 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import "./TreeList";
+import { Link , useNavigate} from 'react-router-dom'
+import "./TreeList.css";
 
 const TreeList = ({ trees }) => {
+  console.log("trees prop:", trees);
   const navigate = useNavigate();
   return (
     <div className="tree-list-container">

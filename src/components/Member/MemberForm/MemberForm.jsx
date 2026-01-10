@@ -188,6 +188,7 @@ const MemberForm = ({ members, updateMembers, updateOneMember }) => {
           id="code"
           value={formState.code || ""}
           onChange={handleChange}
+          required
         />
 
         <button type="submit">Save</button>

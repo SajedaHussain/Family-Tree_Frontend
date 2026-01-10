@@ -16,7 +16,12 @@ const ProfilePage = () => {
       const userProfile = await profileService.getMyProfile();
       if (userProfile) {
         setProfile(userProfile);
-        setFormData(userProfile);
+        setFormData({
+          fullName: userProfile.fullName || '',
+          bio: userProfile.bio || '',
+          personalityType: userProfile.personalityType || '',
+          avatar: userProfile.avatar || '',
+        });
       }
     };
     fetchProfile();

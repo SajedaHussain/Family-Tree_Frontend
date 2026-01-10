@@ -15,11 +15,6 @@ const Landing = () => {
   return (
     <div className="landing-container">
       <h1 className="landing-title">Family Tree</h1>
-      <img 
-        src="/images/family-tree.png" 
-        alt="Family Tree Illustration" 
-        className="landing-image"
-      />
       <p className="landing-description">
         Discover, explore, and build your family's story. Connect with relatives and keep your family tree alive!
       </p>
@@ -35,7 +30,6 @@ const Landing = () => {
           </>
         )}
       </div>
-      {/* الكروت تظهر فقط بعد Sign In أو Sign Up */}
       {showCards && (
         <div className="landing-cards">
           <div className="landing-card">

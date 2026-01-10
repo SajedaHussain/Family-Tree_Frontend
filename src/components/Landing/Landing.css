@@ -1,4 +1,3 @@
-/* الحاوية الرئيسية تشغل كامل الشاشة */
 .landing-container {
   height: 100vh;
   display: flex;
@@ -9,7 +8,7 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
 }
-/* عنوان الصفحة */
+
 .landing-title {
   font-size: 3.5rem;
   color: #2d5a27;
@@ -18,23 +17,23 @@
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   letter-spacing: -1px;
 }
-/* حاوية الأزرار */
+
 .landing-buttons {
   display: flex;
   gap: 20px;
 }
-/* التنسيق العام للأزرار */
+
 .landing-btn {
   padding: 15px 40px;
   font-size: 1.1rem;
   font-weight: 600;
-  border-radius: 50px; /* أزرار دائرية الحواف جداً */
+  border-radius: 50px; 
   cursor: pointer;
   transition: all 0.3s ease;
   border: none;
   min-width: 160px;
 }
-/* زر تسجيل الدخول (Sign In) */
+
 .landing-btn:first-child {
   background-color: #2d5a27;
   color: white;
@@ -45,7 +44,7 @@
   transform: translateY(-3px);
   box-shadow: 0 6px 20px rgba(45, 90, 39, 0.4);
 }
-/* زر إنشاء حساب (Sign Up) */
+
 .landing-btn:last-child {
   background-color: white;
   color: #2d5a27;
@@ -56,7 +55,7 @@
   transform: translateY(-3px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
 }
-/* تأثير حركي بسيط عند فتح الصفحة */
+
 @keyframes fadeInScale {
   from {
     opacity: 0;
@@ -70,16 +69,7 @@
 .landing-container {
   animation: fadeInScale 0.8s ease-out;
 }
-/* صورة الموقع */
-.landing-image {
-  width: 200px;
-  max-width: 80%;
-  margin: 20px 0;
-  border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  animation: fadeInScale 0.8s ease-out;
-}
-/* وصف قصير */
+
 .landing-description {
   font-size: 1.2rem;
   color: #2d5a27;
@@ -88,7 +78,7 @@
   line-height: 1.6;
   text-align: center;
 }
-/* مربعات المميزات */
+
 .landing-cards {
   display: flex;
   gap: 20px;
@@ -118,7 +108,7 @@
   font-size: 0.95rem;
   line-height: 1.4;
 }
-/* استجابة للشاشات الصغيرة */
+
 @media (max-width: 768px) {
   .landing-cards {
     flex-direction: column;
