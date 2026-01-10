@@ -8,6 +8,7 @@ import * as memberService from "./services/memberService";
 // Components
 import NavBar from "./components/NavBar/NavBar";
 import Landing from "./components/Landing/Landing";
+import Dashboard from './components/Dashboard/Dashboard';
 
 // Tree Components
 import TreeList from "./components/Tree/TreeList/TreeList";
@@ -91,6 +92,7 @@ const App = () => {
     <>
       <NavBar />
       <Routes>
+        <Route path="/dashboard" element={<Dashboard trees={trees} members={members} />} />
         <Route path="/sign-in" element={<SignInForm />} />
         <Route path="/sign-up" element={<SignUpForm />} />
         <Route path="/" element={<Landing />} />

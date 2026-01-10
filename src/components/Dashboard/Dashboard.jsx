@@ -1,45 +1,65 @@
 import { useEffect, useState, useContext } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
+import './Dashboard.css';
 
-import * as testService from '../../services/testService';
-
-const Dashboard = () => {
-  // Access the user object from UserContext
-  // This gives us the currently logged-in user's information (username, email) that we extract from the token
+const Dashboard = ({ trees, members }) => {
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
 
-  // Create state to store the message we'll receive from the backend
-  const [ message, setMessage ] = useState('');
+  const [recentTrees, setRecentTrees] = useState([]);
 
-  // useEffect runs after the component renders
-  // This is where we perform side effects like API calls
   useEffect(() => {
-    const fetchTest = async () => {
-      try {
-        // Make an authenticated API call to the backend test endpoint. The JWT token is automatically sent in the request headers inside the service function
-        const data = await testService.test();
-
-        // Take the response data and show message
-        setMessage(data.message);
-      } catch (err) {
-        console.log(err)
-      }
+    // جلب آخر 3 أشجار مضافة كمثال
+    if (trees && trees.length > 0) {
+      setRecentTrees(trees.slice(-3).reverse());
     }
+  }, [trees]);
 
-    // Only fetch data if user exists (i.e., someone is logged in)
-    // This prevents errors from trying to make authenticated requests without a user
-    if (user) fetchTest();
-
-  }, [user]); // only fetch if after context loads the user from localStorage
+  if (!user) return <h2>Loading user data...</h2>;
 
   return (
-    <main>
-      <h1>Welcome, {user.username}</h1>
-      <p>
-        This is the dashboard page where you can test your authentication.
-      </p>
-      <p><strong>{message}</strong></p>
+    <main className="dashboard-container">
+      {/* ترحيب المستخدم */}
+      <div className="dashboard-welcome">
+        <img
+          src="/images/avatar.png"
+          alt="User Avatar"
+          className="dashboard-avatar"
+        />
+        <h1>Welcome, {user.username}!</h1>
+        <p>Here's a quick overview of your Family Trees.</p>
+      </div>
+
+      {/* الكروت الرئيسية */}
+      <div className="dashboard-cards">
+        <div className="dashboard-card" onClick={() => navigate("/trees")}>
+          <h3>Total Trees</h3>
+          <p>{trees.length}</p>
+        </div>
+
+
+        <div className="dashboard-card" onClick={() => navigate("/trees/new")}>
+          <h3>Add New Tree</h3>
+          <p>Create a new family tree</p>
+        </div>
+      </div>
+
+      {/* آخر الأشجار */}
+      <div className="dashboard-recent">
+        <h2>Recently Added Trees</h2>
+        {recentTrees.length === 0 ? (
+          <p>No trees yet. Start by adding a new tree!</p>
+        ) : (
+          <ul className="dashboard-tree-list">
+            {recentTrees.map((tree) => (
+              <li key={tree._id} onClick={() => navigate(`/trees/${tree._id}`)}>
+                {tree.lastName} Family
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </main>
   );
 };
