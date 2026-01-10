@@ -88,9 +88,9 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
 
     const renderCustomNode = ({ nodeDatum, toggleNode }) => (
         <g className="node-group">
-            <rect className="node-rect" x="-70" y="-25" width="180" height="50" rx="8" />
+            <rect className="node-rect" x="-70" y="-25" width="180" height="55" rx="8" />
 
-            <rect className="node-sidebar" x="-70" y="-25" width="5" height="50" rx="2" />
+            <rect className="node-sidebar" x="-70" y="-25" width="5" height="55" rx="2" />
 
             {/* اذا ضغطنا على الصوره تنفتح او تنغلق العقده*/}
             <g
@@ -101,14 +101,14 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
                 }}
             >
 
-                    <image
-                        href={nodeDatum.image || "https://i.postimg.cc/2qtsw-YGj/af.png"}
-                        x="-58" y="-18"
-                        width="40" height="40"
-                        className="node-image"
-                        preserveAspectRatio="xMidYMid slice"
-                    />
-        
+                <image
+                    href={nodeDatum.image || "https://i.postimg.cc/2qtsw-YGj/af.png"}
+                    x="-58" y="-18"
+                    width="40" height="40"
+                    className="node-image"
+                    preserveAspectRatio="xMidYMid slice"
+                />
+
 
                 {/* +اذا في ابناء و العقده مغلقه*/}
                 {nodeDatum.children && nodeDatum.children.length > 0 && nodeDatum.__rd3t.collapsed && (
@@ -117,18 +117,36 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
             </g>
 
             {/*  الاسم اذا ضغطنا عليه تطلع معلومات الشخص) */}
-            <text
-                className="node-name-text"
-                x="-15"
-                y="5"
-                textAnchor="start"
-                onClick={(event) => {
-                    event.stopPropagation();
-                    handleNodeClick(nodeDatum);
-                }}
+            <foreignObject
+                x="-10"
+                y="-20"
+                width="115"
+                height="40"
             >
-                {nodeDatum.name}
-            </text>
+                <div
+                    onClick={(event) => {
+                        event.stopPropagation();
+                        handleNodeClick(nodeDatum);
+                    }}
+                    style={{
+                        fontSize: "15px",
+                        fontWeight: "bold",
+                        color: "#333",
+                        cursor: "pointer",
+                        height: "100%",
+                        lineHeight: "1.2",
+                        textAlign: "left",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        display: "-webkit-box",
+                        WebkitLineClamp: "2",
+                        WebkitBoxOrient: "vertical",
+                        paddingTop: "5px"
+                    }}
+                >
+                    {nodeDatum.name}
+                </div>
+            </foreignObject>
         </g>
     );
 
@@ -211,8 +229,8 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
                         orientation="vertical"
                         pathFunc="diagonal"
                         translate={{ x: 700, y: 50 }}
-                        nodeSize={{ x: 120, y: 120 }}
-                        separation={{ siblings: 1.5, nonSiblings: 2 }}
+                        nodeSize={{ x: 200, y: 200 }}
+                        separation={{ siblings: 1, nonSiblings: 2 }}
                         renderCustomNodeElement={(rd3tProps) => renderCustomNode(rd3tProps)}
                     />
                     ) : (
