@@ -54,7 +54,7 @@ const PopupCard = ({ data, onClose, treeCode, onEdit, onDelete }) => {
         </div>
 
         <div className="popup-content">
-          {attributes ? (
+    
             <>
               <p><strong>Relation:</strong> {attributes.Relation}</p>
               <p><strong>Generation:</strong> {attributes.Generation}</p>
@@ -68,22 +68,14 @@ const PopupCard = ({ data, onClose, treeCode, onEdit, onDelete }) => {
                 <button className="delete-btn" onClick={() => handleProtectedAction('delete')}>🗑️ Delete </button>
               </div>
               <div className="member-image-container">
-                {memberInfo.image ? (
+                
                   <img
-                    src={memberInfo.image}
+                    src={memberInfo.image || "https://i.postimg.cc/2qtsw-YGj/af.png"}
                     alt={memberInfo.name}
                     style={{ width: '100px', height: '100px', borderRadius: '50%', objectFit: 'cover', marginBottom: '15px', border: '2px solid #ddd' }}
                   />
-                ) : (
-                  <div style={{ width: '100px', height: '100px', borderRadius: '50%', backgroundColor: '#eee', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: '15px' }}>
-                    👤
-                  </div>
-                )}
               </div>
             </>
-          ) : (
-            <h1>👪</h1>
-          )}
         </div>
       </div>
     </div>
