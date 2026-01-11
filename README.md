@@ -2,7 +2,10 @@
 
 ## Screenshot/Logo :
 
-![alt text]()
+![alt text](./src/assets/landing.jpeg)
+![alt text](./src/assets/dashboard.jpeg)
+![alt text](./src/assets/tree.jpeg)
+![alt text](./src/assets/profile1.jpeg)
 
 ## App's name:
 
@@ -11,6 +14,7 @@ The app allows users to create a family tree consisting of a group of members ("
 
 ## Getting started:
 
+![alt text](./src/assets/family%20tree%20ERD.jpeg))
 Link to the back-end repository :
 [ link](https://github.com/SajedaHussain/Family-Tree-Backend/tree/main)
 
