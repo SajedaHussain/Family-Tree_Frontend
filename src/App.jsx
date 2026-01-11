@@ -3,33 +3,33 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import { UserContext } from "./contexts/UserContext";
 
 
-// Services
+// Services ==================================================================================================
 import * as treeService from "./services/treeService";
 import * as memberService from "./services/memberService";
 import * as profileService from "./services/profileService";
 import * as personalityService from "./services/personalityService";
 
-// Components
+// Components ================================================================================================
 import NavBar from "./components/NavBar/NavBar";
 import Landing from "./components/Landing/Landing";
 import Dashboard from './components/Dashboard/Dashboard';
 import ProfilePage from "./components/Profile/ProfilePage";
 
-// Tree Components
+// Tree Components ===========================================================================================
 import TreeList from "./components/Tree/TreeList/TreeList";
 import TreeDetail from "./components/Tree/TreeDetail/TreeDetail";
 import TreeForm from "./components/Tree/TreeForm/TreeForm";
 
-// Member Components
+// Member Components =========================================================================================
 import MemberList from "./components/Member/MemberList/MemberList";
 import MemberDetail from "./components/Member/MemberDetail/MemberDetail";
 import MemberForm from "./components/Member/MemberForm/MemberForm";
 
-//Auth Components
+//Auth Components ===========================================================================================
 import SignUpForm from "./components/SignUpForm/SignUpForm";
 import SignInForm from "./components/SignInForm/SignInForm"
 
-// Personality Components
+// Personality Components ===================================================================================
 import PersonalityForm from "./components/Personality/PersonalityForm/PersonalityForm";
 import PersonalityList from "./components/Personality/PersonalityList/PersonalityList";
 import PersonalityDetail from "./components/Personality/PersonalityDetail/PersonalityDetail";
@@ -65,7 +65,7 @@ const App = () => {
     fetchData();
   }, []);
 
-  //TREE FUNCTIONS 
+  //TREE FUNCTIONS =========================================================================================
   const addTree = (newTree) => {
     setTrees([...trees, newTree]);
 
@@ -88,7 +88,8 @@ const App = () => {
     setTreeToUpdate(trees.find(tree => tree._id === id));
   };
 
-  //MEMBER FUNCTION 
+
+  //MEMBER FUNCTION =========================================================================================
   const addMember = (newMember, treeId) => {
     setMembers([...members, newMember]);
     navigate(`/trees/${treeId}/members`);
@@ -111,7 +112,7 @@ const App = () => {
     setMemberToUpdate(members.find(memb => memb._id === id));
   };
 
-  //Profile Functin
+  //Profile Functin =========================================================================================
   useEffect(() => {
     const fetchProfile = async () => {
       if (user) {
@@ -123,7 +124,7 @@ const App = () => {
   }, [user]);
   console.log("USER FROM CONTEXT:", user);
 
-  //Personality Function
+  //Personality Function =========================================================================================
   const addPersonality = (newPersonality) => {
     setPersonalities([...personalities, newPersonality]);
     navigate("/personalities");
@@ -156,8 +157,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/dashboard" element={<Dashboard trees={trees} members={members} />} />
-        <Route path="/sign-in" element={<SignInForm setProfile={setProfile}/>} />
-        <Route path="/sign-up" element={<SignUpForm setProfile={setProfile}/>} />
+        <Route path="/sign-in" element={<SignInForm />} />
+        <Route path="/sign-up" element={<SignUpForm />} />
         <Route path="/trees" element={<TreeList trees={trees} />} />
         <Route path="/trees/new" element={<TreeForm updateTrees={addTree} />} />
         <Route path="/profile" element={<ProfilePage profile={profile} setProfile={setProfile} />} />

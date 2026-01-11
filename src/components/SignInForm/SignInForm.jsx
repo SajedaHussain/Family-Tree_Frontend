@@ -4,7 +4,7 @@ import { signIn } from '../../services/authService';
 import { UserContext } from '../../contexts/UserContext';
 import './SignInForm.css'
 
-const SignInForm = ({ setProfile}) => {
+const SignInForm = () => {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
   const [message, setMessage] = useState('');
@@ -23,8 +23,6 @@ const SignInForm = ({ setProfile}) => {
     try {
       const signedInUser = await signIn(formData);
       setUser(signedInUser);
-      const profile = await profileService.getMyProfile();
-    if (profile) setProfile(profile);
       navigate('/dashboard');
     } catch (err) {
       setMessage(err.message);

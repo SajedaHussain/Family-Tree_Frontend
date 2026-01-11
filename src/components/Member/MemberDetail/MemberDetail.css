@@ -1,4 +1,3 @@
-/* إصلاح الفتحة البيضاء */
 html, body {
   margin: 0;
   padding: 0;
@@ -8,7 +7,6 @@ html, body {
   background: #d9e8d6;
 }
 
-/* الحاوية الرئيسية */
 .member-detail-container {
   min-height: 100vh;
   display: flex;
@@ -19,7 +17,6 @@ html, body {
   background: linear-gradient(135deg, #f0f7ef 0%, #d9e8d6 100%);
 }
 
-/* اسم العضو */
 .member-detail-container h2 {
   color: #2d5a27;
   margin-bottom: 15px;
@@ -27,14 +24,12 @@ html, body {
   text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
 }
 
-/* معلومات العضو */
 .member-detail-container p {
   color: #2d5a27cc;
   font-size: 1rem;
   margin: 5px 0;
 }
 
-/* صورة العضو */
 .member-detail-container img {
   width: 200px;
   max-width: 80%;
@@ -43,7 +38,6 @@ html, body {
   box-shadow: 0 6px 18px rgba(0,0,0,0.1);
 }
 
-/* إدخال الكود */
 .member-detail-container label {
   margin-top: 15px;
   color: #2d5a27;
@@ -65,7 +59,6 @@ html, body {
   box-shadow: 0 0 10px rgba(45,90,39,0.2);
 }
 
-/* الأزرار */
 .member-detail-container button {
   margin-top: 15px;
   padding: 12px 30px;
@@ -78,7 +71,6 @@ html, body {
   min-width: 120px;
 }
 
-/* زر التعديل */
 .member-detail-container button:first-of-type {
   background-color: #2d5a27;
   color: #fff;
@@ -90,7 +82,6 @@ html, body {
   box-shadow: 0 6px 20px rgba(45,90,39,0.4);
 }
 
-/* زر الحذف */
 .member-detail-container button:last-of-type {
   background-color: #fff;
   color: #2d5a27;
@@ -103,7 +94,6 @@ html, body {
   box-shadow: 0 6px 20px rgba(0,0,0,0.08);
 }
 
-/* استجابة الشاشات الصغيرة */
 @media (max-width: 768px) {
   .member-detail-container img {
     width: 150px;

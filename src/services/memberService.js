@@ -8,7 +8,7 @@ const getAuthConfig = (treeId, code) => ({
   data: { treeId, code },
 });
 
-// GET all members OR by tree
+// GET ALL =================================================================================================
 const index = async (treeId) => {
   try {
     const config = treeId ? { params: { treeId } } : {};
@@ -20,7 +20,7 @@ const index = async (treeId) => {
   }
 };
 
-// GET one member
+// GET ONE =================================================================================================
 const show = async (memberId) => {
   try {
     const response = await axios.get(`${BASE_URL}/${memberId}`);
@@ -31,7 +31,7 @@ const show = async (memberId) => {
   }
 };
 
-// CREATE member
+// CREATE ==================================================================================================
 const create = async (formData) => {
   try {
     const response = await axios.post(BASE_URL, formData);
@@ -42,7 +42,7 @@ const create = async (formData) => {
   }
 };
 
-// UPDATE member
+// UPDATE =================================================================================================
 const update = async (memberId, formData, treeId, code) => {
   try {
     const response = await axios.put(`${BASE_URL}/${memberId}`, formData, getAuthConfig(treeId, code));
@@ -53,7 +53,7 @@ const update = async (memberId, formData, treeId, code) => {
   }
 };
 
-// DELETE member
+// DELETE =================================================================================================
 const deleteOne = async (memberId, code , treeId) => {
   try {
     const response = await axios.delete(`${BASE_URL}/${memberId}/${treeId}?code=${code}`);

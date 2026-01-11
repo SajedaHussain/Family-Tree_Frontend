@@ -6,7 +6,6 @@ const PersonalityList = ({ personalities }) => {
     <div className="personality-list-container">
       <h2>🧠 Personality Types</h2>
 
-      {/* ACTION BUTTONS */}
       <div className="personality-actions">
         <a
           href="https://www.16personalities.com/ar/اختبار-الشخصية"
@@ -34,7 +33,7 @@ const PersonalityList = ({ personalities }) => {
               >
             
 
-                {/* CARD BODY */}
+
                 <div className="card-body">
                   <p>
                     <strong> Member Name :</strong> {person.name}

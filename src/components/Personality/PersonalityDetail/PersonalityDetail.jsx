@@ -11,8 +11,7 @@ const PersonalityDetail = () => {
     personalityService.show(id).then(setPersonality);
   }, [id]);
 
-  if (!personality) return <p>Loading...</p>;
-
+ 
   return (
     <div className="personality-detail">
       <h2>🧠 Personality Details</h2>
@@ -23,9 +22,7 @@ const PersonalityDetail = () => {
         <p><strong>Occupation:</strong> {personality.occupation}</p>
       </div>
 
-      <Link to="/personalities" className="back-link">
-        ⬅ Back to list
-      </Link>
+    
     </div>
   );
 };

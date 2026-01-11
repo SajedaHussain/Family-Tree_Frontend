@@ -1,14 +1,11 @@
-// SignUpForm.jsx
-
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as authService from '../../services/authService';
-import * as profileService from '../../services/profileService'
 import { UserContext } from '../../contexts/UserContext';
 import './SignUpForm.css'
 
 
-const SignUpForm = ({ setProfile}) => {
+const SignUpForm = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState('');
   const [formData, setFormData] = useState({
@@ -29,8 +26,6 @@ const SignUpForm = ({ setProfile}) => {
     evt.preventDefault();
     try{const user = await authService.signUp(formData)
     setUser(user);
-    const profile = await profileService.getMyProfile();
-    if (profile) setProfile(profile);
     navigate('/dashboard')}
     catch(err){console.log(err)}
   };

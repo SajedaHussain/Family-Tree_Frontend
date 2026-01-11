@@ -2,7 +2,7 @@ import axios from "axios";
 
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/profiles`;
 
-// Get profile of logged-in user
+// Get  ==================================================================================================
 const getMyProfile = async () => {
   try {
     const token = window.localStorage.getItem('token');
@@ -15,7 +15,7 @@ const getMyProfile = async () => {
   }
 };
 
-// Create or update profile
+// CREATE OR UPDATE ==================================================================================================
 const createOrUpdate = async (formData) => {
   try {
     const token = window.localStorage.getItem('token');

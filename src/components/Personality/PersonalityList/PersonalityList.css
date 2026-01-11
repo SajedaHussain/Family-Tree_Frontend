@@ -33,7 +33,7 @@
 .add-btn:hover {
   background: #00997b;
 }
-/* ===== NEW CARD BODY STYLES ===== */
+
 .card-body {
   display: flex;
   flex-direction: column;
@@ -48,7 +48,6 @@
   line-height: 1.5;
 }
 
-/* INLINE BADGE FOR PERSONALITY TYPE */
 .inline-badge {
   background: #eef2ff;
   color: #035208;
@@ -58,7 +57,6 @@
   font-size: 0.85rem;
 }
 
-/* MAKE CARD CLEAN & COMPACT */
 .personality-card {
   background: #ffffff;
   border-radius: 18px;
@@ -72,7 +70,6 @@
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
 }
 
-/* ===== NEW Personality List Layout ===== */
 
 .personality-list-container {
   width: 100%;
@@ -110,7 +107,6 @@
   gap: 12px;
 }
 
-/* الكارد الصغير */
 .personality-card {
   width: 160px;
   padding: 12px;
