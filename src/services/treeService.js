@@ -2,6 +2,7 @@ import axios from "axios";
 
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/trees`;
 
+// GET ALL ==================================================================================================
 const index = async () => {
     try {
         const response = await axios.get(BASE_URL);
@@ -13,7 +14,7 @@ const index = async () => {
     }
 };
 
-
+// GET ONE ==================================================================================================
 const show = async (id) => {
     try {
         const response = await axios.get(`${BASE_URL}/${id}`);
@@ -24,7 +25,7 @@ const show = async (id) => {
     }
 };
 
-
+// CREATE ==================================================================================================
 const create = async (formData) => {
     try {
         const response = await axios.post(BASE_URL, formData);
@@ -35,7 +36,7 @@ const create = async (formData) => {
     }
 };
 
-
+// UPDATE ==================================================================================================
 const update = async (treeId, formData) => {
     try {
         const response = await axios.put(`${BASE_URL}/${treeId}`, formData);
@@ -46,6 +47,7 @@ const update = async (treeId, formData) => {
     }
 };
 
+// DELETE ==================================================================================================
 const deleteOne = async (treeId) => {
     try {
         const response = await axios.delete(`${BASE_URL}/${treeId}`);

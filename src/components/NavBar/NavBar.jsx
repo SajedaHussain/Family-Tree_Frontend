@@ -24,14 +24,27 @@ const NavBar = () => {
             <Link to="/trees">Trees</Link>
           </li>
         )}
+
+        <li>
+          <Link to="/personalities">Personalities</Link>
+        </li>
       </ul>
+
+
 
       <ul className="nav-right">
         {user ? (
           <>
             <li className="nav-username">
               Welcome, {user.username}
+              <Link to='/dashboard'>Dashboard</Link>
             </li>
+            {user && (
+              <li>
+                <Link to="/profile">My Profile</Link>
+              </li>
+            )}
+
             <li>
               <button onClick={handleSignOut} className="nav-btn">
                 Sign Out

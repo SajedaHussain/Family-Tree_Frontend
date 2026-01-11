@@ -1,5 +1,5 @@
 :root {
-  --primary-color: #2e7d32; /* نفس لونك الأساسي */
+  --primary-color: #2e7d32; 
   --primary-rgb: 46, 125, 50;
   --bg-color: #f8f9fa;
 }
@@ -19,8 +19,6 @@
   margin-bottom: 40px;
   letter-spacing: -1px;
 }
-
-/* تنسيق الشبكة */
 .tree-grid {
   list-style: none;
   padding: 0;
@@ -29,12 +27,11 @@
   gap: 20px;
 }
 
-/* بطاقة العائلة - مستوحاة من تصميم الفورم */
 .tree-grid li {
   background: #ffffff;
-  border-radius: 20px; /* نفس استدارة الفورم */
+  border-radius: 20px; 
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
-  border-top: 5px solid var(--primary-color); /* التوقيع الخاص بتصميمك */
+  border-top: 5px solid var(--primary-color); 
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
 }
@@ -44,7 +41,7 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
 }
 
-/* الزر داخل القائمة */
+
 .tree-grid li button {
   width: 100%;
   padding: 30px 20px;
@@ -61,7 +58,7 @@
   color: var(--primary-color);
 }
 
-/* زر "Add New Tree" - مميز أسفل القائمة */
+
 .tree-list-container > button {
   display: block;
   margin: 40px auto 0;
@@ -83,7 +80,6 @@
   box-shadow: 0 12px 20px rgba(var(--primary-rgb), 0.3);
 }
 
-/* رسالة No Trees */
 .tree-list-container div:not(.tree-grid) {
   text-align: center;
   color: #888;

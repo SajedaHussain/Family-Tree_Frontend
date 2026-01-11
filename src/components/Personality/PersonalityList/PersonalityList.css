@@ -1,0 +1,134 @@
+.personality-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.test-btn {
+  background: #6c5ce7;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.test-btn:hover {
+  background: #5849c4;
+}
+
+.add-btn {
+  background: #00b894;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.add-btn:hover {
+  background: #00997b;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  padding-top: 10px;
+  font-size: 0.95rem;
+  color: #2d3436;
+}
+
+.card-body p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.inline-badge {
+  background: #eef2ff;
+  color: #035208;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.personality-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 5px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.personality-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+
+.personality-list-container {
+  width: 100%;
+}
+
+.personality-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.personality-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.test-btn,
+.add-btn {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  text-decoration: none;
+  color: white;
+  background: #6c63ff;
+}
+
+.add-btn {
+  background: #22c55e;
+}
+
+.personality-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.personality-card {
+  width: 160px;
+  padding: 12px;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  text-decoration: none;
+
+  transition: 0.2s ease;
+}
+
+.personality-card:hover {
+  transform: translateY(-3px);
+}
+
+.personality-card h4 {
+  margin: 0;
+  font-size: 14px;
+}
+
+
+.empty-text {
+  color: #999;
+  font-size: 14px;
+}
