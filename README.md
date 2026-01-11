@@ -23,9 +23,10 @@ Link to the back-end repository :
 ## Attributions:
 
 external resources such as libraries or assets.
+libraries used :
 
-- library used : react-d3-tree.
--
+- react-d3-tree
+- sweetalert2
 
 ## Technologies used:
 
@@ -33,7 +34,8 @@ external resources such as libraries or assets.
 - HTML.
 - CSS .
 - JSC.
--
+- JSX
+- Google Gemini
 
 ## Next steps:
 
