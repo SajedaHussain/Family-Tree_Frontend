@@ -54,9 +54,8 @@ const PopupCard = ({ data, onClose, treeCode, onEdit, onDelete }) => {
         </div>
 
         <div className="popup-content">
-          
-            
-             <>
+    
+            <>
               <p><strong>Relation:</strong> {attributes.Relation}</p>
               <p><strong>Generation:</strong> {attributes.Generation}</p>
               <p><strong>Date Of Birth:</strong> {memberInfo.dateOfBirth?.split('T')[0]}</p>
@@ -82,4 +81,5 @@ const PopupCard = ({ data, onClose, treeCode, onEdit, onDelete }) => {
     </div>
   );
 };
+
 export default PopupCard;
