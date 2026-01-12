@@ -8,7 +8,7 @@ const TreeForm = (props) => {
   const navigate = useNavigate();
 
   const [treeToUpdate, setTreeToUpdate] = useState(null)
-  // الحالة الافتراضية: تعديل أو إنشاء
+  
   const [formState, setFormState] = useState(
     treeToUpdate
       ? treeToUpdate
@@ -17,18 +17,14 @@ const TreeForm = (props) => {
   const {treeId} = useParams()
 
 
- useEffect(() => {
-  async function fetchTree() {
-    try {
-      const data = await treeService.show(treeId);
-      const treeData = data.tree ? data.tree : data;
-      setTreeToUpdate(treeData);
-    } catch (error) {
-      console.error("Error fetching tree:", error);
+  useEffect(()=>{
+    async function fetchTree(){
+    const data = await treeService.show(treeId)
+    setTreeToUpdate(data)
     }
-  }
-  if (treeId) fetchTree();
-}, [treeId])
+     if (treeId) fetchTree();
+}, [treeId]);
+
 
   useEffect(() => {
   if (treeToUpdate) {
@@ -47,8 +43,6 @@ const TreeForm = (props) => {
 }, [treeToUpdate]);
 
 
-
-  // handleChange: يدعم النصوص والأرقام
   const handleChange = (event) => {
     const { name, value } = event.target;
     const finalValue = name === 'numFamily' ? Number(value) : value;
@@ -60,14 +54,14 @@ const TreeForm = (props) => {
   const payload = { ...formState };
 
   try {
-    if (treeId ) {
+    if (treeId && treeToUpdate) {
       const updatedTree = await treeService.update(treeId, payload);
       if (updatedTree && updateOneTree) {
         updateOneTree(updatedTree);
-        navigate(`/trees/${treeId}`);
+        navigate('/trees');
       }
       
-    } else {
+    } else if (updateTrees) {
       const newTree = await treeService.create(payload);
       if (newTree) {
         updateTrees(newTree);
@@ -85,7 +79,7 @@ const TreeForm = (props) => {
   return (
     
     <div className="tree-form-container">
-      <h1>{treeId ? 'Edit Tree' : 'New Tree'}</h1>
+      <h1>{treeToUpdate ? 'Edit Tree' : 'New Tree'}</h1>
       
       <form onSubmit={handleSubmit} className="tree-form">
         <label htmlFor="lastName">Family Name:</label>

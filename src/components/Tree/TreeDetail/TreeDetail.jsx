@@ -74,7 +74,7 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
 
     const handleDelete = async (verifiedCode) => {
         try {
-            const deletedTree = await treeService.deleteOne(treeId, { code: verifiedCode });
+            const deletedTree = await treeService.deleteOne(treeId);
             if (deletedTree) {
                 deleteTree(treeId)
                 navigate('/trees')
@@ -87,7 +87,7 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
     if (!tree) return <h1>Loading ...</h1>
 
     const renderCustomNode = ({ nodeDatum, toggleNode }) => (
-        <g className="node-group">
+           <g className="node-group">
             <rect className="node-rect" x="-70" y="-25" width="180" height="50" rx="8" />
 
             <rect className="node-sidebar" x="-70" y="-25" width="5" height="50" rx="2" />
@@ -100,8 +100,7 @@ const TreeDetail = ({ findTreeToUpdate, deleteTree }) => {
                     toggleNode();
                 }}
             >
-
-                    <image
+                 <image
                         href={nodeDatum.image || "https://i.postimg.cc/2qtsw-YGj/af.png"}
                         x="-58" y="-18"
                         width="40" height="40"

@@ -1,14 +1,13 @@
-/* NavBar.css */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 12px 24px;
-  background-color: #2f5d2f; /* أخضر داكن من الثيم */
+  background-color: #2f5d2f; 
   color: #ffffff;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  border-radius: 0 0 12px 12px; /* حواف أسفل Navbar دائرية */
+  border-radius: 0 0 12px 12px; 
 }
 
 .nav-left,
@@ -25,7 +24,7 @@
 .nav-right a,
 .nav-btn {
   text-decoration: none;
-  color: #f0fdf4; /* أخضر فاتح للخط */
+  color: #f0fdf4; 
   padding: 8px 16px;
   border-radius: 8px;
   font-weight: 500;
@@ -34,21 +33,21 @@
 
 .nav-left a:hover,
 .nav-right a:hover {
-  background-color: #4b774b; /* أخضر متوسط عند hover */
+  background-color: #4b774b; 
 }
 
 .nav-btn {
-  background-color: #16a34a; /* زر أخضر زاهي */
+  background-color: #16a34a; 
   border: none;
   cursor: pointer;
   font-weight: 600;
 }
 
 .nav-btn:hover {
-  background-color: #15803d; /* أخضر غامق عند hover */
+  background-color: #15803d; 
 }
 
 .nav-username {
   font-weight: 600;
-  color: #d1fae5; /* أخضر فاتح للترحيب */
+  color: #d1fae5; 
 }

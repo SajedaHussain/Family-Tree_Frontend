@@ -2,21 +2,16 @@ import axios from "axios";
 
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/members`;
 
-const getAuthConfig = () => ({
-  headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+// إذا تحتاج الـ token لاحقاً
+const getAuthConfig = (treeId, code) => ({
+  headers: { "Content-Type": "application/json" },
+  data: { treeId, code },
 });
 
-// GET all members OR members by tree
-const index = async (tree_id) => {
+// GET ALL =================================================================================================
+const index = async (treeId) => {
   try {
-    const config = tree_id ? { 
-          params: { tree_id },
-          headers: {              
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache',
-          },
-        }
-      : { headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' } };
+    const config = treeId ? { params: { treeId } } : {};
     const response = await axios.get(BASE_URL, config);
     return response.data.member || [];
   } catch (error) {
@@ -25,7 +20,7 @@ const index = async (tree_id) => {
   }
 };
 
-// GET one member
+// GET ONE =================================================================================================
 const show = async (memberId) => {
   try {
     const response = await axios.get(`${BASE_URL}/${memberId}`);
@@ -36,10 +31,9 @@ const show = async (memberId) => {
   }
 };
 
-// CREATE member
+// CREATE ==================================================================================================
 const create = async (formData) => {
   try {
-    
     const response = await axios.post(BASE_URL, formData);
     return response.data.member;
   } catch (error) {
@@ -48,34 +42,31 @@ const create = async (formData) => {
   }
 };
 
-// UPDATE member
-const update = async (memberId, formData) => {
-    try {
-        const response = await axios.put(`${BASE_URL}/${memberId}`, formData , getAuthConfig());
-
-        return response.data.member;
-    } catch (error) {
-        console.error(error);
-
-    }
+// UPDATE =================================================================================================
+const update = async (memberId, formData, treeId, code) => {
+  try {
+    const response = await axios.put(`${BASE_URL}/${memberId}`, formData, getAuthConfig(treeId, code));
+    return response.data.member;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
-// DELETE member
-const deleteOne = async (memberId, formData = {}) => {
-    try {
-        const response = await axios.delete(`${BASE_URL}/${memberId}`, { ...getAuthConfig(), data: formData });
-        return response.data;
-    } catch (error) {
-        console.error(error);
-
-    }
+// DELETE =================================================================================================
+const deleteOne = async (memberId, code , treeId) => {
+  try {
+    const response = await axios.delete(`${BASE_URL}/${memberId}/${treeId}?code=${code}`);
+    return response.data.member;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
-
-export {
+export { 
   index,
-  show,
-  create,
-  update,
-  deleteOne,
-};
+  show, 
+  create, 
+  update, 
+  deleteOne };

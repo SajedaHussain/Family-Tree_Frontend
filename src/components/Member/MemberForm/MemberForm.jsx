@@ -56,12 +56,59 @@ const MemberForm = ({ members, updateMembers, updateOneMember }) => {
         image: "",
         generation: "",
         parentId: "",
+<<<<<<< HEAD
         tree_id: treeId,
+=======
+        treeId: "",
+        code: '',
+      }
+  );
+
+
+  useEffect(() => {
+    if (memberId) {
+
+      const fetchMember = async () => {
+        try {
+          const data = await memberService.show(memberId);
+          setFormState({
+            firstName: data.firstName || "",
+            lastName: data.lastName || "",
+            relation: data.relation || "",
+            dateOfBirth: data.dateOfBirth?.slice(0, 10) || "",
+            image: data.image || "",
+            generation: data.generation?.toString() || "",
+            parentId: data.parentId?._id || data.parentId || "",
+            code: "",
+          });
+
+          setMemberToUpdate(data);
+        } catch (err) {
+          console.error("Error fetching member:", err);
+        }
+      };
+      fetchMember();
+    } else {
+      
+      setFormState({
+        firstName: "",
+        lastName: "",
+        relation: "",
+        dateOfBirth: "",
+        image: "",
+        generation: "",
+        parentId: "",
+        treeId: treeId,
+>>>>>>> main
         code: "",
       });
       setMemberToUpdate(null);
     }
   }, [memberId, treeId]);
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
 
   const handleChange = (evt) => {
     const { name, value } = evt.target;
@@ -78,7 +125,7 @@ const MemberForm = ({ members, updateMembers, updateOneMember }) => {
       const payload = {
         ...formState,
         generation: Number(formState.generation),
-        tree_id: treeId,
+        treeId: treeId,
         parentId: formState.parentId || null,
         code: formState.code,
       };
@@ -86,15 +133,14 @@ const MemberForm = ({ members, updateMembers, updateOneMember }) => {
       if (memberToUpdate) {
         const updatedMember = await memberService.update(memberToUpdate._id, payload);
         if (updatedMember) {
-          updateOneMember(updatedMember);
-          navigate(`/trees/${treeId}`);
+          updateOneMember(updatedMember, treeId);
+          navigate(`/trees/${treeId}/members`);
         }
       } else if (updateMembers) {
         const newMemberCreated = await memberService.create(payload);
-
         if (newMemberCreated) {
-          updateMembers(newMemberCreated);
-          navigate(`/trees/${treeId}`);
+          updateMembers(newMemberCreated, treeId);
+          navigate(`/trees/${treeId}/members`);
         } else {
           console.log("something wrong");
         }
@@ -161,11 +207,19 @@ const MemberForm = ({ members, updateMembers, updateOneMember }) => {
             {/* اختيار اسم الاب لاخذ ال ıd */}
             <select name="parentId" value={formState.parentId || ""} onChange={handleChange}>
               <option value="">No Parent (Grandfather)</option>
+<<<<<<< HEAD
               {members.map((member) => (
                 <option key={member._id} value={member._id}>
                   {member.firstName}
                 </option>
               ))}
+=======
+              {members
+                .filter(memb => memb.treeId === treeId)
+                .map(member => (
+                  <option key={member._id} value={member._id}>{member.firstName}</option>
+                ))}
+>>>>>>> main
             </select>
           </>
         )}
@@ -177,6 +231,7 @@ const MemberForm = ({ members, updateMembers, updateOneMember }) => {
           id="code"
           value={formState.code || ""}
           onChange={handleChange}
+          required
         />
 
         <button type="submit">Save</button>

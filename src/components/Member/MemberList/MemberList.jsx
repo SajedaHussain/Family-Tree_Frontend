@@ -1,17 +1,18 @@
 import React from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
-import "./MemberList.css";
+import { Link, useParams , useNavigate } from "react-router-dom";
+import './MemberList.css'
+
 const MemberList = ({ members }) => {
   const { treeId } = useParams();
-  const navigate = useNavigate();
+   const navigate = useNavigate();
 
   const treeMembers = members.filter(
     (member) =>
-      member.tree === treeId || member.tree_id === treeId
+      member.treeId === treeId 
   );
 
   return (
-    <div>
+    <div className="member-list-container">
       <h2>Family Members</h2>
 
       <button
@@ -30,8 +31,7 @@ const MemberList = ({ members }) => {
               <button
                 className="member-item-btn"
                 onClick={() => navigate(`/trees/${treeId}/members/${oneMember._id}`)}
-              >
-                <span className="member-name">
+              ><span className="member-name">
                   {oneMember.firstName} {oneMember.lastName}
                 </span>
                 <span className="arrow-icon">→</span>
